@@ -2,11 +2,14 @@ import { inject, Injectable } from '@angular/core';
 import { User } from '../../models/user';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  private apiUrl = environment.apiUrl;
+
   private http = inject(HttpClient);
 
   async getUsersByRole(user: User): Promise<User[]> {
@@ -20,7 +23,7 @@ export class UserService {
       }
 
       const request = this.http.get<User[]>(
-        'http://localhost:8080/api/user/find-by-role',{params}
+        this.apiUrl + '/api/user/find-by-role', { params }
       );
 
       const data = await lastValueFrom(request);

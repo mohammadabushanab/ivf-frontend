@@ -3,20 +3,23 @@ import { lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ProcedureType } from '../../models/procedure-type';
 import { PrintConfigurations } from '../../models/print-configurations';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LookupService {
-  
-private http = inject(HttpClient);
 
-async getProcedureTypes(): Promise<ProcedureType[]> {  
+  private apiUrl = environment.apiUrl;
+
+  private http = inject(HttpClient);
+
+  async getProcedureTypes(): Promise<ProcedureType[]> {
 
     try {
-      
+
       const request = this.http.get<ProcedureType[]>(
-        'http://localhost:8080/api/lookup/find-all-procedure-types'
+        this.apiUrl + '/api/lookup/find-all-procedure-types'
       );
 
       const data = await lastValueFrom(request);
@@ -30,12 +33,12 @@ async getProcedureTypes(): Promise<ProcedureType[]> {
     }
   }
 
-  async getPrintConfigurations(): Promise<PrintConfigurations  | null> {  
+  async getPrintConfigurations(): Promise<PrintConfigurations | null> {
 
     try {
-      
+
       const request = this.http.get<PrintConfigurations>(
-        'http://localhost:8080/api/lookup/find-print-configurations'
+        this.apiUrl + '/api/lookup/find-print-configurations'
       );
 
       const data = await lastValueFrom(request);

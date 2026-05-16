@@ -2,18 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { User } from '../../models/user';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
 
+  private apiUrl = environment.apiUrl;
+
   private http = inject(HttpClient);
 
   async login(user: User): Promise<boolean> {
 
     try {
-      const request = this.http.post<User>("http://localhost:8080/api/auth/login", user);
+      const request = this.http.post<User>(this.apiUrl + "/api/auth/login", user);
 
       const data = await lastValueFrom(request);
 
@@ -31,10 +34,10 @@ export class AuthService {
     }
   }
 
-    async changePassword(user: User): Promise<boolean> {
+  async changePassword(user: User): Promise<boolean> {
 
     try {
-      const request = this.http.post<User>("http://localhost:8080/api/auth/change-password", user);
+      const request = this.http.post<User>(this.apiUrl + "/api/auth/change-password", user);
 
       const data = await lastValueFrom(request);
 

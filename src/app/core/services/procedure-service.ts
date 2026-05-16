@@ -2,11 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Procedure } from '../../models/procedure';
 import { lastValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProcedureService {
+
+  private apiUrl = environment.apiUrl;
+
   private http = inject(HttpClient);
 
 
@@ -17,7 +21,7 @@ export class ProcedureService {
     try {
 
       const request = this.http.post<Procedure[]>(
-        'http://localhost:8080/api/procedure/find-by-search-criteria',
+        this.apiUrl + '/api/procedure/find-by-search-criteria',
         procedure
       );
 
@@ -37,7 +41,7 @@ export class ProcedureService {
     try {
 
       const request = this.http.post<Procedure>(
-        'http://localhost:8080/api/procedure/add',
+        this.apiUrl + '/api/procedure/add',
         procedure
       );
 
@@ -57,7 +61,7 @@ export class ProcedureService {
     try {
 
       const request = this.http.put<Procedure>(
-        'http://localhost:8080/api/procedure/update',
+        this.apiUrl + '/api/procedure/update',
         procedure
       );
 
@@ -77,7 +81,7 @@ export class ProcedureService {
     try {
 
       const request = this.http.delete<Procedure>(
-        'http://localhost:8080/api/procedure/delete',
+        this.apiUrl + '/api/procedure/delete',
         {
           body: procedure
         }

@@ -2,11 +2,14 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Patient } from '../../models/patient';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PatientService {
+
+  private apiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
 
@@ -16,7 +19,7 @@ export class PatientService {
     try {
 
       const request = this.http.post<Patient[]>(
-        'http://localhost:8080/api/patient/find-by-search-criteria',
+        this.apiUrl + '/api/patient/find-by-search-criteria',
         patient
       );
 
@@ -31,12 +34,12 @@ export class PatientService {
     }
   }
 
- async add(patient: Patient): Promise<boolean> {
-    
+  async add(patient: Patient): Promise<boolean> {
+
     try {
 
       const request = this.http.post<Patient>(
-        'http://localhost:8080/api/patient/add',
+        this.apiUrl + '/api/patient/add',
         patient
       );
 
@@ -51,12 +54,12 @@ export class PatientService {
     }
   }
 
-   async update(patient: Patient): Promise<Patient | null> {
-    
+  async update(patient: Patient): Promise<Patient | null> {
+
     try {
 
       const request = this.http.put<Patient>(
-        'http://localhost:8080/api/patient/update',
+        this.apiUrl + '/api/patient/update',
         patient
       );
 
@@ -71,14 +74,14 @@ export class PatientService {
     }
   }
 
-   async delete(patient: Patient): Promise<boolean> {
-    
+  async delete(patient: Patient): Promise<boolean> {
+
     try {
 
       const request = this.http.delete<Patient>(
-        'http://localhost:8080/api/patient/delete',
+        this.apiUrl + '/api/patient/delete',
         {
-          body:patient
+          body: patient
         }
       );
 
