@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user';
 import { CommonModule } from '@angular/common';
+import { Loading } from '../../shared/loading/loading';
 
 @Component({
   standalone: true,
   selector: 'app-login',
   imports: [
     FormsModule,
-    CommonModule
+    CommonModule,
+    Loading
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',

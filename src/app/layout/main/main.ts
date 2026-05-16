@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { Header } from '../header/header';
 import { Sidebar } from '../sidebar/sidebar';
 import { LayoutService } from '../../core/services/layout-service';
+import { Loading } from '../../shared/loading/loading';
 
 @Component({
   standalone: true,
@@ -10,7 +11,8 @@ import { LayoutService } from '../../core/services/layout-service';
   imports: [
     RouterOutlet,
     Header,
-    Sidebar],
+    Sidebar,
+    Loading],
   templateUrl: './main.html',
   styleUrl: './main.css',
 })

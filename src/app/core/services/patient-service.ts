@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Patient } from '../../models/patient';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import { delay, lastValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
