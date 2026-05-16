@@ -99,9 +99,8 @@ export class Procedures {
     if (this.role == "Embryologist") {
       this.procedureForSearch.isPaid = true;
     }
-    else {
-      this.procedureForSearch.isPaid = false;
-    }
+
+    console.log("this.role " + this.role )
 
     const data = await this.procedureService.get(this.procedureForSearch);
     this.procedures.set(data);
@@ -288,5 +287,12 @@ export class Procedures {
       id: '',
       header: ''
     }
+  }
+
+  isUpdateProceDureDisabled(){
+    if(this.procedureForEdit.physician != null){
+      return false;
+    }
+    return true;
   }
 }

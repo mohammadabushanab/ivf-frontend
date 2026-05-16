@@ -71,7 +71,7 @@
                         <tr *ngFor="let p of procedures()">
                             <td data-label="ID">PE-{{p.id}}</td>
                             <td data-label="Name">{{p.procedureType.name}}</td>
-                            <td data-label="Physician">{{p.physician.name}}</td>
+                            <td data-label="Physician">{{p.physician?.name || ''}}</td>
                             <td data-label="Patient's Name">{{p.patient.name}}</td>
                             <td data-label="Patient's National ID">{{p.patient.nationalId}}</td>
                             <td data-label="Patient's Phone Number">{{p.patient.phoneNumber}}</td>
@@ -119,22 +119,10 @@
     <form #procedureForm="ngForm" (ngSubmit)="updateProcedure()" novalidate>
         <div class="modal-body">
             <div class="row g-3 mt-3">
-                <div class="col-md-6">
-                    <label for="procedureType" class="form-label">Procedure </label>
-                    <select class="form-select" [(ngModel)]="procedureForEdit.procedureType" name="procedureType"
-                        #procedureType="ngModel" required [compareWith]="compareObjects">
-                        <option *ngFor="let p of procedureTypes()" [ngValue]="p">
-                            {{ p.name }}
-                        </option>
-                    </select>
-                    <div class="error mt-1" *ngIf="procedureType.invalid && procedureType.touched">
-                        Please select a value
-                    </div>
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="physician" class="form-label">Physician</label>
                     <select class="form-select" [(ngModel)]="procedureForEdit.physician" name="physician"
-                        #physician="ngModel" required [compareWith]="compareObjects">
+                        #physician="ngModel" required [compareWith]="compareObjects">                    
                         <option *ngFor="let p of physicians()" [ngValue]="p">
                             {{ p.name }}
                         </option>
@@ -170,7 +158,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-secondary" [disabled]="procedureForm.invalid">Submit</button>
+            <button type="submit" class="btn btn-outline-secondary" [disabled]="isUpdateProceDureDisabled()">Submit</button>
         </div>
     </form>
 </ng-template>

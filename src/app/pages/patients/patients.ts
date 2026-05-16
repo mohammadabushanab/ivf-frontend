@@ -52,7 +52,6 @@ export class Patients {
   private authService = inject(AuthService);
 
   role = this.authService.getRole();
-  currentUser = this.authService.getUser();
 
   currentModalRef!: NgbModalRef;
 
@@ -175,6 +174,8 @@ export class Patients {
 
   async addProcedure() {
 
+    console.log("this.procedure" + this.procedure)
+
     const data = await this.procedureService.add(this.procedure);
 
     if (data != null) {
@@ -186,7 +187,7 @@ export class Patients {
       // const qrCode = await this.qrService.generateQrDataUrl(String(data.id), 100);
 
       // this.procedure.qrCode = qrCode;
-      
+
 
       // if (this.procedure.paymentStatus == "Paid") {
       //   this.open(this.procedureMessageModal, 'lg')
@@ -289,7 +290,7 @@ export class Patients {
         token: '',
         isLoggedIn: false,
         newPassword: ''
-      }       
+      }
     };
   }
 
@@ -305,9 +306,6 @@ export class Patients {
 
     if (this.role == "Physician") {
       this.procedure.paymentStatus = "Unpaid"
-      if (this.currentUser != null) {
-        this.procedure.physician = this.currentUser;
-      }
     }
 
     this.open(this.procedureModal, 'xl')
@@ -328,6 +326,15 @@ export class Patients {
     this.reset();
   }
 
+  compareObjects(o1: any, o2: any): boolean {
+    return o1 && o2 ? o1.id === o2.id : o1 === o2;
+  }
 
+  isAddProceDureDisabled(): boolean{
+    if(this.procedure.procedureType.id != ''){
+      return false;
+    }
+    return true;
+  }
 
 }

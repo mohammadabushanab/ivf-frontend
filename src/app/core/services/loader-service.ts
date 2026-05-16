@@ -14,13 +14,9 @@ export class LoaderService {
     this.requestCount++;
 
     this.isLoading.set(true);
-
-    console.log("show")
   }
 
   hide() {
-
-    console.log("hide")
     this.requestCount--;
 
     if (this.requestCount <= 0) {

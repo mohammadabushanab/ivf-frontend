@@ -259,7 +259,7 @@
     <form #procedureForm="ngForm" (ngSubmit)="addProcedure()" novalidate>
         <div class="modal-body">
             <div class="row g-3 mt-3">
-                <div [class.col-md-6]="role == 'Receptionist'" [class.col-md-12]="role == 'Physician'">
+                <div class="col-md-12">
                     <label for="procedureType" class="form-label">Procedure </label>
                     <select class="form-select" [(ngModel)]="procedure.procedureType" name="procedureType"
                         #procedureType="ngModel" required>
@@ -268,18 +268,6 @@
                         </option>
                     </select>
                     <div class="error mt-1" *ngIf="procedureType.invalid && procedureType.touched">
-                        Please select a value
-                    </div>
-                </div>
-                <div *ngIf="role == 'Receptionist'" class="col-md-6">
-                    <label for="physician" class="form-label">Physician</label>
-                    <select class="form-select" [(ngModel)]="procedure.physician" name="physician" #physician="ngModel"
-                        required>
-                        <option *ngFor="let p of physicians()" [ngValue]="p">
-                            {{ p.name }}
-                        </option>
-                    </select>
-                    <div class="error mt-1" *ngIf="physician.invalid && physician.touched">
                         Please select a value
                     </div>
                 </div>
@@ -310,7 +298,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-secondary" [disabled]="procedureForm.invalid">Submit</button>
+            <button type="submit" class="btn btn-outline-secondary" [disabled]="isAddProceDureDisabled()">Submit</button>
         </div>
     </form>
 </ng-template>
