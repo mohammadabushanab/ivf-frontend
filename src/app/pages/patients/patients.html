@@ -1,0 +1,340 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" (navChange)="onNavChange()">
+    <li [ngbNavItem]="1">
+        <button ngbNavLink>Search</button>
+        <ng-template ngbNavContent>
+            <div class="row g-3 mt-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Name </label>
+                    <input type="text" class="form-control" id="name" [(ngModel)]="patientForSearch.name">
+                </div>
+                <div class="col-md-6">
+                    <label for="nationalId" class="form-label">National ID</label>
+                    <input type="text" class="form-control" id="nationalId" [(ngModel)]="patientForSearch.nationalId">
+                </div>
+                <div class="col-md-6">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="patientForSearch.phoneNumber">
+                </div>
+                <div class="col-md-6">
+                    <label for="husbandName" class="form-label">Husband's Name</label>
+                    <input type="text" class="form-control" id="husbandName" [(ngModel)]="patientForSearch.husbandName">
+                </div>
+                <div class="col-md-6">
+                    <label for="husbandId" class="form-label">Husband's ID</label>
+                    <input type="text" class="form-control" id="husbandId"
+                        [(ngModel)]="patientForSearch.husbandNationalId">
+                </div>
+                <div class="col-md-6">
+                    <label for="husbandNumber" class="form-label">Husband's Phone Number</label>
+                    <input type="text" class="form-control" id="husbandNumber"
+                        [(ngModel)]="patientForSearch.husbandPhoneNumber">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <button class="btn me-1" (click)="searchForPatients()">
+                        Search
+                    </button>
+                    <button class="btn" (click)="reset()">
+                        Reset
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th>File Number</th>
+                            <th>Name</th>
+                            <th>National ID</th>
+                            <th>Age</th>
+                            <th>Phone Number</th>
+                            <th>Husband's Name</th>
+                            <th>Husband's National ID</th>
+                            <th>Husband's Phone Number</th>
+                            <th>Date Created</th>
+                            <th>Date Modified</th>
+                            <th *ngIf="role == 'Physician'">Create Procedure</th>
+                            <th *ngIf="role == 'Receptionist'">Edit</th>
+                            <th *ngIf="role == 'Receptionist'">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of patients()">
+                            <td data-label="File Number">IVF-{{p.id}}</td>
+                            <td data-label="Name">{{p.name}}</td>
+                            <td data-label="National ID">{{p.nationalId}}</td>
+                            <td data-label="Age">{{p.age}}</td>
+                            <td data-label="Phone Number">{{p.phoneNumber}}</td>
+                            <td data-label="Husband's Name">{{p.husbandName}}</td>
+                            <td data-label="Husband's National ID">{{p.husbandNationalId}}</td>
+                            <td data-label="Husband's Phone Number">{{p.husbandPhoneNumber}}</td>
+                            <td data-label="Date Created">{{p.createdDate}}</td>
+                            <td data-label="Date Modified">{{p.modifiedDate}}</td>
+                            <td *ngIf="role == 'Physician'" data-label="Create Procedure" class="text-center cursor-pointer">
+                                <a (click)="openProcedureModal(p)">
+                                    <i class="fa-solid fa-plus"></i>
+                                </a>
+                            </td>
+                            <td *ngIf="role == 'Receptionist'" data-label="Edit" class="text-center cursor-pointer">
+                                <a (click)="openEditModal(p)">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                            </td>
+                            <td *ngIf="role == 'Receptionist'" data-label="Delete" class="text-cente cursor-pointer">
+                                <a (click)="deletePatient(p)">
+                                    <i class="fa-solid fa-eraser"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-template>
+    </li>
+    <li [ngbNavItem]="2" *ngIf="role == 'Receptionist'">
+        <button ngbNavLink>Add</button>
+
+        <ng-template ngbNavContent>
+            <form #addForm="ngForm" (ngSubmit)="addPatient()" novalidate>
+                <div class="row g-3 mt-3">
+                    <div class="col-md-6">
+                        <label for="name" class="form-label" required="true">Name </label>
+                        <input type="text" class="form-control" id="name" [(ngModel)]="patientForAdd.name"
+                            #name="ngModel" name="name" required appTextOnly>
+                        <div class="error mt-1" *ngIf="name.invalid && name.touched">
+                            Alphabetic Characters only allowed
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="nationalId" class="form-label" required="true">National ID</label>
+                        <input type="text" class="form-control" id="nationalId" [(ngModel)]="patientForAdd.nationalId"
+                            #nationalId="ngModel" name="nationalId" required appNumbersOnly>
+                        <div class="error mt-1" *ngIf="nationalId.invalid && nationalId.touched">
+                            Numbers only allowed
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phoneNumber" class="form-label" required="true">Phone Number</label>
+                        <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="patientForAdd.phoneNumber"
+                            #phoneNumber="ngModel" name="phoneNumber" required appNumbersOnly>
+                        <div class="error mt-1" *ngIf="phoneNumber.invalid && phoneNumber.touched">
+                            Numbers only allowed
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="age" class="form-label" required="true">Age</label>
+                        <input type="text" class="form-control" id="age" [(ngModel)]="patientForAdd.age" #age="ngModel"
+                            name="age" required appNumbersOnly>
+                        <div class="error mt-1" *ngIf="age.invalid && age.touched">
+                            Numbers only allowed
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="husbandName" class="form-label" required="true">Husband's Name</label>
+                        <input type="text" class="form-control" id="husbandName" [(ngModel)]="patientForAdd.husbandName"
+                            #husbandname="ngModel" name="husbandname" required appTextOnly>
+                        <div class="error mt-1" *ngIf="husbandname.invalid && husbandname.touched">
+                            Alphabetic Characters only allowed
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="husbandNationalId" class="form-label" required="true">Husband's ID</label>
+                        <input type="text" class="form-control" id="husbandId"
+                            [(ngModel)]="patientForAdd.husbandNationalId" #husbandNationalId="ngModel"
+                            name="husbandNationalId" required appNumbersOnly>
+                        <div class="error mt-1" *ngIf="husbandNationalId.invalid && husbandNationalId.touched">
+                            Numbers only allowed
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="husbandPhoneNumber" class="form-label" required="true">Phone Number</label>
+                        <input type="text" class="form-control" id="husbandPhoneNumber"
+                            [(ngModel)]="patientForAdd.husbandPhoneNumber" #husbandPhoneNumber="ngModel"
+                            name="husbandPhoneNumber" required appNumbersOnly>
+                        <div class="error mt-1" *ngIf="husbandPhoneNumber.invalid && husbandPhoneNumber.touched">
+                            Numbers only allowed
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <button type="submit" class="btn me-1" [disabled]="addForm.invalid">
+                            Add
+                        </button>
+                        <button type="button" class="btn" (click)="reset()">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </ng-template>
+    </li>
+
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+
+<ng-template #editTemplate let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">Edit</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form #editForm="ngForm" (ngSubmit)="updatePatient()" novalidate>
+        <div class="modal-body">
+            <div class="row g-3 mt-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label" required="true">Name </label>
+                    <input type="text" class="form-control" id="name" [(ngModel)]="patientForEdit.name" #name="ngModel"
+                        name="name" required appTextOnly>
+                    <div class="error mt-1" *ngIf="name.invalid && name.touched">
+                        Alphabetic Characters only allowed
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="nationalId" class="form-label" required="true">ID</label>
+                    <input type="text" class="form-control" id="nationalId" [(ngModel)]="patientForEdit.nationalId"
+                        #nationalId="ngModel" name="nationalId" required appNumbersOnly>
+                    <div class="error mt-1" *ngIf="nationalId.invalid && nationalId.touched">
+                        Numbers only allowed
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="phoneNumber" class="form-label" required="true">Phone Number</label>
+                    <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="patientForEdit.phoneNumber"
+                        #phoneNumber="ngModel" name="phoneNumber" required appNumbersOnly>
+                    <div class="error mt-1" *ngIf="phoneNumber.invalid && phoneNumber.touched">
+                        Numbers only allowed
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="age" class="form-label" required="true">Age</label>
+                    <input type="text" class="form-control" id="age" [(ngModel)]="patientForEdit.age" #age="ngModel"
+                        name="age" required appNumbersOnly>
+                    <div class="error mt-1" *ngIf="age.invalid && age.touched">
+                        Numbers only allowed
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="husbandName" class="form-label" required="true">Husband's Name</label>
+                    <input type="text" class="form-control" id="husbandName" [(ngModel)]="patientForEdit.husbandName"
+                        #husbandname="ngModel" name="husbandname" required appTextOnly>
+                    <div class="error mt-1" *ngIf="husbandname.invalid && husbandname.touched">
+                        Alphabetic Characters only allowed
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="husbandNationalId" class="form-label" required="true">Husband's ID</label>
+                    <input type="text" class="form-control" id="husbandId"
+                        [(ngModel)]="patientForEdit.husbandNationalId" #husbandNationalId="ngModel"
+                        name="husbandNationalId" required appNumbersOnly>
+                    <div class="error mt-1" *ngIf="husbandNationalId.invalid && husbandNationalId.touched">
+                        Numbers only allowed
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="husbandPhoneNumber" class="form-label" required="true">Phone Number</label>
+                    <input type="text" class="form-control" id="husbandPhoneNumber"
+                        [(ngModel)]="patientForEdit.husbandPhoneNumber" #husbandPhoneNumber="ngModel"
+                        name="husbandPhoneNumber" required appNumbersOnly>
+                    <div class="error mt-1" *ngIf="husbandPhoneNumber.invalid && husbandPhoneNumber.touched">
+                        Numbers only allowed
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-secondary" [disabled]="editForm.invalid">Update</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #procedureTemplate let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">Procedure</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form #procedureForm="ngForm" (ngSubmit)="addProcedure()" novalidate>
+        <div class="modal-body">
+            <div class="row g-3 mt-3">
+                <div [class.col-md-6]="role == 'Receptionist'" [class.col-md-12]="role == 'Physician'">
+                    <label for="procedureType" class="form-label">Procedure </label>
+                    <select class="form-select" [(ngModel)]="procedure.procedureType" name="procedureType"
+                        #procedureType="ngModel" required>
+                        <option *ngFor="let p of procedureTypes()" [ngValue]="p">
+                            {{ p.name }}
+                        </option>
+                    </select>
+                    <div class="error mt-1" *ngIf="procedureType.invalid && procedureType.touched">
+                        Please select a value
+                    </div>
+                </div>
+                <div *ngIf="role == 'Receptionist'" class="col-md-6">
+                    <label for="physician" class="form-label">Physician</label>
+                    <select class="form-select" [(ngModel)]="procedure.physician" name="physician" #physician="ngModel"
+                        required>
+                        <option *ngFor="let p of physicians()" [ngValue]="p">
+                            {{ p.name }}
+                        </option>
+                    </select>
+                    <div class="error mt-1" *ngIf="physician.invalid && physician.touched">
+                        Please select a value
+                    </div>
+                </div>
+                <div *ngIf="role == 'Receptionist'" class="col-md-12">
+                    <div class="custom-block">
+                        <div class="custom-label">Procedure Price</div>
+
+                        <div class="custom-value">
+                            {{ procedure.procedureType.price }}
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="role == 'Receptionist'" class="col-md-12">
+                    <div class="custom-block">
+                        <div for="paymentStatus" class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="paymentStatus" value="Paid"
+                                [(ngModel)]="procedure.paymentStatus" required/>
+                            <label class="custom-label">Paid</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="paymentStatus" value="Unpaid"
+                                [(ngModel)]="procedure.paymentStatus" required/>
+                            <label class="custom-label">Unpaid</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-secondary" [disabled]="procedureForm.invalid">Submit</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #messageTemplate let-modal>
+    <div class="modal-body message">
+        <div class="row mt-3 text-center">
+            <p>{{messageText}}</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #procedureMessageTemplate let-modal>
+    <div class="modal-body message">
+        <div class="row mt-3 text-center">
+            <p>{{messageText}}</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="printWorkSheet()">Print Workheet</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="printLabels()">Print labels</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">Close</button>
+    </div>
+</ng-template>

@@ -1,0 +1,525 @@
+<div class="row g-3 mt-3">
+    <div class="col-md-6">
+        <label for="name" class="form-label">Name </label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="procedure.patient.name" #name="ngModel"
+            name="name" disabled>
+    </div>
+    <div class="col-md-6">
+        <label for="nationalId" class="form-label">National ID</label>
+        <input type="text" class="form-control" id="nationalId" [(ngModel)]="procedure.patient.nationalId"
+            #nationalId="ngModel" name="nationalId" disabled>
+    </div>
+    <div class="col-md-6">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="procedure.patient.phoneNumber"
+            #phoneNumber="ngModel" name="phoneNumber" disabled>
+    </div>
+    <div class="col-md-6">
+        <label for="age" class="form-label">Age</label>
+        <input type="text" class="form-control" id="age" [(ngModel)]="procedure.patient.age" #age="ngModel" name="age"
+            disabled>
+    </div>
+    <div class="col-md-6">
+        <label for="husbandName" class="form-label">Husband's Name</label>
+        <input type="text" class="form-control" id="husbandName" [(ngModel)]="procedure.patient.husbandName"
+            #husbandname="ngModel" name="husbandname" disabled>
+    </div>
+    <div class="col-md-6">
+        <label for="husbandNationalId" class="form-label">Husband's ID</label>
+        <input type="text" class="form-control" id="husbandId" [(ngModel)]="procedure.patient.husbandNationalId"
+            #husbandNationalId="ngModel" name="husbandNationalId" disabled>
+    </div>
+    <div class="col-md-6">
+        <label for="husbandPhoneNumber" class="form-label">Physician</label>
+        <input type="text" class="form-control" id="husbandPhoneNumber" [(ngModel)]="procedure.physician.name"
+            #husbandPhoneNumber="ngModel" name="husbandPhoneNumber" disabled>
+    </div>
+</div>
+<div class="row g-3 mt-3">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header text-white ">
+                Macroscopic Examination
+            </div>
+            <table class="table table-bordered mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Results</th>
+                        <th>Normal Range</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="required-label">Period of abstinence</td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['abstinence']" name="abstinence"
+                                #abstinence="ngModel" required appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="abstinence.invalid && abstinence.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+                        <td>2-7 days</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required-label">Appearance</td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['appearance']" name="appearance"
+                                #appearance="ngModel" required appTextOnly>
+
+                            <div class="error mt-1" *ngIf="appearance.invalid && appearance.touched">
+                                Alphabetic Characters only allowed
+                            </div>
+                        </td>
+                        <td>Normal</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required-label">pH</td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['ph']" name="ph" #ph="ngModel"
+                                required appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="ph.invalid && ph.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+                        <td>≥ 7.2</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required-label">Volume</td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['volume']" name="volume"
+                                #volume="ngModel" required appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="volume.invalid && volume.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+                        <td>≥ 1.4 ml</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required-label">Liquefaction time</td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['liquefaction']"
+                                name="liquefaction" #liquefaction="ngModel" required appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="liquefaction.invalid && liquefaction.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+                        <td>≤ 60 min</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header text-white ">
+                Motility Study
+            </div>
+
+            <table class="table table-bordered mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Results</th>
+                        <th>Normal Range</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td class="required-label">Total Motility %</td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['motility']" name="motility"
+                                #motility="ngModel" required appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="motility.invalid && motility.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+                        <td>≥ 42%</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required-label">Progressive motility %</td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['progressiveMotility']"
+                                name="progressiveMotility" #progressiveMotility="ngModel" required appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="progressiveMotility.invalid && progressiveMotility.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+                        <td>≥ 30%</td>
+                    </tr>
+
+                    <tr>
+                        <td>Rapid %</td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['rapid']" name="rapid"
+                                #rapid="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="rapid.invalid && rapid.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+                        <td>-</td>
+                    </tr>
+
+                    <tr>
+                        <td>Slow %</td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['slow']" name="slow"
+                                #slow="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="slow.invalid && slow.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+                        <td>-</td>
+                    </tr>
+
+                    <tr>
+                        <td>Non-progressive %</td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['nonProgressive']"
+                                name="nonProgressive" #nonProgressive="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="nonProgressive.invalid && nonProgressive.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+                        <td>-</td>
+                    </tr>
+
+                    <tr>
+                        <td>Immotility %</td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['immotility']" name="immotility"
+                                #immotility="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="immotility.invalid && immotility.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mt-3">
+
+    <div class="col-md-6">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header text-white ">
+                Microscopic Examination (Sperm Concentration & Cells)
+            </div>
+
+            <table class="table table-bordered mb-0">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Results</th>
+                        <th>Normal Range</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td class="required-label">Sperm count (million/mL)</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['spermCount']" name="spermCount"
+                                #spermCount="ngModel" required appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="spermCount.invalid && spermCount.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+
+                        <td>≥ 16 million/ml</td>
+                    </tr>
+
+                    <tr>
+                        <td>Total sperm count</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['totalSpermCount']"
+                                name="totalSpermCount" #totalSpermCount="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="totalSpermCount.invalid && totalSpermCount.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+
+                        <td>≥ 39 million</td>
+                    </tr>
+
+                    <tr>
+                        <td>WBCs</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['wbcs']" name="wbcs"
+                                #wbcs="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="wbcs.invalid && wbcs.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+
+                        <td>&lt; 1M</td>
+                    </tr>
+
+                    <tr>
+                        <td>RBCs</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['rbcs']" name="rbcs"
+                                #rbcs="ngModel" appTextOnly>
+
+                            <div class="error mt-1" *ngIf="rbcs.invalid && rbcs.touched">
+                                Alphabetic Characters only allowed
+                            </div>
+                        </td>
+
+                        <td>None</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header text-white ">
+                Morphology Study (Kruger + IVF Detail)
+            </div>
+
+            <table class="table table-bordered mb-0">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Results</th>
+                        <th>Normal Range</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td class="required-label">Normal morphology %</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['normalMorphology']"
+                                name="normalMorphology" #normalMorphology="ngModel" required appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="normalMorphology.invalid && normalMorphology.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+
+                        <td>≥ 4%</td>
+                    </tr>
+
+                    <tr>
+                        <td>Abnormal morphology %</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['abnormalMorphology']"
+                                name="abnormalMorphology" #abnormalMorphology="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="abnormalMorphology.invalid && abnormalMorphology.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+
+                        <td>-</td>
+                    </tr>
+
+                    <tr>
+                        <td>Abnormal head %</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['abnormalHead']"
+                                name="abnormalHead" #abnormalHead="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="abnormalHead.invalid && abnormalHead.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+
+                        <td>-</td>
+                    </tr>
+
+                    <tr>
+                        <td>Abnormal mid piece %</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['abnormalMid']" name="abnormalMid"
+                                #abnormalMid="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="abnormalMid.invalid && abnormalMid.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+
+                        <td>-</td>
+                    </tr>
+
+                    <tr>
+                        <td>Abnormal tail %</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['abnormalTail']"
+                                name="abnormalTail" #abnormalTail="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="abnormalTail.invalid && abnormalTail.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+
+                        <td>-</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row g-3 mt-3">
+
+    <div class="col-md-12">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header text-white ">
+                DNA Fragmentation Test
+            </div>
+
+            <table class="table table-bordered mb-0">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Results</th>
+                        <th>Normal Range</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td class="required-label">Test Methodology</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['dnaTestMethodology']"
+                                name="dnaTestMethodology" #dnaTestMethodology="ngModel" required appTextOnly>
+
+                            <div class="error mt-1" *ngIf="dnaTestMethodology.invalid && dnaTestMethodology.touched">
+                                Alphabetic Characters only allowed
+                            </div>
+                        </td>
+
+                        <td>SCD</td>
+                    </tr>
+
+                    <tr>
+                        <td>No. of Fragmented and degraded sperms</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['fragmentedSperms']"
+                                name="fragmentedSperms" #fragmentedSperms="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="fragmentedSperms.invalid && fragmentedSperms.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+
+                        <td>-</td>
+                    </tr>
+
+                    <tr>
+                        <td>Total no. of counted sperms</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['totalCountedSperms']"
+                                name="totalCountedSperms" #totalCountedSperms="ngModel" appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="totalCountedSperms.invalid && totalCountedSperms.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+
+                        <td>-</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required-label">SDFI (%)</td>
+
+                        <td>
+                            <input class="form-control" [(ngModel)]="procedure.values['sdfi']" name="sdfi"
+                                #sdfi="ngModel" required appNumbersOnly>
+
+                            <div class="error mt-1" *ngIf="sdfi.invalid && sdfi.touched">
+                                Numbers only allowed
+                            </div>
+                        </td>
+
+                        <td>
+                            &lt;15 Good | 15-30 Intermediate | &gt;30 Poor
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="row g-3 mt-3">
+    <div class="col-md-12">
+        <label class="form-label">Comment</label>
+        <textarea #commentBox class="form-control" id="comment" name="comment"
+            [(ngModel)]="procedure.values['comment']"></textarea>
+    </div>
+</div>
+<div class="row g-3 mt-3">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-outline-secondary" (click)="generate(procedure.values)">Automated
+            Interpretation</button>
+        <p class="mt-3">
+            {{procedure.values['aiInterpretation']}}
+        </p>
+    </div>
+</div>

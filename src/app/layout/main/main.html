@@ -1,0 +1,11 @@
+<body [class.sb-sidenav-toggled]="!isSidebarOpen">
+    <div class="d-flex" id="wrapper">
+        <app-sidebar></app-sidebar>
+        <div id="page-content-wrapper">
+            <app-header></app-header>
+            <div class="container-fluid pt-3">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</body>

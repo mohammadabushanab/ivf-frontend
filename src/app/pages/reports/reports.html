@@ -1,0 +1,135 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+        <button ngbNavLink>Search</button>
+        <ng-template ngbNavContent>
+            <div class="row g-3 mt-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">QR Code </label>
+                    <input type="text" class="form-control" id="name" [(ngModel)]="reportForSearch.id"
+                        placeholder="Scan QR code here">
+                </div>
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Name </label>
+                    <input type="text" class="form-control" id="name" [(ngModel)]="reportForSearch.patient.name">
+                </div>
+                <div class="col-md-6">
+                    <label for="nationalId" class="form-label">National ID</label>
+                    <input type="text" class="form-control" id="nationalId"
+                        [(ngModel)]="reportForSearch.patient.nationalId">
+                </div>
+                <div class="col-md-6">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="phoneNumber"
+                        [(ngModel)]="reportForSearch.patient.phoneNumber">
+                </div>
+                <div class="col-md-6">
+                    <label for="husbandName" class="form-label">Husband's Name</label>
+                    <input type="text" class="form-control" id="husbandName"
+                        [(ngModel)]="reportForSearch.patient.husbandName">
+                </div>
+                <div class="col-md-6">
+                    <label for="husbandId" class="form-label">Husband's ID</label>
+                    <input type="text" class="form-control" id="husbandId"
+                        [(ngModel)]="reportForSearch.patient.husbandNationalId">
+                </div>
+                <div class="col-md-6">
+                    <label for="husbandNumber" class="form-label">Husband's Phone Number</label>
+                    <input type="text" class="form-control" id="husbandNumber"
+                        [(ngModel)]="reportForSearch.patient.husbandPhoneNumber">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <button class="btn me-1" (click)="searchForReports()">
+                        Search
+                    </button>
+                    <button class="btn" (click)="reset()">
+                        Reset
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Physician</th>
+                            <th>Patient's Name</th>
+                            <th>Patient's National ID</th>
+                            <th>Patient's Phone Number</th>
+                            <th>Date Created</th>
+                            <th>Date Modified</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of reports()">
+                            <td data-label="ID">RT-{{p.id}}</td>
+                            <td data-label="Name">{{p.procedureType.name}}</td>
+                            <td data-label="Physician">{{p.physician.name}}</td>
+                            <td data-label="Patient's Name">{{p.patient.name}}</td>
+                            <td data-label="Patient's National ID">{{p.patient.nationalId}}</td>
+                            <td data-label="Patient's Phone Number">{{p.patient.phoneNumber}}</td>
+                            <td data-label="Date Created">{{p.createdDate}}</td>
+                            <td data-label="Date Modified">{{p.modifiedDate}}</td>
+                            <td data-label="View" class="text-center cursor-pointer">
+                                <a (click)="openReportModal(p)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-template>
+    </li>
+
+
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+<ng-template #reportTemplate let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">{{reportForViewAndPrint.procedureType.name}}</h6>
+    </div>
+    <form #procedureForm="ngForm" novalidate>
+        <div class="modal-body full-screen readonly-mode" id="print-area">
+            <app-dna-fragmentation-test [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'DNA Fragmentation Test'">
+            </app-dna-fragmentation-test>
+
+            <app-egg-freezing [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Egg Freezing'">
+            </app-egg-freezing>
+
+            <app-embryo-freezing [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Embryo Freezing'">
+            </app-embryo-freezing>       
+            
+            <app-oocyte-pick-up [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Oocyte Pick-Up (OPU)'">
+            </app-oocyte-pick-up>       
+            
+            <app-ovarian-tissue-cryopreservation [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Ovarian Tissue Cryopreservation'">
+            </app-ovarian-tissue-cryopreservation>  
+            
+            <app-retrograde-ejaculate-analysis [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Retrograde Ejaculate Analysis'">
+            </app-retrograde-ejaculate-analysis>
+
+            <app-semen-analysis [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Semen Analysis'">
+            </app-semen-analysis>
+
+            <app-semen-preparation-for-iui [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Semen Preparation for IUI'">
+            </app-semen-preparation-for-iui>       
+            
+            <app-sperm-freezing [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Sperm Freezing'">
+            </app-sperm-freezing>       
+            
+            <app-testicular-sperm-retrieval [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Testicular Sperm Retrieval'">
+            </app-testicular-sperm-retrieval>              
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="printPage()">Print</button>
+            <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">Close</button>
+        </div>
+    </form>
+</ng-template>
+

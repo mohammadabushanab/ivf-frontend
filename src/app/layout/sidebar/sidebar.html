@@ -1,0 +1,53 @@
+<div class="border-end bg-white" id="sidebar-wrapper">
+  <div class="custom-toggle">
+    <button type="button" class="btn" (click)="toggleSidebar()">
+      <i class="fa fa-bars"></i>
+    </button>
+  </div>
+  <div class="sidebar-heading">
+    <img src="logo.png" alt="Logo" class="logo">
+  </div>
+  <div class="list-group list-group-flush">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/dashboard"
+      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <i class="fa-solid fa-chart-pie"></i>
+      Dashboard
+    </a>
+  </div>  
+  <div class="list-group list-group-flush" *ngIf="role == 'Receptionist' || role == 'Physician'">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/patients"
+      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <i class="fa-solid fa-hospital-user"></i>
+      Patients
+    </a>
+  </div>
+  <div class="list-group list-group-flush" *ngIf="role == 'Receptionist' || role == 'Embryologist' || role == 'Physician'">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/procedures"
+      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <i class="fa-solid fa-medkit"></i>
+      Procedures
+    </a>
+  </div>
+  <div class="list-group list-group-flush" *ngIf="role == 'Receptionist' || role == 'Embryologist' || role == 'Physician'">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/reports"
+      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <i class="fa-solid fa-chart-column"></i>
+      Reports
+    </a>
+  </div>
+
+  <div class="list-group list-group-flush" *ngIf="role == 'Admin'">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/reports"
+      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <i class="fa-solid fa-users"></i>
+      Users
+    </a>
+  </div>
+  <div class="list-group list-group-flush" *ngIf="role == 'Admin'">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/reports"
+      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <i class="fa-solid fa-clipboard-list"></i>
+      Procedure Types
+    </a>
+  </div>  
+</div>

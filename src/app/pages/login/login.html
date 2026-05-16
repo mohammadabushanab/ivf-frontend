@@ -1,0 +1,44 @@
+<section id="login-wrapper">
+  <div class="container-fluid h-100">
+    <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>
+      <div class="row h-100">
+        <div class="col-lg-7 d-none d-lg-flex align-items-center">
+          <div class="left-content text-white">
+            <img src="logo.png" alt="Logo" class="logo img-fluid">
+            <hr class="custom-line">
+            <h1 class="main-title">
+              Smart IVF Management System
+            </h1>
+            <p class="description">
+              Modern platform for managing patients, IVF cycles, laboratory workflows, appointments and clinic
+              operations
+              with efficiency and accuracy.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-5 d-flex align-items-center justify-content-center">
+          <div class="login-card">
+            <h2 class="fw-bold mb-2">Sign in</h2>
+            <div class="mb-4">
+              <input type="email" class="form-control" placeholder="Email" [(ngModel)]="user.email"
+                name="email" required>
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" placeholder="Password"
+                [(ngModel)]="user.password" name="password" required>
+            </div>
+            <div class="d-grid mb-4">
+              <button type="submit" class="btn" [disabled]="loginForm.invalid">
+                Log in now
+              </button>
+              <div *ngIf="errorMessage()" class="error mt-3">
+                {{ errorMessage() }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
