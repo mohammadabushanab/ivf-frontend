@@ -257,6 +257,11 @@
             <app-testicular-sperm-retrieval [procedure]="procedureForEdit"
                 *ngIf="procedureForEdit.procedureType.name == 'Testicular Sperm Retrieval'">
             </app-testicular-sperm-retrieval>
+
+            <app-frozen-embryo-transfer [procedure]="procedureForEdit"
+                *ngIf="procedureForEdit.procedureType.name == 'Frozen Embryo Transfer'">
+            </app-frozen-embryo-transfer>
+
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-outline-secondary" [disabled]="procedureForm.invalid">Save</button>

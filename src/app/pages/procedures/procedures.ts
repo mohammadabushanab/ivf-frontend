@@ -22,10 +22,11 @@ import { RetrogradeEjaculateAnalysis } from './retrograde-ejaculate-analysis/ret
 import { OvarianTissueCryopreservation } from './ovarian-tissue-cryopreservation/ovarian-tissue-cryopreservation';
 import { EmbryoFreezing } from './embryo-freezing/embryo-freezing';
 import { EggFreezing } from './egg-freezing/egg-freezing';
+import { FrozenEmbryoTransfer } from './frozen-embryo-transfer/frozen-embryo-transfer';
 
 @Component({
   selector: 'app-procedures',
-  imports: [CommonModule, FormsModule, NgbNav, NgbNavItem, NgbNavContent, NgbNavOutlet, NgbNavLinkButton, DNAFragmentationTest, EggFreezing, EmbryoFreezing, OocytePickUp, OvarianTissueCryopreservation, RetrogradeEjaculateAnalysis, SemenAnalysis, SemenPreparationForIui, SpermFreezing, TesticularSpermRetrieval],
+  imports: [CommonModule, FormsModule, NgbNav, NgbNavItem, NgbNavContent, NgbNavOutlet, NgbNavLinkButton, DNAFragmentationTest, EggFreezing, EmbryoFreezing, OocytePickUp, OvarianTissueCryopreservation, RetrogradeEjaculateAnalysis, SemenAnalysis, SemenPreparationForIui, SpermFreezing, TesticularSpermRetrieval,FrozenEmbryoTransfer],
   templateUrl: './procedures.html',
   styleUrl: './procedures.css',
 })
