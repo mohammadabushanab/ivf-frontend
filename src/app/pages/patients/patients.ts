@@ -230,7 +230,9 @@ export class Patients {
       husbandNationalId: '',
       husbandPhoneNumber: '',
       createdDate: '',
-      modifiedDate: ''
+      modifiedDate: '',
+      fromDate: '',
+      toDate: ''
     };
   }
 
@@ -251,6 +253,11 @@ export class Patients {
       modifiedDate: '',
       isPaid: false,
       isReport: false,
+      dateSearchType: '',
+      fromDate: '',
+      toDate: '',
+      scheduledDate: '',
+      notes:'',
       procedureType: {
         id: '',
         name: '',
@@ -268,6 +275,8 @@ export class Patients {
         husbandPhoneNumber: '',
         createdDate: '',
         modifiedDate: '',
+        fromDate: '',
+        toDate: ''
       },
       physician: {
         id: '',
@@ -304,9 +313,7 @@ export class Patients {
 
     this.procedure.patient = { ...patient };
 
-    if (this.role == "Physician") {
-      this.procedure.paymentStatus = "Unpaid"
-    }
+   this.procedure.paymentStatus = "Unpaid"
 
     this.open(this.procedureModal, 'xl')
   }
@@ -330,8 +337,8 @@ export class Patients {
     return o1 && o2 ? o1.id === o2.id : o1 === o2;
   }
 
-  isAddProceDureDisabled(): boolean{
-    if(this.procedure.procedureType.id != ''){
+  isAddProceDureDisabled(): boolean {
+    if (this.procedure.procedureType.id != '') {
       return false;
     }
     return true;

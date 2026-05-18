@@ -14,21 +14,21 @@
       Dashboard
     </a>
   </div>  
-  <div class="list-group list-group-flush" *ngIf="role == 'Receptionist' || role == 'Physician'">
+  <div class="list-group list-group-flush" *ngIf="role == 'Coordinator' || role == 'Physician'">
     <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/patients"
       routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <i class="fa-solid fa-hospital-user"></i>
       Patients
     </a>
   </div>
-  <div class="list-group list-group-flush" *ngIf="role == 'Receptionist' || role == 'Embryologist' || role == 'Physician'">
+  <div class="list-group list-group-flush" *ngIf="role == 'Coordinator' || role == 'Embryologist' || role == 'Physician'">
     <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/procedures"
       routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <i class="fa-solid fa-medkit"></i>
       Procedures
     </a>
   </div>
-  <div class="list-group list-group-flush" *ngIf="role == 'Receptionist' || role == 'Embryologist' || role == 'Physician'">
+  <div class="list-group list-group-flush" *ngIf="role == 'Coordinator' || role == 'Embryologist' || role == 'Physician'">
     <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/reports"
       routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <i class="fa-solid fa-chart-column"></i>

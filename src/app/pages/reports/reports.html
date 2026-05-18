@@ -37,6 +37,36 @@
                     <input type="text" class="form-control" id="husbandNumber"
                         [(ngModel)]="reportForSearch.patient.husbandPhoneNumber">
                 </div>
+                <div class="col-md-6">
+                    <label for="procedureType" class="form-label">Procedure Type</label>
+                    <select class="form-select" [(ngModel)]="reportForSearch.procedureType" name="physician"
+                        #physician="ngModel" required [compareWith]="compareObjects">
+                        <option *ngFor="let p of procedureTypes()" [ngValue]="p">
+                            {{ p.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">
+                        Date Type
+                    </label>
+                    <select class="form-select" [(ngModel)]="reportForSearch.dateSearchType" name="dateSearchType">
+                        <option value="createdDate">
+                            Created Date
+                        </option>
+                        <option value="scheduledDate">
+                            Scheduled Date
+                        </option>
+                    </select>
+                </div>              
+                <div class="col-md-6">
+                    <label for="procedureType" class="form-label">From Date</label>
+                    <input type="date" class="form-control" [(ngModel)]="reportForSearch.fromDate" name="fromDate" [disabled]="!reportForSearch.dateSearchType">
+                </div>
+                <div class="col-md-6">
+                    <label for="procedureType" class="form-label">To Date</label>
+                    <input type="date" class="form-control" [(ngModel)]="reportForSearch.toDate" name="toDate" [disabled]="!reportForSearch.dateSearchType">
+                </div>
             </div>
             <div class="row mt-3">
                 <div class="col">
@@ -58,8 +88,7 @@
                             <th>Patient's Name</th>
                             <th>Patient's National ID</th>
                             <th>Patient's Phone Number</th>
-                            <th>Date Created</th>
-                            <th>Date Modified</th>
+                            <th>Modified Date</th>
                             <th>View</th>
                         </tr>
                     </thead>
@@ -71,8 +100,7 @@
                             <td data-label="Patient's Name">{{p.patient.name}}</td>
                             <td data-label="Patient's National ID">{{p.patient.nationalId}}</td>
                             <td data-label="Patient's Phone Number">{{p.patient.phoneNumber}}</td>
-                            <td data-label="Date Created">{{p.createdDate}}</td>
-                            <td data-label="Date Modified">{{p.modifiedDate}}</td>
+                            <td data-label="Modified Date">{{p.modifiedDate | date:'dd MMM yyyy, HH:mm'}}</td>
                             <td data-label="View" class="text-center cursor-pointer">
                                 <a (click)="openReportModal(p)">
                                     <i class="fa-solid fa-eye"></i>
@@ -96,35 +124,45 @@
     </div>
     <form #procedureForm="ngForm" novalidate>
         <div class="modal-body full-screen readonly-mode" id="print-area">
-            <app-dna-fragmentation-test [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'DNA Fragmentation Test'">
+            <app-dna-fragmentation-test [procedure]="reportForViewAndPrint"
+                *ngIf="reportForViewAndPrint.procedureType.name == 'DNA Fragmentation Test'">
             </app-dna-fragmentation-test>
 
-            <app-egg-freezing [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Egg Freezing'">
+            <app-egg-freezing [procedure]="reportForViewAndPrint"
+                *ngIf="reportForViewAndPrint.procedureType.name == 'Egg Freezing'">
             </app-egg-freezing>
 
-            <app-embryo-freezing [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Embryo Freezing'">
-            </app-embryo-freezing>       
-            
-            <app-oocyte-pick-up [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Oocyte Pick-Up (OPU)'">
-            </app-oocyte-pick-up>       
-            
-            <app-ovarian-tissue-cryopreservation [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Ovarian Tissue Cryopreservation'">
-            </app-ovarian-tissue-cryopreservation>  
-            
-            <app-retrograde-ejaculate-analysis [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Retrograde Ejaculate Analysis'">
+            <app-embryo-freezing [procedure]="reportForViewAndPrint"
+                *ngIf="reportForViewAndPrint.procedureType.name == 'Embryo Freezing'">
+            </app-embryo-freezing>
+
+            <app-oocyte-pick-up [procedure]="reportForViewAndPrint"
+                *ngIf="reportForViewAndPrint.procedureType.name == 'Oocyte Pick-Up (OPU)'">
+            </app-oocyte-pick-up>
+
+            <app-ovarian-tissue-cryopreservation [procedure]="reportForViewAndPrint"
+                *ngIf="reportForViewAndPrint.procedureType.name == 'Ovarian Tissue Cryopreservation'">
+            </app-ovarian-tissue-cryopreservation>
+
+            <app-retrograde-ejaculate-analysis [procedure]="reportForViewAndPrint"
+                *ngIf="reportForViewAndPrint.procedureType.name == 'Retrograde Ejaculate Analysis'">
             </app-retrograde-ejaculate-analysis>
 
-            <app-semen-analysis [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Semen Analysis'">
+            <app-semen-analysis [procedure]="reportForViewAndPrint"
+                *ngIf="reportForViewAndPrint.procedureType.name == 'Semen Analysis'">
             </app-semen-analysis>
 
-            <app-semen-preparation-for-iui [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Semen Preparation for IUI'">
-            </app-semen-preparation-for-iui>       
-            
-            <app-sperm-freezing [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Sperm Freezing'">
-            </app-sperm-freezing>       
-            
-            <app-testicular-sperm-retrieval [procedure]="reportForViewAndPrint" *ngIf="reportForViewAndPrint.procedureType.name == 'Testicular Sperm Retrieval'">
-            </app-testicular-sperm-retrieval>              
+            <app-semen-preparation-for-iui [procedure]="reportForViewAndPrint"
+                *ngIf="reportForViewAndPrint.procedureType.name == 'Semen Preparation for IUI'">
+            </app-semen-preparation-for-iui>
+
+            <app-sperm-freezing [procedure]="reportForViewAndPrint"
+                *ngIf="reportForViewAndPrint.procedureType.name == 'Sperm Freezing'">
+            </app-sperm-freezing>
+
+            <app-testicular-sperm-retrieval [procedure]="reportForViewAndPrint"
+                *ngIf="reportForViewAndPrint.procedureType.name == 'Testicular Sperm Retrieval'">
+            </app-testicular-sperm-retrieval>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" (click)="printPage()">Print</button>
@@ -132,4 +170,3 @@
         </div>
     </form>
 </ng-template>
-

@@ -150,7 +150,8 @@
         <thead class="table-light">
           <tr>
             <th>Stage</th>
-            <th>Quality</th>
+            <th>Quality 1</th>
+            <th>Quality 2</th>
             <th width="60" class="no-print"></th>
           </tr>
         </thead>
@@ -158,23 +159,28 @@
         <tbody>
           <tr *ngFor="let row of procedure.values['embryoRows']; let i = index">
             <td>
-              <select class="form-select" [(ngModel)]="row.stage" [name]="'stage' + i" #stage="ngModel">
-
-                <option value="">Select</option>
-                <option value="GV">GV</option>
-                <option value="MI">MI</option>
-                <option value="MII">MII</option>
-                <option value="Degenerated">Degenerated</option>
+              <input class="form-control" [(ngModel)]="row.stage" [name]="'stage' + i" #stage="ngModel">
+            </td>
+            <td>
+              <select class="form-select" [(ngModel)]="row.quality1" [name]="'quality1' + i" #quality="ngModel">                
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="3">4</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
               </select>
             </td>
 
             <td>
-              <select class="form-select" [(ngModel)]="row.quality" [name]="'quality' + i" #quality="ngModel">
+              <select class="form-select" [(ngModel)]="row.quality2" [name]="'quality2' + i" #quality="ngModel">
 
-                <option value="">Select</option>
+                
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
+                <option value="3">4</option>
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>

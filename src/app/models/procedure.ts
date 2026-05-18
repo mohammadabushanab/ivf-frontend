@@ -15,5 +15,10 @@ export interface Procedure {
     modifiedDate: string;
     isPaid: boolean;
     isReport: boolean;
+    dateSearchType: string;
+    fromDate: string;
+    toDate: string;
+    scheduledDate: string;
+    notes:string;
 
 }

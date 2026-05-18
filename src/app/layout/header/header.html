@@ -3,14 +3,18 @@
         <button class="navbar-toggler ms-auto" type="button" (click)="isNavbarOpend = !isNavbarOpend">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent" [class.show]="isNavbarOpend">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link">{{currentUser?.role || ''}}</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" (click)="openChangePasswordModal()">Change password</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" (click)="logout()">Logout</a>
-                </li>                
+                </li>
             </ul>
         </div>
     </div>
@@ -26,7 +30,7 @@
             <div class="row g-3 mt-3">
                 <div class="col-md-6">
                     <label for="currentPassword" class="form-label" required="true">current Password</label>
-                    <input type="text" class="form-control" id="oldPassword" [(ngModel)]="user.password"
+                    <input type="text" class="form-control" id="oldPassword" [(ngModel)]="userForChangePassword.password"
                         #currentPassword="ngModel" name="currentPassword" required>
                     <div class="error mt-1" *ngIf="currentPassword.invalid && currentPassword.touched">
                         This field is required
@@ -34,7 +38,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="newPassword" class="form-label" required="true">New Password</label>
-                    <input type="text" class="form-control" id="newPassword" [(ngModel)]="user.newPassword"
+                    <input type="text" class="form-control" id="newPassword" [(ngModel)]="userForChangePassword.newPassword"
                         #newPassword="ngModel" name="nationalId" required>
                     <div class="error mt-1" *ngIf="newPassword.invalid && newPassword.touched">
                         This field is required

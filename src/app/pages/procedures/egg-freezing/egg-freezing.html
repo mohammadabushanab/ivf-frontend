@@ -161,7 +161,7 @@
           <tr *ngFor="let row of procedure.values['oocyteRows']; let i = index">
             <td>
               <select class="form-select" [(ngModel)]="row.stage" [name]="'stage' + i" #stage="ngModel">
-                <option value="">Select</option>
+                
                 <option value="GV">GV</option>
                 <option value="MI">MI</option>
                 <option value="MII">MII</option>
@@ -170,7 +170,7 @@
             </td>
             <td>
               <select class="form-select" [(ngModel)]="row.quality" [name]="'quality' + i" #quality="ngModel">
-                <option value="">Select</option>
+                
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>

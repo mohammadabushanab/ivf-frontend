@@ -100,6 +100,8 @@ export class PrintService {
 
   printWorksheet(procedure: Procedure, printConfigurations: PrintConfigurations): void {
 
+    
+
     let html = procedure.procedureType.worksheetTemplate
       .replaceAll('{{header}}', printConfigurations.header || '')
       .replaceAll('{{qr}}', procedure.qrCode)
@@ -120,176 +122,118 @@ export class PrintService {
       return;
     }
 
-    win.document.write(html);
+     win.document.write(`
+    <html>
+      <head>
+        <title>Print Report</title>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        >
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        >
+
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #333;
+            padding: 10px;
+          }
+
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+          }
+
+          th, td {
+            border: 1px solid #dee2e6;
+            padding: 4px 6px;
+            text-align: left;
+          }
+
+          th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            font-size: 11px;
+          }
+
+          .btn{
+            font-size: 11px;
+            color: #333;
+            text
+            text-align: left !important;
+            padding:0;
+            border: none;
+          }
+          p{
+            font-size: 11px;
+          }
+
+          .card-header {
+            display: block !important;
+            background-color: #f8f9fa !important;
+            color: #000 !important;
+            font-weight: bold;
+            padding: 8px;
+            font-size: 12px;
+            border-bottom: 1px solid #dee2e6;
+          }
+
+          .print-value, .textarea-print, .select-print-value {
+            display: block;
+            min-height: 24px;
+            padding: 3px 6px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 11px;
+            white-space: pre-wrap;
+          }
+
+          .textarea-print {
+            min-height: 50px;
+          }
+
+          .radio-print-value {
+            font-size: 11px;
+            font-weight: 600;
+            color: #000;
+            text-align: left;
+            margin: 0;
+            padding: 2px 0;
+          }
+
+          @media print {
+            body {
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+
+            .no-print {
+              display: none !important;
+            }
+
+            .table-responsive {
+              overflow: visible !important;
+              max-height: none !important;
+            }
+          }
+        </style>
+      </head>
+
+      <body onload="window.print(); window.close();">
+        ${html}
+      </body>
+    </html>
+  `);
 
     win.document.close();
   }
 
-  private buildWorksheet(procedure: Procedure): string {
-
-    const patient = procedure.patient;
-    const qr = procedure.qrCode;
-    const type = procedure.procedureType?.name;
-
-    const baseHeader = `
-    <div style="text-align:center; margin-bottom:15px;">
-      <h1 style="color:#1e4663; margin:0;">
-        DR. SALAM JIBREL MEDICAL CENTER
-      </h1>
-      <p style="color:#2c7da0;">
-        Embryology & Andrology Laboratory
-      </p>
-    </div>
-
-    <div class="qr-header" style="
-      display:flex;
-      align-items:center;
-      margin-bottom:15px;
-      padding:10px;
-      background:#f8f9fa;
-      border-radius:12px;
-    ">
-      <img src="${qr}" style="width:1cm;height:1cm;" />
-      <div style="margin-left:15px;">
-        <strong>Patient QR Code (1x1cm)</strong><br>
-        <span style="font-size:10px;">
-          CPR: ${patient.id || ''} | Name: ${patient.name || ''}
-        </span>
-      </div>
-    </div>
-
-    <div style="
-      text-align:center;
-      border-bottom:2px solid #1e4663;
-      padding-bottom:8px;
-      margin-bottom:20px;
-    ">
-      <h2>${type?.toUpperCase() || 'WORKSHEET'}</h2>
-    </div>
-
-    <div style="
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:15px;
-      background:#f0f6fa;
-      padding:15px;
-      border-radius:16px;
-      margin-bottom:20px;
-      font-size:12px;
-    ">
-      <div>
-        <strong>👩 Patient:</strong> ${patient.name || ''}<br>
-        <strong>Age:</strong> ${patient.age || ''}<br>
-        <strong>Phone:</strong> ${patient.phoneNumber || ''}
-      </div>
-
-      <div>
-        <strong>👨 Husband:</strong> ${patient.husbandName || ''}<br>
-        <strong>CPR:</strong> ${patient.husbandNationalId || ''}<br>
-        <strong>File:</strong> ${patient.id || ''}
-      </div>
-    </div>
-  `;
-
-    let rows = '';
-
-    switch (type) {
-
-      case 'semen_analysis':
-        rows = `
-        <tr><td>Volume (ml)</td><td></td><td>≥ 1.5</td></tr>
-        <tr><td>Concentration (10⁶/ml)</td><td></td><td>≥ 15</td></tr>
-        <tr><td>Progressive Motility (%)</td><td></td><td>≥ 32</td></tr>
-        <tr><td>Total Motility (%)</td><td></td><td>≥ 40</td></tr>
-        <tr><td>Normal Morphology (%)</td><td></td><td>≥ 4</td></tr>
-        <tr><td>pH</td><td></td><td>7.2 - 8.0</td></tr>
-        <tr><td>WBC</td><td></td><td>&lt; 1 million/ml</td></tr>
-      `;
-        break;
-
-      case 'semen_preparation_iui':
-        rows = `
-        <tr><td>Preparation Method</td><td></td><td>Swim-up / Gradient</td></tr>
-        <tr><td>Initial Count</td><td></td><td></td></tr>
-        <tr><td>Post Wash Count</td><td></td><td></td></tr>
-        <tr><td>Post Wash Motility</td><td></td><td></td></tr>
-        <tr><td>Total Motile Sperm</td><td></td><td></td></tr>
-      `;
-        break;
-
-      case 'opu':
-        rows = `
-        <tr><td>Total Oocytes Retrieved</td><td></td><td></td></tr>
-        <tr><td>MII Oocytes</td><td></td><td></td></tr>
-        <tr><td>MI Oocytes</td><td></td><td></td></tr>
-        <tr><td>GV Oocytes</td><td></td><td></td></tr>
-        <tr><td>ICSI Performed</td><td></td><td>Yes / No</td></tr>
-        <tr><td>Fertilized (2PN)</td><td></td><td></td></tr>
-      `;
-        break;
-
-      case 'dna_fragmentation':
-        rows = `
-        <tr><td>Method</td><td></td><td>SCSA / TUNEL / SCD</td></tr>
-        <tr><td>DFI (%)</td><td></td><td></td></tr>
-        <tr><td>Interpretation</td><td></td><td>Low / Moderate / High</td></tr>
-      `;
-        break;
-
-      case 'testicular_sperm':
-        rows = `
-        <tr><td>Procedure Type</td><td></td><td>TESA / PESA / microTESE</td></tr>
-        <tr><td>Sperm Found</td><td></td><td>Yes / No</td></tr>
-        <tr><td>Motility</td><td></td><td></td></tr>
-        <tr><td>Freezing Straws</td><td></td><td></td></tr>
-      `;
-        break;
-
-      case 'retrograde_ejaculate':
-        rows = `
-        <tr><td>Urine pH</td><td></td><td></td></tr>
-        <tr><td>Sperm Count</td><td></td><td></td></tr>
-        <tr><td>Motility</td><td></td><td></td></tr>
-        <tr><td>Total Recovery</td><td></td><td></td></tr>
-      `;
-        break;
-
-      default:
-        rows = `
-        <tr><td colspan="3">No procedure selected</td></tr>
-      `;
-    }
-
-    return `
-    ${baseHeader}
-
-    <table style="
-      width:100%;
-      border-collapse:collapse;
-      margin-bottom:20px;
-    ">
-      <thead>
-        <tr>
-          <th>Parameter</th>
-          <th>Result</th>
-          <th>Reference / Notes</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${rows}
-      </tbody>
-    </table>
-
-    <div style="margin-top:30px; display:flex; justify-content:space-between;">
-      <div><strong>Lab Director Signature:</strong> ____________________</div>
-      <div><strong>Date:</strong> ___________</div>
-    </div>
-
-    <div style="text-align:center; font-size:9px; margin-top:20px; color:#888;">
-      DR. SALAM JIBREL MEDICAL CENTER | QR ID: ${patient.id || ''}
-    </div>
-  `;
-  }
 
   printArea(printConfigurations: PrintConfigurations) {
     const element = document.getElementById('print-area') as HTMLElement;

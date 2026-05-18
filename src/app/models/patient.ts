@@ -1,12 +1,14 @@
 export interface Patient {
     id: string;
     nationalId: string;
-    name: string;    
+    name: string;
     phoneNumber: string;
     age: string;
     husbandNationalId: string;
-    husbandName: string;    
+    husbandName: string;
     husbandPhoneNumber: string;
     createdDate: string;
     modifiedDate: string;
+    fromDate: string;
+    toDate: string;
 }

@@ -29,6 +29,14 @@
                     <input type="text" class="form-control" id="husbandNumber"
                         [(ngModel)]="patientForSearch.husbandPhoneNumber">
                 </div>
+                <div class="col-md-6">
+                    <label for="procedureType" class="form-label">From Date</label>
+                    <input type="date" class="form-control" [(ngModel)]="patientForSearch.fromDate" name="fromDate">
+                </div>
+                <div class="col-md-6">
+                    <label for="procedureType" class="form-label">To Date</label>
+                    <input type="date" class="form-control" [(ngModel)]="patientForSearch.toDate" name="toDate">
+                </div>
             </div>
             <div class="row mt-3">
                 <div class="col">
@@ -52,11 +60,11 @@
                             <th>Husband's Name</th>
                             <th>Husband's National ID</th>
                             <th>Husband's Phone Number</th>
-                            <th>Date Created</th>
-                            <th>Date Modified</th>
+                            <th>Created Date</th>
+                            <th>Modified Date</th>
                             <th *ngIf="role == 'Physician'">Create Procedure</th>
-                            <th *ngIf="role == 'Receptionist'">Edit</th>
-                            <th *ngIf="role == 'Receptionist'">Delete</th>
+                            <th *ngIf="role == 'Coordinator'">Edit</th>
+                            <th *ngIf="role == 'Coordinator'">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,19 +77,20 @@
                             <td data-label="Husband's Name">{{p.husbandName}}</td>
                             <td data-label="Husband's National ID">{{p.husbandNationalId}}</td>
                             <td data-label="Husband's Phone Number">{{p.husbandPhoneNumber}}</td>
-                            <td data-label="Date Created">{{p.createdDate}}</td>
-                            <td data-label="Date Modified">{{p.modifiedDate}}</td>
-                            <td *ngIf="role == 'Physician'" data-label="Create Procedure" class="text-center cursor-pointer">
+                            <td data-label="Created Date">{{p.createdDate | date:'dd MMM yyyy, HH:mm'}}</td>
+                            <td data-label="Modified Date">{{p.modifiedDate | date:'dd MMM yyyy, HH:mm'}}</td>
+                            <td *ngIf="role == 'Physician'" data-label="Create Procedure"
+                                class="text-center cursor-pointer">
                                 <a (click)="openProcedureModal(p)">
                                     <i class="fa-solid fa-plus"></i>
                                 </a>
                             </td>
-                            <td *ngIf="role == 'Receptionist'" data-label="Edit" class="text-center cursor-pointer">
+                            <td *ngIf="role == 'Coordinator'" data-label="Edit" class="text-center cursor-pointer">
                                 <a (click)="openEditModal(p)">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </a>
                             </td>
-                            <td *ngIf="role == 'Receptionist'" data-label="Delete" class="text-cente cursor-pointer">
+                            <td *ngIf="role == 'Coordinator'" data-label="Delete" class="text-cente cursor-pointer">
                                 <a (click)="deletePatient(p)">
                                     <i class="fa-solid fa-eraser"></i>
                                 </a>
@@ -92,7 +101,7 @@
             </div>
         </ng-template>
     </li>
-    <li [ngbNavItem]="2" *ngIf="role == 'Receptionist'">
+    <li [ngbNavItem]="2" *ngIf="role == 'Coordinator'">
         <button ngbNavLink>Add</button>
 
         <ng-template ngbNavContent>
@@ -271,34 +280,15 @@
                         Please select a value
                     </div>
                 </div>
-                <div *ngIf="role == 'Receptionist'" class="col-md-12">
-                    <div class="custom-block">
-                        <div class="custom-label">Procedure Price</div>
-
-                        <div class="custom-value">
-                            {{ procedure.procedureType.price }}
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="role == 'Receptionist'" class="col-md-12">
-                    <div class="custom-block">
-                        <div for="paymentStatus" class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="paymentStatus" value="Paid"
-                                [(ngModel)]="procedure.paymentStatus" required/>
-                            <label class="custom-label">Paid</label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="paymentStatus" value="Unpaid"
-                                [(ngModel)]="procedure.paymentStatus" required/>
-                            <label class="custom-label">Unpaid</label>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-md-12">
+                    <label for="procedureType" class="form-label">Notes</label>
+                    <textarea class="form-control" [(ngModel)]="procedure.notes" name="notes"></textarea>
+                </div>                   
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-secondary" [disabled]="isAddProceDureDisabled()">Submit</button>
+            <button type="submit" class="btn btn-outline-secondary"
+                [disabled]="isAddProceDureDisabled()">Submit</button>
         </div>
     </form>
 </ng-template>

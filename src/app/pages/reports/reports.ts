@@ -17,6 +17,7 @@ import { SemenAnalysis } from '../procedures/semen-analysis/semen-analysis';
 import { SemenPreparationForIui } from '../procedures/semen-preparation-for-iui/semen-preparation-for-iui';
 import { SpermFreezing } from '../procedures/sperm-freezing/sperm-freezing';
 import { TesticularSpermRetrieval } from '../procedures/testicular-sperm-retrieval/testicular-sperm-retrieval';
+import { ProcedureType } from '../../models/procedure-type';
 
 @Component({
   selector: 'app-reports',
@@ -33,6 +34,7 @@ export class Reports {
   reportForViewAndPrint: Procedure = this.newProcedure();
 
   reports = signal<Procedure[]>([]);
+  procedureTypes = signal<ProcedureType[]>([]);
 
   private procedureService = inject(ProcedureService);
   private modalService = inject(NgbModal);
@@ -48,6 +50,9 @@ export class Reports {
 
 
   async ngOnInit(): Promise<void> {
+    const procedureTypes = await this.lookupService.getProcedureTypes();
+    this.procedureTypes.set(procedureTypes);
+
     const printConfigurations = await this.lookupService.getPrintConfigurations();
 
     if (printConfigurations != null) {
@@ -63,7 +68,7 @@ export class Reports {
 
   openReportModal(report: Procedure) {
     this.reportForViewAndPrint = { ...report }
-    this.open(this.reportModal,'Fullscreen')
+    this.open(this.reportModal, 'Fullscreen')
   }
 
   reset() {
@@ -100,8 +105,13 @@ export class Reports {
       paymentStatus: '',
       createdDate: '',
       modifiedDate: '',
+      scheduledDate: '',
+      dateSearchType: '',
+      notes:'',
       isPaid: false,
       isReport: false,
+      fromDate: '',
+      toDate: '',
       procedureType: {
         id: '',
         name: '',
@@ -119,6 +129,8 @@ export class Reports {
         husbandPhoneNumber: '',
         createdDate: '',
         modifiedDate: '',
+        fromDate: '',
+        toDate: ''
       },
       physician: {
         id: '',
@@ -144,4 +156,9 @@ export class Reports {
       }
     };
   }
+
+  compareObjects(o1: any, o2: any): boolean {
+    return o1 && o2 ? o1.id === o2.id : o1 === o2;
+  }
+
 }

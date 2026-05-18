@@ -57,8 +57,8 @@ export class Procedures {
 
   currentModalRef!: NgbModalRef;
 
-  @ViewChild('editForReceptionistTemplate')
-  editForReceptionistModal!: TemplateRef<any>;
+  @ViewChild('editForCoordinatorTemplate')
+  editForCoordinatorModal!: TemplateRef<any>;
 
   @ViewChild('editForEmbryologistTemplate')
   editForEmbryologistModal!: TemplateRef<any>;
@@ -85,7 +85,7 @@ export class Procedures {
       email: '',
       password: '',
       phoneNumber: '',
-      role: 'Embryologist',
+      role: 'Physician',
       token: '',
       isLoggedIn: false,
       newPassword: ''
@@ -100,8 +100,6 @@ export class Procedures {
       this.procedureForSearch.isPaid = true;
     }
 
-    console.log("this.role " + this.role)
-
     const data = await this.procedureService.get(this.procedureForSearch);
     this.procedures.set(data);
   }
@@ -114,8 +112,8 @@ export class Procedures {
       this.procedureForEdit.embryologist = this.currentUser;
     }
 
-    if (this.role == "Receptionist") {
-      this.open(this.editForReceptionistModal, 'xl')
+    if (this.role == "Coordinator") {
+      this.open(this.editForCoordinatorModal, 'xl')
     }
     else {
       this.open(this.editForEmbryologistModal, 'Fullscreen')
@@ -123,6 +121,8 @@ export class Procedures {
   }
 
   async updateProcedure() {
+    
+    console.log(this.procedureForEdit)
 
     const data = await this.procedureService.update(this.procedureForEdit);
 
@@ -237,8 +237,13 @@ export class Procedures {
       paymentStatus: '',
       createdDate: '',
       modifiedDate: '',
+      scheduledDate: '',
       isPaid: false,
       isReport: false,
+      dateSearchType: '',
+      fromDate: '',
+      toDate: '',
+      notes:'',
       procedureType: {
         id: '',
         name: '',
@@ -256,6 +261,8 @@ export class Procedures {
         husbandPhoneNumber: '',
         createdDate: '',
         modifiedDate: '',
+        fromDate: '',
+        toDate: ''
       },
       physician: {
         id: '',
@@ -290,7 +297,7 @@ export class Procedures {
   }
 
   isUpdateProceDureDisabled() {
-    if (this.procedureForEdit.physician != null) {
+    if (this.procedureForEdit.physician != null && this.procedureForEdit.scheduledDate != null && this.procedureForEdit.scheduledDate != '') {
       return false;
     }
     return true;

@@ -37,6 +37,38 @@
                     <input type="text" class="form-control" id="husbandNumber"
                         [(ngModel)]="procedureForSearch.patient.husbandPhoneNumber">
                 </div>
+                <div class="col-md-6">
+                    <label for="procedureType" class="form-label">Procedure Type</label>
+                    <select class="form-select" [(ngModel)]="procedureForSearch.procedureType" name="physician"
+                        #physician="ngModel" required [compareWith]="compareObjects">
+                        <option *ngFor="let p of procedureTypes()" [ngValue]="p">
+                            {{ p.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">
+                        Date Type
+                    </label>
+                    <select class="form-select" [(ngModel)]="procedureForSearch.dateSearchType" name="dateSearchType">
+                        <option value="createdDate">
+                            Created Date
+                        </option>
+                        <option value="scheduledDate">
+                            Scheduled Date
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="procedureType" class="form-label">From Date</label>
+                    <input type="date" class="form-control" [(ngModel)]="procedureForSearch.fromDate" name="fromDate"
+                        [disabled]="!procedureForSearch.dateSearchType" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="procedureType" class="form-label">To Date</label>
+                    <input type="date" class="form-control" [(ngModel)]="procedureForSearch.toDate" name="toDate"
+                        [disabled]="!procedureForSearch.dateSearchType" required>
+                </div>
             </div>
             <div class="row mt-3">
                 <div class="col">
@@ -58,13 +90,15 @@
                             <th>Patient's Name</th>
                             <th>Patient's National ID</th>
                             <th>Patient's Phone Number</th>
-                            <th>Date Created</th>
-                            <th>Date Modified</th>
-                            <th *ngIf="role == 'Receptionist'">Payment Status</th>
-                            <th *ngIf="role == 'Receptionist' || role == 'Embryologist'">Edit</th>
-                            <th *ngIf="role == 'Receptionist' || role == 'Physician'">Delete</th>
-                            <th *ngIf="role == 'Receptionist'">Print Worksheet</th>
-                            <th *ngIf="role == 'Receptionist' || role == 'Embryologist'">Print Labels</th>
+                            <th>Created Date</th>
+                            <th>Modified Date</th>
+                            <th>Scheduled Date</th>
+                            <th>Notes</th>
+                            <th *ngIf="role == 'Coordinator'">Payment Status</th>
+                            <th *ngIf="role == 'Coordinator' || role == 'Embryologist'">Edit</th>
+                            <th *ngIf="role == 'Coordinator' || role == 'Physician'">Delete</th>
+                            <th *ngIf="role == 'Coordinator'">Print Worksheet</th>
+                            <th *ngIf="role == 'Coordinator' || role == 'Embryologist'">Print Labels</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,26 +109,31 @@
                             <td data-label="Patient's Name">{{p.patient.name}}</td>
                             <td data-label="Patient's National ID">{{p.patient.nationalId}}</td>
                             <td data-label="Patient's Phone Number">{{p.patient.phoneNumber}}</td>
-                            <td data-label="Date Created">{{p.createdDate}}</td>
-                            <td data-label="Date Modified">{{p.modifiedDate}}</td>
-                            <td *ngIf="role == 'Receptionist'" data-label="Payment Status">{{p.paymentStatus}}</td>
-                            <td *ngIf="role == 'Receptionist' || role == 'Embryologist'" data-label="Edit" class="text-center cursor-pointer">
+                            <td data-label="Created Date">{{p.createdDate | date:'dd MMM yyyy, HH:mm' }}</td>
+                            <td data-label="Modified Date">{{p.modifiedDate | date:'dd MMM yyyy, HH:mm' }}</td>
+                            <td data-label="Scheduled Date">{{p.scheduledDate | date:'dd MMM yyyy, HH:mm' }}</td>
+                            <td data-label="Notes">{{p.notes}}</td>
+                            <td *ngIf="role == 'Coordinator'" data-label="Payment Status">{{p.paymentStatus}}</td>
+                            <td *ngIf="role == 'Coordinator' || role == 'Embryologist'" data-label="Edit"
+                                class="text-center cursor-pointer">
                                 <a (click)="openEditModal(p)">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </a>
                             </td>
-                            <td *ngIf="role == 'Receptionist' || role == 'Physician'" data-label="Delete" class="text-center cursor-pointer">
+                            <td *ngIf="role == 'Coordinator' || role == 'Physician'" data-label="Delete"
+                                class="text-center cursor-pointer">
                                 <a (click)="deleteProcedure(p)">
                                     <i class="fa-solid fa-eraser"></i>
                                 </a>
                             </td>
-                            <td *ngIf="role == 'Receptionist'" data-label="Print Worksheet"
+                            <td *ngIf="role == 'Coordinator'" data-label="Print Worksheet"
                                 class="text-center cursor-pointer">
                                 <a (click)="printWorkSheet(p)">
                                     <i class="fa-solid fa-print"></i>
                                 </a>
                             </td>
-                            <td *ngIf="role == 'Receptionist' || role == 'Embryologist'" data-label="Print Lable" class="text-center cursor-pointer">
+                            <td *ngIf="role == 'Coordinator' || role == 'Embryologist'" data-label="Print Lable"
+                                class="text-center cursor-pointer">
                                 <a (click)="printLabels(p)">
                                     <i class="fa-solid fa-tags"></i>
                                 </a>
@@ -111,7 +150,7 @@
 
 <div [ngbNavOutlet]="nav" class="mt-2"></div>
 
-<ng-template #editForReceptionistTemplate let-modal>
+<ng-template #editForCoordinatorTemplate let-modal>
     <div class="modal-header">
         <h6 class="modal-title" id="modal-basic-title">Procedure</h6>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -122,7 +161,7 @@
                 <div class="col-md-12">
                     <label for="physician" class="form-label">Physician</label>
                     <select class="form-select" [(ngModel)]="procedureForEdit.physician" name="physician"
-                        #physician="ngModel" required [compareWith]="compareObjects">                    
+                        #physician="ngModel" required [compareWith]="compareObjects">
                         <option *ngFor="let p of physicians()" [ngValue]="p">
                             {{ p.name }}
                         </option>
@@ -130,6 +169,11 @@
                     <div class="error mt-1" *ngIf="physician.invalid && physician.touched">
                         Please select a value
                     </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="procedureType" class="form-label">Scheduled Date</label>
+                    <input type="datetime-local" class="form-control" [(ngModel)]="procedureForEdit.scheduledDate"
+                        name="scheduledDate">
                 </div>
                 <div class="col-md-12">
                     <div class="custom-block">
@@ -155,10 +199,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <label for="procedureType" class="form-label">Notes</label>
+                    <textarea class="form-control" [(ngModel)]="procedureForEdit.notes" name="notes"></textarea>
+                </div>                  
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-secondary" [disabled]="isUpdateProceDureDisabled()">Submit</button>
+            <button type="submit" class="btn btn-outline-secondary"
+                [disabled]="isUpdateProceDureDisabled()">Submit</button>
         </div>
     </form>
 </ng-template>
@@ -169,35 +218,45 @@
     </div>
     <form #procedureForm="ngForm" (ngSubmit)="updateProcedure()" novalidate>
         <div class="modal-body full-screen" id="print-area">
-            <app-dna-fragmentation-test [procedure]="procedureForEdit" *ngIf="procedureForEdit.procedureType.name == 'DNA Fragmentation Test'">
+            <app-dna-fragmentation-test [procedure]="procedureForEdit"
+                *ngIf="procedureForEdit.procedureType.name == 'DNA Fragmentation Test'">
             </app-dna-fragmentation-test>
 
-            <app-egg-freezing [procedure]="procedureForEdit" *ngIf="procedureForEdit.procedureType.name == 'Egg Freezing'">
+            <app-egg-freezing [procedure]="procedureForEdit"
+                *ngIf="procedureForEdit.procedureType.name == 'Egg Freezing'">
             </app-egg-freezing>
 
-            <app-embryo-freezing [procedure]="procedureForEdit" *ngIf="procedureForEdit.procedureType.name == 'Embryo Freezing'">
-            </app-embryo-freezing>       
-            
-            <app-oocyte-pick-up [procedure]="procedureForEdit" *ngIf="procedureForEdit.procedureType.name == 'Oocyte Pick-Up (OPU)'">
-            </app-oocyte-pick-up>       
-            
-            <app-ovarian-tissue-cryopreservation [procedure]="procedureForEdit" *ngIf="procedureForEdit.procedureType.name == 'Ovarian Tissue Cryopreservation'">
-            </app-ovarian-tissue-cryopreservation>  
-            
-            <app-retrograde-ejaculate-analysis [procedure]="procedureForEdit" *ngIf="procedureForEdit.procedureType.name == 'Retrograde Ejaculate Analysis'">
+            <app-embryo-freezing [procedure]="procedureForEdit"
+                *ngIf="procedureForEdit.procedureType.name == 'Embryo Freezing'">
+            </app-embryo-freezing>
+
+            <app-oocyte-pick-up [procedure]="procedureForEdit"
+                *ngIf="procedureForEdit.procedureType.name == 'Oocyte Pick-Up (OPU)'">
+            </app-oocyte-pick-up>
+
+            <app-ovarian-tissue-cryopreservation [procedure]="procedureForEdit"
+                *ngIf="procedureForEdit.procedureType.name == 'Ovarian Tissue Cryopreservation'">
+            </app-ovarian-tissue-cryopreservation>
+
+            <app-retrograde-ejaculate-analysis [procedure]="procedureForEdit"
+                *ngIf="procedureForEdit.procedureType.name == 'Retrograde Ejaculate Analysis'">
             </app-retrograde-ejaculate-analysis>
 
-            <app-semen-analysis [procedure]="procedureForEdit" *ngIf="procedureForEdit.procedureType.name == 'Semen Analysis'">
+            <app-semen-analysis [procedure]="procedureForEdit"
+                *ngIf="procedureForEdit.procedureType.name == 'Semen Analysis'">
             </app-semen-analysis>
 
-            <app-semen-preparation-for-iui [procedure]="procedureForEdit" *ngIf="procedureForEdit.procedureType.name == 'Semen Preparation for IUI'">
-            </app-semen-preparation-for-iui>       
-            
-            <app-sperm-freezing [procedure]="procedureForEdit" *ngIf="procedureForEdit.procedureType.name == 'Sperm Freezing'">
-            </app-sperm-freezing>       
-            
-            <app-testicular-sperm-retrieval [procedure]="procedureForEdit" *ngIf="procedureForEdit.procedureType.name == 'Testicular Sperm Retrieval'">
-            </app-testicular-sperm-retrieval>              
+            <app-semen-preparation-for-iui [procedure]="procedureForEdit"
+                *ngIf="procedureForEdit.procedureType.name == 'Semen Preparation for IUI'">
+            </app-semen-preparation-for-iui>
+
+            <app-sperm-freezing [procedure]="procedureForEdit"
+                *ngIf="procedureForEdit.procedureType.name == 'Sperm Freezing'">
+            </app-sperm-freezing>
+
+            <app-testicular-sperm-retrieval [procedure]="procedureForEdit"
+                *ngIf="procedureForEdit.procedureType.name == 'Testicular Sperm Retrieval'">
+            </app-testicular-sperm-retrieval>
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-outline-secondary" [disabled]="procedureForm.invalid">Save</button>

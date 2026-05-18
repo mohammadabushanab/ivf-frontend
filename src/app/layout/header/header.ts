@@ -34,7 +34,9 @@ export class Header {
 
   confirmedPassword: string = "";
 
-  user: User = this.newUser();
+  userForChangePassword: User = this.newUser();
+  currentUser = this.authService.getUser();
+  
 
   logout() {
     this.authService.logout();
@@ -46,13 +48,13 @@ export class Header {
   }
 
   async changePassword() {
-    this.user.email = this.authService.getUser()?.email || '';
+    this.userForChangePassword.email = this.authService.getUser()?.email || '';
 
-    if (this.user.newPassword != this.confirmedPassword) {
+    if (this.userForChangePassword.newPassword != this.confirmedPassword) {
       this.messageText = "New password and confirm password do not match";
     }
     else {
-      const result = await this.authService.changePassword(this.user);
+      const result = await this.authService.changePassword(this.userForChangePassword);
 
       if (result) {
         this.messageText = "Your Request has been submitted successfully";
