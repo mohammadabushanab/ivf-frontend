@@ -7,7 +7,7 @@ import { TextOnly } from '../../../shared/directives/text-only';
 
 @Component({
   selector: 'app-semen-preparation-for-iui',
-  imports: [FormsModule, CommonModule, NumbersOnly, TextOnly],
+  imports: [FormsModule, CommonModule],
   templateUrl: './semen-preparation-for-iui.html',
   styleUrl: './semen-preparation-for-iui.css',
   viewProviders: [

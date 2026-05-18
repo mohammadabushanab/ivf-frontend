@@ -1,46 +1,76 @@
-<div class="row g-3 mt-3">
-  <div class="col-md-6">
-    <label for="name" class="form-label">Name </label>
-    <input type="text" class="form-control" id="name" [(ngModel)]="procedure.patient.name" #name="ngModel" name="name"
-      disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="nationalId" class="form-label">National ID</label>
-    <input type="text" class="form-control" id="nationalId" [(ngModel)]="procedure.patient.nationalId"
-      #nationalId="ngModel" name="nationalId" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="phoneNumber" class="form-label">Phone Number</label>
-    <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="procedure.patient.phoneNumber"
-      #phoneNumber="ngModel" name="phoneNumber" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="age" class="form-label">Age</label>
-    <input type="text" class="form-control" id="age" [(ngModel)]="procedure.patient.age" #age="ngModel" name="age"
-      disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="husbandName" class="form-label">Husband's Name</label>
-    <input type="text" class="form-control" id="husbandName" [(ngModel)]="procedure.patient.husbandName"
-      #husbandname="ngModel" name="husbandname" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="husbandNationalId" class="form-label">Husband's ID</label>
-    <input type="text" class="form-control" id="husbandId" [(ngModel)]="procedure.patient.husbandNationalId"
-      #husbandNationalId="ngModel" name="husbandNationalId" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="husbandPhoneNumber" class="form-label">Phone Number</label>
-    <input type="text" class="form-control" id="husbandPhoneNumber" [(ngModel)]="procedure.patient.husbandPhoneNumber"
-      #husbandPhoneNumber="ngModel" name="husbandPhoneNumber" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="husbandPhoneNumber" class="form-label">Physician</label>
-    <input type="text" class="form-control" id="husbandPhoneNumber" [(ngModel)]="procedure.physician.name"
-      #husbandPhoneNumber="ngModel" name="husbandPhoneNumber" disabled>
+<div class="row mt-3">
+  <div class="col-12">
+    <div class="card shadow-sm border-0 section-card">
+      <div class="card-header blue-header">
+        Patient Information
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="name" class="form-label">Name </label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="procedure.patient.name" #name="ngModel"
+              name="name" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="nationalId" class="form-label">National ID</label>
+            <input type="text" class="form-control" id="nationalId" [(ngModel)]="procedure.patient.nationalId"
+              #nationalId="ngModel" name="nationalId" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="procedure.patient.phoneNumber"
+              #phoneNumber="ngModel" name="phoneNumber" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="age" class="form-label">Age</label>
+            <input type="text" class="form-control" id="age" [(ngModel)]="procedure.patient.age" #age="ngModel"
+              name="age" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="husbandName" class="form-label">Husband's Name</label>
+            <input type="text" class="form-control" id="husbandName" [(ngModel)]="procedure.patient.husbandName"
+              #husbandname="ngModel" name="husbandname" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="husbandNationalId" class="form-label">Husband's ID</label>
+            <input type="text" class="form-control" id="husbandId" [(ngModel)]="procedure.patient.husbandNationalId"
+              #husbandNationalId="ngModel" name="husbandNationalId" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="husbandPhoneNumber" class="form-label">Husband Phone Number</label>
+            <input type="text" class="form-control" id="husbandPhoneNumber"
+              [(ngModel)]="procedure.patient.husbandPhoneNumber" #husbandPhoneNumber="ngModel" name="husbandPhoneNumber"
+              disabled>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<div class="row g-3 mt-3">
+<div class="row mt-3">
+  <div class="col-12">
+    <div class="card shadow-sm border-0 section-card">
+      <div class="card-header blue-header">
+        Physician & Embryologist Information
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="physician" class="form-label">Physician</label>
+            <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.physician.name"
+              #physician="ngModel" name="physician" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="embryologist" class="form-label">Embryologist</label>
+            <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.embryologist.name"
+              #embryologist="ngModel" name="embryologist" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
       <div class="card-header text-white ">
@@ -56,74 +86,49 @@
                 disabled>
             </td>
 
-            <td class="green-label required-label">Dewar:</td>
+            <td class="green-label -label">Dewar:</td>
             <td>
-              <input class="form-control" [(ngModel)]="procedure.values['dewar']" name="dewar" #dewar="ngModel"
-                required>
-
-              <div class="error mt-1" *ngIf="dewar.invalid && dewar.touched">
-                Please enter a value
-              </div>
+              <input class="form-control" [(ngModel)]="procedure.values['dewar']" name="dewar" #dewar="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="green-label required-label">No. Of Straws:</td>
+            <td class="green-label -label">No. Of Straws:</td>
             <td>
               <input class="form-control" [(ngModel)]="procedure.values['numberOfStraws']" name="numberOfStraws"
-                #numberOfStraws="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="numberOfStraws.invalid && numberOfStraws.touched">
-                Numbers only allowed
-              </div>
+                #numberOfStraws="ngModel">
             </td>
 
-            <td class="green-label required-label">Straw Colors:</td>
+            <td class="green-label -label">Straw Colors:</td>
             <td>
               <input class="form-control" [(ngModel)]="procedure.values['strawColors']" name="strawColors"
-                #strawColors="ngModel" required appTextOnly>
-
-              <div class="error mt-1" *ngIf="strawColors.invalid && strawColors.touched">
-                Alphabetic Characters only allowed
-              </div>
+                #strawColors="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="green-label required-label">Cassette/Cane No.:</td>
+            <td class="green-label -label">Cassette/Cane No.:</td>
             <td>
               <input class="form-control" [(ngModel)]="procedure.values['cassetteCanNo']" name="cassetteCanNo"
-                #cassetteCanNo="ngModel" required>
-
-              <div class="error mt-1" *ngIf="cassetteCanNo.invalid && cassetteCanNo.touched">
-                Please enter a value
-              </div>
+                #cassetteCanNo="ngModel">
             </td>
 
-            <td class="green-label required-label">Canister No.:</td>
+            <td class="green-label -label">Canister No.:</td>
             <td>
               <input class="form-control" [(ngModel)]="procedure.values['canisterNo']" name="canisterNo"
-                #canisterNo="ngModel" required>
-
-              <div class="error mt-1" *ngIf="canisterNo.invalid && canisterNo.touched">
-                Please enter a value
-              </div>
+                #canisterNo="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="green-label required-label">Witness:</td>
+            <td class="green-label -label">Witness:</td>
             <td colspan="3">
               <select class="form-select" [(ngModel)]="procedure.values['freezingWitness']" name="freezingWitness"
-                #freezingWitness="ngModel" required [compareWith]="compareObjects">
+                #freezingWitness="ngModel" [compareWith]="compareObjects">
                 <option *ngFor="let p of embryologists()" [ngValue]="p">
                   {{ p.name }}
                 </option>
               </select>
-
-              <div class="error mt-1" *ngIf="freezingWitness.invalid && freezingWitness.touched">
-                Please select a value
-              </div>
             </td>
           </tr>
         </tbody>
@@ -131,8 +136,7 @@
     </div>
   </div>
 </div>
-
-<div class="row g-3 mt-3">
+<div class="row mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
       <div class="card-header text-white d-flex justify-content-between align-items-center">
@@ -145,8 +149,8 @@
       <table class="table table-bordered mb-0 align-middle">
         <thead class="table-light">
           <tr>
-            <th class="required-label">Stage</th>
-            <th class="required-label">Quality</th>
+            <th>Stage</th>
+            <th>Quality</th>
             <th width="60" class="no-print"></th>
           </tr>
         </thead>
@@ -154,7 +158,7 @@
         <tbody>
           <tr *ngFor="let row of procedure.values['embryoRows']; let i = index">
             <td>
-              <select class="form-select" [(ngModel)]="row.stage" [name]="'stage' + i" #stage="ngModel" required>
+              <select class="form-select" [(ngModel)]="row.stage" [name]="'stage' + i" #stage="ngModel">
 
                 <option value="">Select</option>
                 <option value="GV">GV</option>
@@ -162,14 +166,10 @@
                 <option value="MII">MII</option>
                 <option value="Degenerated">Degenerated</option>
               </select>
-
-              <div class="error mt-1" *ngIf="stage.invalid && stage.touched">
-                Please select a value
-              </div>
             </td>
 
             <td>
-              <select class="form-select" [(ngModel)]="row.quality" [name]="'quality' + i" #quality="ngModel" required>
+              <select class="form-select" [(ngModel)]="row.quality" [name]="'quality' + i" #quality="ngModel">
 
                 <option value="">Select</option>
                 <option value="1">1</option>
@@ -179,10 +179,6 @@
                 <option value="B">B</option>
                 <option value="C">C</option>
               </select>
-
-              <div class="error mt-1" *ngIf="quality.invalid && quality.touched">
-                Please select a value
-              </div>
             </td>
 
             <td class="text-center no-print">
@@ -194,8 +190,7 @@
     </div>
   </div>
 </div>
-
-<div class="row g-3 mt-3">
+<div class="row mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
       <div class="card-header text-white d-flex justify-content-between align-items-center">
@@ -209,15 +204,15 @@
         <thead class="green-thead">
           <tr>
             <th>#</th>
-            <th class="required-label">Date</th>
-            <th class="required-label">Time</th>
-            <th class="required-label">Straws Thawed</th>
-            <th class="required-label">Embryos</th>
-            <th class="required-label">Survived</th>
-            <th class="required-label">Remaining</th>
-            <th class="required-label">Straws</th>
-            <th class="required-label">Embryologist</th>
-            <th class="required-label">Witness</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Straws Thawed</th>
+            <th>Embryos</th>
+            <th>Survived</th>
+            <th>Remaining</th>
+            <th>Straws</th>
+            <th>Embryologist</th>
+            <th>Witness</th>
             <th>Notes</th>
             <th width="60" class="no-print"></th>
           </tr>
@@ -229,91 +224,52 @@
 
             <td>
               <input type="date" class="form-control" [(ngModel)]="row.date" [name]="'embryoThawingDate' + i"
-                #embryoThawingDate="ngModel" required>
-
-              <div class="error mt-1" *ngIf="embryoThawingDate.invalid && embryoThawingDate.touched">
-                Please enter a value
-              </div>
+                #embryoThawingDate="ngModel">
             </td>
 
             <td>
               <input type="time" class="form-control" [(ngModel)]="row.time" [name]="'embryoThawingTime' + i"
-                #embryoThawingTime="ngModel" required>
-
-              <div class="error mt-1" *ngIf="embryoThawingTime.invalid && embryoThawingTime.touched">
-                Please enter a value
-              </div>
+                #embryoThawingTime="ngModel">
             </td>
 
             <td>
               <input class="form-control" [(ngModel)]="row.strawsThawed" [name]="'strawsThawed' + i"
-                #strawsThawed="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="strawsThawed.invalid && strawsThawed.touched">
-                Numbers only allowed
-              </div>
+                #strawsThawed="ngModel">
             </td>
 
             <td>
               <input class="form-control" [(ngModel)]="row.embryos" [name]="'thawingEmbryos' + i"
-                #thawingEmbryos="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="thawingEmbryos.invalid && thawingEmbryos.touched">
-                Numbers only allowed
-              </div>
+                #thawingEmbryos="ngModel">
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.survived" [name]="'survived' + i" #survived="ngModel"
-                required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="survived.invalid && survived.touched">
-                Numbers only allowed
-              </div>
+              <input class="form-control" [(ngModel)]="row.survived" [name]="'survived' + i" #survived="ngModel">
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.remaining" [name]="'remaining' + i" #remaining="ngModel"
-                required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="remaining.invalid && remaining.touched">
-                Numbers only allowed
-              </div>
+              <input class="form-control" [(ngModel)]="row.remaining" [name]="'remaining' + i" #remaining="ngModel">
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.straws" [name]="'straws' + i" #straws="ngModel" required
-                appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="straws.invalid && straws.touched">
-                Numbers only allowed
-              </div>
+              <input class="form-control" [(ngModel)]="row.straws" [name]="'straws' + i" #straws="ngModel">
             </td>
 
             <td>
               <select class="form-select" [(ngModel)]="row.embryologist" [name]="'thawingEmbryologist' + i"
-                #thawingEmbryologist="ngModel" required [compareWith]="compareObjects">
+                #thawingEmbryologist="ngModel" [compareWith]="compareObjects">
                 <option *ngFor="let p of embryologists()" [ngValue]="p">
                   {{ p.name }}
                 </option>
               </select>
-
-              <div class="error mt-1" *ngIf="thawingEmbryologist.invalid && thawingEmbryologist.touched">
-                Please select a value
-              </div>
             </td>
 
             <td>
               <select class="form-select" [(ngModel)]="row.witness" [name]="'thawingWitness' + i"
-                #thawingWitness="ngModel" required [compareWith]="compareObjects">
+                #thawingWitness="ngModel" [compareWith]="compareObjects">
                 <option *ngFor="let p of embryologists()" [ngValue]="p">
                   {{ p.name }}
                 </option>
               </select>
-
-              <div class="error mt-1" *ngIf="thawingWitness.invalid && thawingWitness.touched">
-                Please select a value
-              </div>
             </td>
 
             <td>
@@ -331,29 +287,28 @@
     </div>
   </div>
 </div>
-
-<div class="row g-3 mt-3">
+<div class="row mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
       <div class="card-header text-white d-flex justify-content-between align-items-center">
         <span>Transfer</span>
         <div class="d-flex gap-2 no-print">
           <button type="button" class="btn btn-sm btn-light" (click)="addEmbryoTransferRow()">+ Add</button>
-        </div>        
+        </div>
       </div>
 
       <table class="table table-bordered align-middle text-center mb-0">
         <thead class="green-thead">
           <tr>
             <th>#</th>
-            <th class="required-label">Date</th>
-            <th class="required-label">Time</th>
-            <th class="required-label">Catheter</th>
-            <th class="required-label">Embryos</th>
-            <th class="required-label">Status</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Catheter</th>
+            <th>Embryos</th>
+            <th>Status</th>
             <th>Difficulties</th>
-            <th class="required-label">Embryologist</th>
-            <th class="required-label">Witness</th>
+            <th>Embryologist</th>
+            <th>Witness</th>
             <th>Notes</th>
             <th width="60" class="no-print"></th>
           </tr>
@@ -365,51 +320,29 @@
 
             <td>
               <input type="date" class="form-control" [(ngModel)]="row.date" [name]="'embryoTransferDate' + i"
-                #embryoTransferDate="ngModel" required>
-
-              <div class="error mt-1" *ngIf="embryoTransferDate.invalid && embryoTransferDate.touched">
-                Please enter a value
-              </div>
+                #embryoTransferDate="ngModel">
             </td>
 
             <td>
               <input type="time" class="form-control" [(ngModel)]="row.time" [name]="'embryoTransferTime' + i"
-                #embryoTransferTime="ngModel" required>
-
-              <div class="error mt-1" *ngIf="embryoTransferTime.invalid && embryoTransferTime.touched">
-                Please enter a value
-              </div>
+                #embryoTransferTime="ngModel">
             </td>
 
             <td>
-              <select class="form-select" [(ngModel)]="row.catheter" [name]="'catheter' + i" #catheter="ngModel"
-                required>
+              <select class="form-select" [(ngModel)]="row.catheter" [name]="'catheter' + i" #catheter="ngModel">
                 <option>COOK</option>
                 <option>WALLACE</option>
                 <option>OTHER</option>
               </select>
-
-              <div class="error mt-1" *ngIf="catheter.invalid && catheter.touched">
-                Please select a value
-              </div>
             </td>
 
             <td>
               <input class="form-control" [(ngModel)]="row.embryos" [name]="'transferEmbryos' + i"
-                #transferEmbryos="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="transferEmbryos.invalid && transferEmbryos.touched">
-                Numbers only allowed
-              </div>
+                #transferEmbryos="ngModel">
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.status" [name]="'status' + i" #status="ngModel" required
-                appTextOnly>
-
-              <div class="error mt-1" *ngIf="status.invalid && status.touched">
-                Alphabetic Characters only allowed
-              </div>
+              <input class="form-control" [(ngModel)]="row.status" [name]="'status' + i" #status="ngModel">
             </td>
 
             <td>
@@ -419,28 +352,20 @@
 
             <td>
               <select class="form-select" [(ngModel)]="row.embryologist" [name]="'transferEmbryologist' + i"
-                #transferEmbryologist="ngModel" required [compareWith]="compareObjects">
+                #transferEmbryologist="ngModel" [compareWith]="compareObjects">
                 <option *ngFor="let p of embryologists()" [ngValue]="p">
                   {{ p.name }}
                 </option>
               </select>
-
-              <div class="error mt-1" *ngIf="transferEmbryologist.invalid && transferEmbryologist.touched">
-                Please select a value
-              </div>
             </td>
 
             <td>
               <select class="form-select" [(ngModel)]="row.witness" [name]="'transferWitness' + i"
-                #transferWitness="ngModel" required [compareWith]="compareObjects">
+                #transferWitness="ngModel" [compareWith]="compareObjects">
                 <option *ngFor="let p of embryologists()" [ngValue]="p">
                   {{ p.name }}
                 </option>
               </select>
-
-              <div class="error mt-1" *ngIf="transferWitness.invalid && transferWitness.touched">
-                Please select a value
-              </div>
             </td>
 
             <td>

@@ -1,41 +1,78 @@
-<div class="row g-3 mt-3">
-  <div class="col-md-6">
-    <label for="name" class="form-label">Name </label>
-    <input type="text" class="form-control" id="name" [(ngModel)]="procedure.patient.name" #name="ngModel" name="name"
-      disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="nationalId" class="form-label">National ID</label>
-    <input type="text" class="form-control" id="nationalId" [(ngModel)]="procedure.patient.nationalId"
-      #nationalId="ngModel" name="nationalId" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="phoneNumber" class="form-label">Phone Number</label>
-    <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="procedure.patient.phoneNumber"
-      #phoneNumber="ngModel" name="phoneNumber" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="age" class="form-label">Age</label>
-    <input type="text" class="form-control" id="age" [(ngModel)]="procedure.patient.age" #age="ngModel" name="age"
-      disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="husbandName" class="form-label">Husband's Name</label>
-    <input type="text" class="form-control" id="husbandName" [(ngModel)]="procedure.patient.husbandName"
-      #husbandname="ngModel" name="husbandname" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="husbandNationalId" class="form-label">Husband's ID</label>
-    <input type="text" class="form-control" id="husbandId" [(ngModel)]="procedure.patient.husbandNationalId"
-      #husbandNationalId="ngModel" name="husbandNationalId" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="husbandPhoneNumber" class="form-label">Physician</label>
-    <input type="text" class="form-control" id="husbandPhoneNumber" [(ngModel)]="procedure.physician.name"
-      #husbandPhoneNumber="ngModel" name="husbandPhoneNumber" disabled>
-  </div>
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card shadow-sm border-0 section-card">
+            <div class="card-header blue-header">
+                Patient Information
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="name" class="form-label">Name </label>
+                        <input type="text" class="form-control" id="name" [(ngModel)]="procedure.patient.name"
+                            #name="ngModel" name="name" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="nationalId" class="form-label">National ID</label>
+                        <input type="text" class="form-control" id="nationalId"
+                            [(ngModel)]="procedure.patient.nationalId" #nationalId="ngModel" name="nationalId" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phoneNumber"
+                            [(ngModel)]="procedure.patient.phoneNumber" #phoneNumber="ngModel" name="phoneNumber"
+                            disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="text" class="form-control" id="age" [(ngModel)]="procedure.patient.age"
+                            #age="ngModel" name="age" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="husbandName" class="form-label">Husband's Name</label>
+                        <input type="text" class="form-control" id="husbandName"
+                            [(ngModel)]="procedure.patient.husbandName" #husbandname="ngModel" name="husbandname"
+                            disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="husbandNationalId" class="form-label">Husband's ID</label>
+                        <input type="text" class="form-control" id="husbandId"
+                            [(ngModel)]="procedure.patient.husbandNationalId" #husbandNationalId="ngModel"
+                            name="husbandNationalId" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="husbandPhoneNumber" class="form-label">Husband Phone Number</label>
+                        <input type="text" class="form-control" id="husbandPhoneNumber"
+                            [(ngModel)]="procedure.patient.husbandPhoneNumber" #husbandPhoneNumber="ngModel"
+                            name="husbandPhoneNumber" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card shadow-sm border-0 section-card">
+            <div class="card-header blue-header">
+                Physician & Embryologist Information
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="physician" class="form-label">Physician</label>
+                        <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.physician.name"
+                            #physician="ngModel" name="physician" disabled>
+                    </div>                    
+                    <div class="col-md-6">
+                        <label for="embryologist" class="form-label">Embryologist</label>
+                        <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.embryologist.name"
+                            #embryologist="ngModel" name="embryologist" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row g-3 mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
@@ -51,44 +88,33 @@
         </thead>
         <tbody>
           <tr>
-            <td class="label-cell required-label">Last Semen Analysis Parameters</td>
+            <td class="label-cell ">Last Semen Analysis Parameters</td>
             <td>
               <textarea class="form-control" rows="2" [(ngModel)]="procedure.values['lastSemenAnalysisParameters']"
-                name="lastSemenAnalysisParameters" #lastSemenAnalysisParameters="ngModel" required
+                name="lastSemenAnalysisParameters" #lastSemenAnalysisParameters="ngModel"
                 placeholder="Volume, count, motility, morphology..."></textarea>
-              <div class="error mt-1"
-                *ngIf="lastSemenAnalysisParameters.invalid && lastSemenAnalysisParameters.touched">
-                Please enter a value
-              </div>
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Previous Presence of Sperms in Semen</td>
+            <td class="label-cell ">Previous Presence of Sperms in Semen</td>
             <td>
               <select class="form-select" [(ngModel)]="procedure.values['previousPresenceOfSperms']"
-                name="previousPresenceOfSperms" #previousPresenceOfSperms="ngModel" required>
+                name="previousPresenceOfSperms" #previousPresenceOfSperms="ngModel">
                 <option value="Yes - Normozoospermia">Yes - Normozoospermia</option>
                 <option value="Yes - Oligozoospermia">Yes - Oligozoospermia</option>
                 <option value="Yes - Asthenozoospermia">Yes - Asthenozoospermia</option>
                 <option value="No - Azoospermia">No - Azoospermia</option>
               </select>
-              <div class="error mt-1" *ngIf="previousPresenceOfSperms.invalid && previousPresenceOfSperms.touched">
-                Please select a value
-              </div>
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Previous Sperm Retrieval Operations/Results</td>
+            <td class="label-cell ">Previous Sperm Retrieval Operations/Results</td>
             <td>
               <textarea class="form-control" rows="2" [(ngModel)]="procedure.values['previousSpermRetrievalResults']"
-                name="previousSpermRetrievalResults" #previousSpermRetrievalResults="ngModel" required
+                name="previousSpermRetrievalResults" #previousSpermRetrievalResults="ngModel"
                 placeholder="Previous TESA/TESE, findings..."></textarea>
-              <div class="error mt-1"
-                *ngIf="previousSpermRetrievalResults.invalid && previousSpermRetrievalResults.touched">
-                Please enter a value
-              </div>
             </td>
           </tr>
 
@@ -105,7 +131,6 @@
     </div>
   </div>
 </div>
-
 <div class="row g-3 mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
@@ -121,28 +146,19 @@
         </thead>
         <tbody>
           <tr>
-            <td class="label-cell required-label">Number of Aspirations/Biopsies</td>
+            <td class="label-cell ">Number of Aspirations/Biopsies</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['numberOfAspirationsBiopsies']"
-                name="numberOfAspirationsBiopsies" #numberOfAspirationsBiopsies="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1"
-                *ngIf="numberOfAspirationsBiopsies.invalid && numberOfAspirationsBiopsies.touched">
-                Numbers only allowed
-              </div>
+                name="numberOfAspirationsBiopsies" #numberOfAspirationsBiopsies="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Tissue Appearance</td>
+            <td class="label-cell ">Tissue Appearance</td>
             <td>
               <textarea class="form-control" rows="2" [(ngModel)]="procedure.values['tissueAppearance']"
-                name="tissueAppearance" #tissueAppearance="ngModel" required appTextOnly
+                name="tissueAppearance" #tissueAppearance="ngModel"
                 placeholder="Color, consistency, seminiferous tubules presence..."></textarea>
-
-              <div class="error mt-1" *ngIf="tissueAppearance.invalid && tissueAppearance.touched">
-                Alphabetic Characters only allowed
-              </div>
             </td>
           </tr>
         </tbody>
@@ -150,7 +166,6 @@
     </div>
   </div>
 </div>
-
 <div class="row g-3 mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
@@ -166,53 +181,39 @@
         </thead>
         <tbody>
           <tr>
-            <td class="label-cell required-label">Spermatozoa Found</td>
+            <td class="label-cell ">Spermatozoa Found</td>
             <td>
               <select class="form-select" [(ngModel)]="procedure.values['spermatozoaFound']" name="spermatozoaFound"
-                #spermatozoaFound="ngModel" required>
+                #spermatozoaFound="ngModel">
                 <option value="Yes - Numerous">Yes - Numerous</option>
                 <option value="Yes - Few">Yes - Few</option>
                 <option value="Yes - Rare">Yes - Rare</option>
                 <option value="No - Absent">No - Absent</option>
               </select>
-              <div class="error mt-1" *ngIf="spermatozoaFound.invalid && spermatozoaFound.touched">
-                Please select a value
-              </div>
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Sperm Count (per HPF/µL)</td>
+            <td class="label-cell ">Sperm Count (per HPF/µL)</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['spermCount']" name="spermCount"
-                #spermCount="ngModel" required placeholder="e.g., 5-10/HPF">
-              <div class="error mt-1" *ngIf="spermCount.invalid && spermCount.touched">
-                Please enter a value
-              </div>
+                #spermCount="ngModel" placeholder="e.g., 5-10/HPF">
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Sperm Motility</td>
+            <td class="label-cell ">Sperm Motility</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['spermMotility']"
-                name="spermMotility" #spermMotility="ngModel" required appTextOnly
-                placeholder="Progressive, Non-progressive, Immotile">
-
-              <div class="error mt-1" *ngIf="spermMotility.invalid && spermMotility.touched">
-                Alphabetic Characters only allowed
-              </div>
+                name="spermMotility" #spermMotility="ngModel" placeholder="Progressive, Non-progressive, Immotile">
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Sperm Morphology</td>
+            <td class="label-cell ">Sperm Morphology</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['spermMorphology']"
-                name="spermMorphology" #spermMorphology="ngModel" required placeholder="Normal forms %">
-              <div class="error mt-1" *ngIf="spermMorphology.invalid && spermMorphology.touched">
-                Please enter a value
-              </div>
+                name="spermMorphology" #spermMorphology="ngModel" placeholder="Normal forms %">
             </td>
           </tr>
 
@@ -228,7 +229,6 @@
     </div>
   </div>
 </div>
-
 <div class="row g-3 mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
@@ -244,17 +244,14 @@
         </thead>
         <tbody>
           <tr>
-            <td class="label-cell required-label">Sperm Freezing Performed</td>
+            <td class="label-cell ">Sperm Freezing Performed</td>
             <td>
               <select class="form-select" [(ngModel)]="procedure.values['spermFreezingPerformed']"
-                name="spermFreezingPerformed" #spermFreezingPerformed="ngModel" required>
+                name="spermFreezingPerformed" #spermFreezingPerformed="ngModel">
                 <option value="Yes - Frozen">Yes - Frozen</option>
                 <option value="No - Not Frozen">No - Not Frozen</option>
                 <option value="Yes - Cryopreserved for future ICSI">Yes - Cryopreserved for future ICSI</option>
               </select>
-              <div class="error mt-1" *ngIf="spermFreezingPerformed.invalid && spermFreezingPerformed.touched">
-                Please select a value
-              </div>
             </td>
           </tr>
         </tbody>
@@ -262,7 +259,6 @@
     </div>
   </div>
 </div>
-
 <div class="row g-3 mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
@@ -281,34 +277,28 @@
             </thead>
             <tbody>
               <tr>
-                <td class="required-label">Embryologist</td>
+                <td>Embryologist</td>
                 <td>
                   <select class="form-select" [(ngModel)]="procedure.values['embryologist']" name="embryologist"
-                    #embryologist="ngModel" required [compareWith]="compareObjects">
+                    #embryologist="ngModel" [compareWith]="compareObjects">
                     <option *ngFor="let p of embryologists()" [ngValue]="p">
                       {{ p.name }}
                     </option>
                   </select>
-                  <div class="error mt-1" *ngIf="embryologist.invalid && embryologist.touched">
-                    Please select a value
-                  </div>
                 </td>
                 <td>
                 </td>
               </tr>
 
               <tr>
-                <td class="required-label">Witness</td>
+                <td>Witness</td>
                 <td>
                   <select class="form-select" [(ngModel)]="procedure.values['witness']" name="witness"
-                    #witness="ngModel" required [compareWith]="compareObjects">
+                    #witness="ngModel" [compareWith]="compareObjects">
                     <option *ngFor="let p of embryologists()" [ngValue]="p">
                       {{ p.name }}
                     </option>
                   </select>
-                  <div class="error mt-1" *ngIf="witness.invalid && witness.touched">
-                    Please select a value
-                  </div>
                 </td>
                 <td></td>
               </tr>

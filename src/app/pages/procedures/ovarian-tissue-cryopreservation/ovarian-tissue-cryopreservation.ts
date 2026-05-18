@@ -9,7 +9,7 @@ import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-ovarian-tissue-cryopreservation',
-  imports: [FormsModule, CommonModule, NumbersOnly, TextOnly],
+  imports: [FormsModule, CommonModule],
   templateUrl: './ovarian-tissue-cryopreservation.html',
   styleUrl: './ovarian-tissue-cryopreservation.css',
   viewProviders: [

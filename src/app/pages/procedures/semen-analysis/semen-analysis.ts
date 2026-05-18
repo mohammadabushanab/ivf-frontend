@@ -7,7 +7,7 @@ import { TextOnly } from '../../../shared/directives/text-only';
 
 @Component({
   selector: 'app-semen-analysis',
-  imports: [FormsModule, CommonModule, NumbersOnly, TextOnly],
+  imports: [FormsModule, CommonModule],
   templateUrl: './semen-analysis.html',
   styleUrl: './semen-analysis.css',
   viewProviders: [

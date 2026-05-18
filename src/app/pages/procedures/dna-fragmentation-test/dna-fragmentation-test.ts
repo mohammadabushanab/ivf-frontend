@@ -7,7 +7,7 @@ import { TextOnly } from '../../../shared/directives/text-only';
 
 @Component({
   selector: 'app-dna-fragmentation-test',
-  imports: [FormsModule, CommonModule, NumbersOnly, TextOnly],
+  imports: [FormsModule, CommonModule],
   templateUrl: './dna-fragmentation-test.html',
   styleUrl: './dna-fragmentation-test.css',
   viewProviders: [

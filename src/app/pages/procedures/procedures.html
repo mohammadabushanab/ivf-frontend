@@ -71,7 +71,7 @@
                         <tr *ngFor="let p of procedures()">
                             <td data-label="ID">PE-{{p.id}}</td>
                             <td data-label="Name">{{p.procedureType.name}}</td>
-                            <td data-label="Physician">{{p.physician?.name || ''}}</td>
+                            <td data-label="Physician">{{p.physician == null ? '' : p.physician.name}}</td>
                             <td data-label="Patient's Name">{{p.patient.name}}</td>
                             <td data-label="Patient's National ID">{{p.patient.nationalId}}</td>
                             <td data-label="Patient's Phone Number">{{p.patient.phoneNumber}}</td>
@@ -200,7 +200,7 @@
             </app-testicular-sperm-retrieval>              
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-secondary" [disabled]="procedureForm.invalid">Submit</button>
+            <button type="submit" class="btn btn-outline-secondary" [disabled]="procedureForm.invalid">Save</button>
             <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">Close</button>
         </div>
     </form>

@@ -100,7 +100,7 @@ export class Procedures {
       this.procedureForSearch.isPaid = true;
     }
 
-    console.log("this.role " + this.role )
+    console.log("this.role " + this.role)
 
     const data = await this.procedureService.get(this.procedureForSearch);
     this.procedures.set(data);
@@ -109,6 +109,10 @@ export class Procedures {
   openEditModal(procedure: Procedure) {
 
     this.procedureForEdit = { ...procedure };
+
+    if (this.role == "Embryologist" && this.currentUser != null) {
+      this.procedureForEdit.embryologist = this.currentUser;
+    }
 
     if (this.role == "Receptionist") {
       this.open(this.editForReceptionistModal, 'xl')
@@ -119,10 +123,6 @@ export class Procedures {
   }
 
   async updateProcedure() {
-
-    if (this.role == "Embryologist" && this.currentUser != null) {
-      this.procedureForEdit.embryologist = this.currentUser;
-    }
 
     const data = await this.procedureService.update(this.procedureForEdit);
 
@@ -289,8 +289,8 @@ export class Procedures {
     }
   }
 
-  isUpdateProceDureDisabled(){
-    if(this.procedureForEdit.physician != null){
+  isUpdateProceDureDisabled() {
+    if (this.procedureForEdit.physician != null) {
       return false;
     }
     return true;

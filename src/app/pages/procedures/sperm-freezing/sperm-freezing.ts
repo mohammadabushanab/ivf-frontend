@@ -9,7 +9,7 @@ import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-sperm-freezing',
-  imports: [FormsModule, CommonModule, NumbersOnly, TextOnly],
+  imports: [FormsModule, CommonModule],
   templateUrl: './sperm-freezing.html',
   styleUrl: './sperm-freezing.css',
   viewProviders: [

@@ -7,7 +7,7 @@ import { TextOnly } from '../../../shared/directives/text-only';
 
 @Component({
   selector: 'app-retrograde-ejaculate-analysis',
-  imports: [FormsModule, CommonModule, NumbersOnly, TextOnly],
+  imports: [FormsModule, CommonModule],
   templateUrl: './retrograde-ejaculate-analysis.html',
   styleUrl: './retrograde-ejaculate-analysis.css',
   viewProviders: [

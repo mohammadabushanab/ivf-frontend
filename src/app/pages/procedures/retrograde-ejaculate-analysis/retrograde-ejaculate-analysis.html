@@ -1,46 +1,79 @@
-<div class="row g-3 mt-3">
-  <div class="col-md-6">
-    <label for="name" class="form-label">Name </label>
-    <input type="text" class="form-control" id="name" [(ngModel)]="procedure.patient.name" #name="ngModel" name="name"
-      disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="nationalId" class="form-label">National ID</label>
-    <input type="text" class="form-control" id="nationalId" [(ngModel)]="procedure.patient.nationalId"
-      #nationalId="ngModel" name="nationalId" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="phoneNumber" class="form-label">Phone Number</label>
-    <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="procedure.patient.phoneNumber"
-      #phoneNumber="ngModel" name="phoneNumber" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="age" class="form-label">Age</label>
-    <input type="text" class="form-control" id="age" [(ngModel)]="procedure.patient.age" #age="ngModel" name="age"
-      disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="husbandName" class="form-label">Husband's Name</label>
-    <input type="text" class="form-control" id="husbandName" [(ngModel)]="procedure.patient.husbandName"
-      #husbandname="ngModel" name="husbandname" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="husbandNationalId" class="form-label">Husband's ID</label>
-    <input type="text" class="form-control" id="husbandId" [(ngModel)]="procedure.patient.husbandNationalId"
-      #husbandNationalId="ngModel" name="husbandNationalId" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="husbandPhoneNumber" class="form-label">Phone Number</label>
-    <input type="text" class="form-control" id="husbandPhoneNumber" [(ngModel)]="procedure.patient.husbandPhoneNumber"
-      #husbandPhoneNumber="ngModel" name="husbandPhoneNumber" disabled>
-  </div>
-  <div class="col-md-6">
-    <label for="husbandPhoneNumber" class="form-label">Physician</label>
-    <input type="text" class="form-control" id="husbandPhoneNumber" [(ngModel)]="procedure.physician.name"
-      #husbandPhoneNumber="ngModel" name="husbandPhoneNumber" disabled>
-  </div>
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card shadow-sm border-0 section-card">
+            <div class="card-header blue-header">
+                Patient Information
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="name" class="form-label">Name </label>
+                        <input type="text" class="form-control" id="name" [(ngModel)]="procedure.patient.name"
+                            #name="ngModel" name="name" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="nationalId" class="form-label">National ID</label>
+                        <input type="text" class="form-control" id="nationalId"
+                            [(ngModel)]="procedure.patient.nationalId" #nationalId="ngModel" name="nationalId" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phoneNumber"
+                            [(ngModel)]="procedure.patient.phoneNumber" #phoneNumber="ngModel" name="phoneNumber"
+                            disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="text" class="form-control" id="age" [(ngModel)]="procedure.patient.age"
+                            #age="ngModel" name="age" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="husbandName" class="form-label">Husband's Name</label>
+                        <input type="text" class="form-control" id="husbandName"
+                            [(ngModel)]="procedure.patient.husbandName" #husbandname="ngModel" name="husbandname"
+                            disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="husbandNationalId" class="form-label">Husband's ID</label>
+                        <input type="text" class="form-control" id="husbandId"
+                            [(ngModel)]="procedure.patient.husbandNationalId" #husbandNationalId="ngModel"
+                            name="husbandNationalId" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="husbandPhoneNumber" class="form-label">Husband Phone Number</label>
+                        <input type="text" class="form-control" id="husbandPhoneNumber"
+                            [(ngModel)]="procedure.patient.husbandPhoneNumber" #husbandPhoneNumber="ngModel"
+                            name="husbandPhoneNumber" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="row g-3 mt-3">
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card shadow-sm border-0 section-card">
+            <div class="card-header blue-header">
+                Physician & Embryologist Information
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="physician" class="form-label">Physician</label>
+                        <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.physician.name"
+                            #physician="ngModel" name="physician" disabled>
+                    </div>                    
+                    <div class="col-md-6">
+                        <label for="embryologist" class="form-label">Embryologist</label>
+                        <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.embryologist.name"
+                            #embryologist="ngModel" name="embryologist" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
       <div class="card-header text-white ">
@@ -55,38 +88,26 @@
         </thead>
         <tbody>
           <tr>
-            <td class="label-cell required-label">Semen production</td>
+            <td class="label-cell -label">Semen production</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['semenProduction']"
-                name="semenProduction" #semenProduction="ngModel" required appTextOnly>
-
-              <div class="error mt-1" *ngIf="semenProduction.invalid && semenProduction.touched">
-                Alphabetic Characters only allowed
-              </div>
+                name="semenProduction" #semenProduction="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Semen volume</td>
+            <td class="label-cell -label">Semen volume</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['semenVolume']" name="semenVolume"
-                #semenVolume="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="semenVolume.invalid && semenVolume.touched">
-                Numbers only allowed
-              </div>
+                #semenVolume="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Sperm count</td>
+            <td class="label-cell -label">Sperm count</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['spermCount']" name="spermCount"
-                #spermCount="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="spermCount.invalid && spermCount.touched">
-                Numbers only allowed
-              </div>
+                #spermCount="ngModel">
             </td>
           </tr>
         </tbody>
@@ -94,8 +115,7 @@
     </div>
   </div>
 </div>
-
-<div class="row g-3 mt-3">
+<div class="row mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
       <div class="card-header text-white ">
@@ -110,50 +130,34 @@
         </thead>
         <tbody>
           <tr>
-            <td class="label-cell required-label">Period of abstinence (Days)</td>
+            <td class="label-cell -label">Period of abstinence (Days)</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['retroPeriodOfAbstinence']"
-                name="retroPeriodOfAbstinence" #retroPeriodOfAbstinence="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="retroPeriodOfAbstinence.invalid && retroPeriodOfAbstinence.touched">
-                Numbers only allowed
-              </div>
+                name="retroPeriodOfAbstinence" #retroPeriodOfAbstinence="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Appearance</td>
+            <td class="label-cell -label">Appearance</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['retroAppearance']"
-                name="retroAppearance" #retroAppearance="ngModel" required appTextOnly>
-
-              <div class="error mt-1" *ngIf="retroAppearance.invalid && retroAppearance.touched">
-                Alphabetic Characters only allowed
-              </div>
+                name="retroAppearance" #retroAppearance="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">PH of retrograde ejaculate</td>
+            <td class="label-cell -label">PH of retrograde ejaculate</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['retroPh']" name="retroPh"
-                #retroPh="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="retroPh.invalid && retroPh.touched">
-                Numbers only allowed
-              </div>
+                #retroPh="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Volume of retrograde ejaculate (ml)</td>
+            <td class="label-cell -label">Volume of retrograde ejaculate (ml)</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['retroVolume']" name="retroVolume"
-                #retroVolume="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="retroVolume.invalid && retroVolume.touched">
-                Numbers only allowed
-              </div>
+                #retroVolume="ngModel">
             </td>
           </tr>
         </tbody>
@@ -161,8 +165,7 @@
     </div>
   </div>
 </div>
-
-<div class="row g-3 mt-3">
+<div class="row mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
       <div class="card-header text-white ">
@@ -177,52 +180,34 @@
         </thead>
         <tbody>
           <tr>
-            <td class="label-cell required-label">Sperm count before centrifugation (x 10⁶/ml)</td>
+            <td class="label-cell -label">Sperm count before centrifugation (x 10⁶/ml)</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['spermCountBeforeCentrifugation']"
-                name="spermCountBeforeCentrifugation" #spermCountBeforeCentrifugation="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1"
-                *ngIf="spermCountBeforeCentrifugation.invalid && spermCountBeforeCentrifugation.touched">
-                Numbers only allowed
-              </div>
+                name="spermCountBeforeCentrifugation" #spermCountBeforeCentrifugation="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Sperm count after centrifugation (x 10⁶/ml)</td>
+            <td class="label-cell -label">Sperm count after centrifugation (x 10⁶/ml)</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['spermCountAfterCentrifugation']"
-                name="spermCountAfterCentrifugation" #spermCountAfterCentrifugation="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1"
-                *ngIf="spermCountAfterCentrifugation.invalid && spermCountAfterCentrifugation.touched">
-                Numbers only allowed
-              </div>
+                name="spermCountAfterCentrifugation" #spermCountAfterCentrifugation="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Total sperm count (x 10⁶)</td>
+            <td class="label-cell -label">Total sperm count (x 10⁶)</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['retroTotalSpermCount']"
-                name="retroTotalSpermCount" #retroTotalSpermCount="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="retroTotalSpermCount.invalid && retroTotalSpermCount.touched">
-                Numbers only allowed
-              </div>
+                name="retroTotalSpermCount" #retroTotalSpermCount="ngModel">
             </td>
           </tr>
 
           <tr>
-            <td class="label-cell required-label">Percentage of motile sperms (%)</td>
+            <td class="label-cell -label">Percentage of motile sperms (%)</td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="procedure.values['percentageOfMotileSperms']"
-                name="percentageOfMotileSperms" #percentageOfMotileSperms="ngModel" required appNumbersOnly>
-
-              <div class="error mt-1" *ngIf="percentageOfMotileSperms.invalid && percentageOfMotileSperms.touched">
-                Numbers only allowed
-              </div>
+                name="percentageOfMotileSperms" #percentageOfMotileSperms="ngModel">
             </td>
           </tr>
         </tbody>
@@ -230,7 +215,7 @@
     </div>
   </div>
 </div>
-<div class="row g-3 mt-3">
+<div class="row mt-3">
   <div class="col-md-12">
     <label class="form-label">Comment</label>
     <textarea #commentBox class="form-control" id="comment" name="comment"

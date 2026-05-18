@@ -19,7 +19,7 @@
   height: 100vh;
 
   z-index: 1040;
-  background-color: #FF1493 !important;
+  background-color: #1E90FF !important;
 }
 
 #page-content-wrapper {
@@ -82,7 +82,7 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-  background: #FF1493;
+  background: #1E90FF;
   border-radius: 10px;
 }
 
@@ -104,7 +104,7 @@
 
 #sidebar-wrapper .list-group-item {
   color: #FFF;
-  background: #FF1493;
+  background: #1E90FF;
   border: none;
   margin: 5px;
   border-radius: 10px;
@@ -112,12 +112,12 @@
 }
 
 #sidebar-wrapper .list-group-item:hover {
-  background: #FF5DAA;
+  background: #5DAAFF;
   color: #fff;
 }
 
 #sidebar-wrapper .list-group-item.active {
-  background: #FF5DAA;
+  background: #5DAAFF;
   color: #fff;
 }
 
@@ -138,19 +138,19 @@
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-link:hover {
-  color: #FF1493;
+  color: #1E90FF;
 }
 
 
 .navbar-nav .nav-item a:hover {
-  color: #FF1493;
+  color: #1E90FF;
   cursor: pointer;
 }
 
 /* Login */
 #login-wrapper {
   min-height: 100vh;
-  background: #FF1493;
+  background: #1E90FF;
 }
 
 #login-wrapper .left-content {
@@ -242,20 +242,20 @@ body {
 }
 
 .btn {
-  background: #FF1493;
+  background: #1E90FF;
   border: none;
   color: white;
   transition: all 0.3s ease;
   padding: 10px;
   width: 20%;
   font-size: 14px;
-  border: 1px solid #FF1493;
+  border: 1px solid #1E90FF;
 }
 
 .btn:hover {
   opacity: 0.95;
-  border: 1px solid #FF1493;
-  color: FF1493;
+  border: 1px solid #1E90FF;
+  color: 1E90FF;
   background: #FFF;
 }
 
@@ -277,21 +277,21 @@ body {
 }
 
 .form-control:focus {
-  border-color: #FF1493;
+  border-color: #1E90FF;
   box-shadow: none;
 }
 
 .modal-content {
-  color: #FF1493;
+  color: #1E90FF;
 }
 
 .modal-header {
-  background: #FF1493;
+  background: #1E90FF;
   color: #FFF;
 }
 
 .card-header {
-  background: #FF1493;
+  background: #1E90FF;
   color: #FFF;
 }
 
@@ -324,7 +324,7 @@ table.table thead th {
 }
 
 .custom-table tbody tr:hover td {
-  color: #FF1493;
+  color: #1E90FF;
 }
 
 
@@ -348,7 +348,7 @@ table.table thead th {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(13, 138, 240, 0.08);
-    border-left: 4px solid #FF1493;
+    border-left: 4px solid #1E90FF;
   }
 
   .custom-table td {
@@ -365,7 +365,7 @@ table.table thead th {
 
   .custom-table td::before {
     content: attr(data-label);
-    color: #FF1493;
+    color: #1E90FF;
   }
 
   .custom-table td:hover::before {
@@ -375,7 +375,7 @@ table.table thead th {
 
 /* message */
 .modal-body.message {
-  color: #FF1493;
+  color: #1E90FF;
   font-size: 16px;
 }
 
@@ -398,8 +398,8 @@ table.table thead th {
 .modal-body .btn,
 .modal-header .btn {
   background: #FFF;
-  color: #FF1493;
-  border: 1px solid #FF1493;
+  color: #1E90FF;
+  border: 1px solid #1E90FF;
   width: auto;
 }
 
@@ -407,7 +407,7 @@ table.table thead th {
 .modal-header .btn:hover {
   border: 1px solid #FFF;
   color: #FFF;
-  background: #FF1493;
+  background: #1E90FF;
 }
 
 .modal-footer {
@@ -421,7 +421,7 @@ table.table thead th {
 
 /* error */
 .error {
-  color: #FF1493;
+  color: #1E90FF;
 }
 
 .modal-content .error {
@@ -430,8 +430,8 @@ table.table thead th {
 
 /* price */
 .custom-block {
-  background: linear-gradient(135deg, #FF1493, #ffffff);
-  border: 1px solid #FF1493;
+  background: linear-gradient(135deg, #1E90FF, #ffffff);
+  border: 1px solid #1E90FF;
   border-radius: 12px;
   padding: 20px;
   display: flex;
@@ -458,7 +458,7 @@ table.table thead th {
 .currency {
   font-size: 14px;
   font-weight: 500;
-  color: #FF1493;
+  color: #1E90FF;
 }
 
 /* readonly mode */
@@ -571,7 +571,7 @@ table.table thead th {
 }
 
 .stat-icon.pink {
-  background: linear-gradient(135deg, #ff1493, #ff5db8);
+  background: linear-gradient(135deg, #1E90FF, #ff5db8);
 }
 
 .card-title-row {
@@ -613,7 +613,7 @@ table.table thead th {
   height: 28px;
   border-radius: 10px;
   background: #fff0f8;
-  color: #ff1493;
+  color: #1E90FF;
   font-size: 14px;
   font-weight: 800;
   display: flex;
@@ -630,7 +630,7 @@ table.table thead th {
 
 .custom-progress .progress-bar {
   border-radius: 30px;
-  background: linear-gradient(90deg, #ff1493, #ff6ec7);
+  background: linear-gradient(90deg, #1E90FF, #ff6ec7);
   transition: width 0.5s ease;
 }
 
@@ -655,7 +655,7 @@ table.table thead th {
 }
 
 .freezing-box strong {
-  color: #ff1493;
+  color: #1E90FF;
   font-size: 22px;
 }
 
@@ -664,7 +664,7 @@ table.table thead th {
   height: 190px;
   margin: auto;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ff1493, #ff7ac8);
+  background: linear-gradient(135deg, #1E90FF, #ff7ac8);
   color: #fff;
   display: flex;
   flex-direction: column;

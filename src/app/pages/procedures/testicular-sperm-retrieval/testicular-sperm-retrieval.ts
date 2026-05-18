@@ -9,7 +9,7 @@ import { UserService } from '../../../core/services/user-service';
 
 @Component({
   selector: 'app-testicular-sperm-retrieval',
-  imports: [FormsModule, CommonModule, NumbersOnly, TextOnly],
+  imports: [FormsModule, CommonModule],
   templateUrl: './testicular-sperm-retrieval.html',
   styleUrl: './testicular-sperm-retrieval.css',
   viewProviders: [

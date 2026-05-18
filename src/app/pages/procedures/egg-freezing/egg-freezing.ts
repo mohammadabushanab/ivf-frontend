@@ -9,7 +9,7 @@ import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-egg-freezing',
-  imports: [FormsModule, CommonModule, NumbersOnly, TextOnly],
+  imports: [FormsModule, CommonModule],
   templateUrl: './egg-freezing.html',
   styleUrl: './egg-freezing.css',
   viewProviders: [
