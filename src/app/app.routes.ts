@@ -6,6 +6,12 @@ import { authGuard } from './core/guards/auth-guard';
 import { Procedures } from './pages/procedures/procedures';
 import { Reports } from './pages/reports/reports';
 import { Dashboard } from './pages/dashboard/dashboard';
+import { IVFTreatmentWorkflowTracker} from './pages/trakers/treatment-workflow-tracker/ivf-treatment-workflow-tracker';
+import { OvarianTissueCryopreservationFreezing } from './pages/freezing/ovarian-tissue-cryopreservation/ovarian-tissue-cryopreservation-freezing';
+import { SpermFreezing } from './pages/freezing/sperm-freezing/sperm-freezing';
+import { OocyteFreezing } from './pages/freezing/oocyte-freezing/oocyte-freezing';
+import { EmbryoFreezing } from './pages/freezing/embryo-freezing/embryo-freezing';
+import { OPULiveTracker } from './pages/trakers/opu-operation-tracker/opu-live-tracker';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -29,7 +35,31 @@ export const routes: Routes = [
             {
                 path: 'dashboard',
                 component: Dashboard
-            }                            
+            },
+            {
+                path: 'treatmentWorkflowTracker',
+                component: IVFTreatmentWorkflowTracker
+            },
+            {
+                path: 'opuLiveTracker',
+                component: OPULiveTracker
+            },
+            {
+                path: 'embryoFreezing',
+                component: EmbryoFreezing
+            },
+            {
+                path: 'oocyteFreezing',
+                component: OocyteFreezing
+            },
+            {
+                path: 'spermFreezing',
+                component: SpermFreezing
+            },
+            {
+                path: 'ovarianTissueCryopreservationFreezing',
+                component: OvarianTissueCryopreservationFreezing
+            }            
         ]
     }
 ];

@@ -139,6 +139,11 @@
                                 </a>
                             </td>
                         </tr>
+                        <tr *ngIf="procedures().length === 0">
+                            <td colspan="11" class="text-center">
+                                No procedures found
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -202,7 +207,7 @@
                 <div class="col-md-12">
                     <label for="procedureType" class="form-label">Notes</label>
                     <textarea class="form-control" [(ngModel)]="procedureForEdit.notes" name="notes"></textarea>
-                </div>                  
+                </div>
             </div>
         </div>
         <div class="modal-footer">

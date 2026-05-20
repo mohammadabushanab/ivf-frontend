@@ -96,6 +96,11 @@
                                 </a>
                             </td>
                         </tr>
+                        <tr *ngIf="patients().length === 0">
+                            <td colspan="10" class="text-center">
+                                No patients found
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -281,9 +286,14 @@
                     </div>
                 </div>
                 <div class="col-md-12">
+                    <label for="procedureType" class="form-label">Scheduled Date</label>
+                    <input type="datetime-local" class="form-control" [(ngModel)]="procedure.scheduledDate"
+                        name="scheduledDate">
+                </div>                
+                <div class="col-md-12">
                     <label for="procedureType" class="form-label">Notes</label>
                     <textarea class="form-control" [(ngModel)]="procedure.notes" name="notes"></textarea>
-                </div>                   
+                </div>
             </div>
         </div>
         <div class="modal-footer">

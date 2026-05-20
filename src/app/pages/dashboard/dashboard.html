@@ -15,7 +15,7 @@
         </div>
         <div>
           <p>Total Patients</p>
-          <h3>{{ dashboardData()?.totalPatients }}</h3>
+          <h3>{{ totalPatients() }}</h3>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
         </div>
         <div>
           <p>Total Procedures</p>
-          <h3>{{ dashboardData()?.totalProcedures }}</h3>
+          <h3>{{ totalProcedures() }}</h3>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
         </div>
         <div>
           <p>Frozen Items</p>
-          <h3>{{ dashboardData()?.totalFreezingItems }}</h3>
+          <h3>{{ totalFreezingItems() }}</h3>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
         <div class="procedure-bars">
           <div
             class="procedure-bar-item"
-            *ngFor="let item of dashboardData()?.proceduresCounts"
+            *ngFor="let item of proceduresCount()"
           >
             <div class="d-flex justify-content-between mb-2">
               <span class="procedure-name">
@@ -92,22 +92,22 @@
         <div class="freezing-box">
           <div>
             <span>Embryos</span>
-            <strong>{{ dashboardData()?.frozenEmbryos }}</strong>
+            <strong>{{ frozenEmbryos()}}</strong>
           </div>
 
           <div>
             <span>Eggs</span>
-            <strong>{{ dashboardData()?.frozenEggs }}</strong>
+            <strong>{{ frozenEggs()}}</strong>
           </div>
 
           <div>
             <span>Sperm Ampoules</span>
-            <strong>{{ dashboardData()?.frozenSpermAmpoules }}</strong>
+            <strong>{{ frozenSpermAmpoules()}}</strong>
           </div>
         </div>
 
         <div class="summary-circle mt-4">
-          <h2>{{ dashboardData()?.totalFreezingItems }}</h2>
+          <h2>{{ totalFreezingItems() }}</h2>
           <p>Total Frozen Items</p>
         </div>
       </div>

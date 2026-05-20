@@ -1,0 +1,132 @@
+<div class="row g-4 mt-3">
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-database"></i>
+            </div>
+            <div>
+                <p>Total Records</p>
+                <h3>7</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-snowflake"></i>
+            </div>
+            <div>
+                <p>Embryos Remaining</p>
+                <h3>10</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <p>Zero Remaining</p>
+                <h3>4</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+            </div>
+            <div>
+                <p>With Mobile #</p>
+                <h3>3</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row g-3 mt-3">
+    <div class="col-md-6">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="patientForSearch.name">
+    </div>
+    <div class="col-md-6">
+        <label for="nationalId" class="form-label">National ID</label>
+        <input type="text" class="form-control" id="nationalId" [(ngModel)]="patientForSearch.nationalId">
+    </div>
+    <div class="col-md-6">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="patientForSearch.phoneNumber">
+    </div>
+    <div class="col-md-6">
+        <label for="husbandName" class="form-label">Husband's Name</label>
+        <input type="text" class="form-control" id="husbandName" [(ngModel)]="patientForSearch.husbandName">
+    </div>
+    <div class="col-md-6">
+        <label for="fromDate" class="form-label">From Date</label>
+
+        <input type="date" class="form-control" id="fromDate" [(ngModel)]="patientForSearch.fromDate">
+    </div>
+    <div class="col-md-6">
+        <label for="toDate" class="form-label">To Date</label>
+        <input type="date" class="form-control" id="toDate" [(ngModel)]="patientForSearch.toDate">
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <button class="btn me-2">
+            <i class="fa-solid fa-magnifying-glass me-2"></i>
+            Search
+        </button>
+        <button class="btn btn-outline-secondary">
+            <i class="fa-solid fa-rotate-right me-2"></i>
+            Reset
+        </button>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="table-responsive">
+        <table class="table custom-table tracker-table">
+            <thead>
+                <tr>
+                    <th>File Number</th>
+                    <th>Name</th>
+                    <th>National ID</th>
+                    <th>Age</th>
+                    <th>Phone Number</th>
+                    <th>Husband's Name</th>
+                    <th>Husband's National ID</th>
+                    <th>Husband's Phone Number</th>
+                    <th>Freezing Date</th>
+                    <th>Total</th>
+                    <th>Remaining</th>
+                    <th>Dewar</th>
+                    <th>Canister</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let e of eggs()">
+                    <td data-label="File Number">IVF-{{e.patient.id}}</td>
+                    <td data-label="Name">{{e.patient.name}}</td>
+                    <td data-label="National ID">{{e.patient.nationalId}}</td>
+                    <td data-label="Age">{{e.patient.age}}</td>
+                    <td data-label="Phone Number">{{e.patient.phoneNumber}}</td>
+                    <td data-label="Husband's Name">{{e.patient.husbandName}}</td>
+                    <td data-label="Husband's National ID">{{e.patient.husbandNationalId}}</td>
+                    <td data-label="Husband's Phone Number">{{e.patient.husbandPhoneNumber}}</td>
+                    <td data-label="Freezing Date">{{e.date | date:'dd MMM yyyy, HH:mm'}}</td>
+                    <td data-label="Total">{{e.total}}</td>
+                    <td data-label="Remaining">{{e.remaining}}</td>
+                    <td data-label="Dewar">{{e.dewar}}</td>
+                    <td data-label="Canister">{{e.canister}}</td>
+                    <td data-label="Notes">{{e.notes}}</td>
+                </tr>
+                <tr *ngIf="eggs().length === 0">
+                    <td colspan="10" class="text-center">
+                        No embryos found
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

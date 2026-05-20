@@ -122,8 +122,6 @@ export class Procedures {
   }
 
   async updateProcedure() {
-    
-    console.log(this.procedureForEdit)
 
     const data = await this.procedureService.update(this.procedureForEdit);
 
@@ -182,6 +180,7 @@ export class Procedures {
     this.procedureForSearch = this.newProcedure();
     this.procedureForEdit = this.newProcedure();
     this.procedureForPrint = this.newProcedure();
+    this.procedures.set([]);
   }
 
   async printWorkSheet(procedure: Procedure) {
@@ -260,6 +259,7 @@ export class Procedures {
         husbandNationalId: '',
         husbandName: '',
         husbandPhoneNumber: '',
+        selectedTreatmentType:'',
         createdDate: '',
         modifiedDate: '',
         fromDate: '',

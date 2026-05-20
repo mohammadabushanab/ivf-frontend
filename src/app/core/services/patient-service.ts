@@ -13,6 +13,24 @@ export class PatientService {
 
   private http = inject(HttpClient);
 
+  async getTotal(): Promise<number> {
+
+    try {
+
+      const request = this.http.get<number>(
+        this.apiUrl + '/api/patient/find-total'
+      );
+
+      const data = await lastValueFrom(request);
+
+      return data;
+
+    }
+    catch (error) {
+      console.error(error);
+      return 0;
+    }
+  }
 
   async get(patient: Patient): Promise<Patient[]> {
 

@@ -2,8 +2,6 @@ import { Component, inject, Input, signal } from '@angular/core';
 import { Procedure } from '../../../models/procedure';
 import { CommonModule } from '@angular/common';
 import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
-import { NumbersOnly } from '../../../shared/directives/numbers-only';
-import { TextOnly } from '../../../shared/directives/text-only';
 import { UserService } from '../../../core/services/user-service';
 import { User } from '../../../models/user';
 
@@ -28,8 +26,11 @@ export class EmbryoFreezing {
   private userService = inject(UserService);
 
   async ngOnInit(): Promise<void> {
+    if (!this.procedure.values || typeof this.procedure.values !== 'object') {
+      this.procedure.values = {};
+    }
 
-    let searchCriteria: User = {
+    const searchCriteria: User = {
       id: '',
       name: '',
       email: '',
@@ -44,35 +45,42 @@ export class EmbryoFreezing {
     const usersByRole = await this.userService.getUsersByRole(searchCriteria);
     this.embryologists.set(usersByRole);
 
-    if (!this.procedure.values['embryoRows']) {
+    if (!Array.isArray(this.procedure.values['embryoRows'])) {
       this.procedure.values['embryoRows'] = [...this.embryoRows];
     }
 
-    if (!this.procedure.values['embryoThawingRows']) {
+    if (!Array.isArray(this.procedure.values['embryoThawingRows'])) {
       this.procedure.values['embryoThawingRows'] = [...this.embryoThawingRows];
     }
 
-    if (!this.procedure.values['embryoTransferRows']) {
+    if (!Array.isArray(this.procedure.values['embryoTransferRows'])) {
       this.procedure.values['embryoTransferRows'] = [...this.embryoTransferRows];
     }
 
-    this.initEmbryoFreezingValues();
+    this.normalizeEmbryoRows();
+    this.normalizeEmbryoThawingRows();
+    this.normalizeEmbryoTransferRows();
+
+    this.updateTotalEmbroyosFrozen();
   }
 
   embryoRows: any[] = [
     {
       stage: '',
-      quality: ''
+      quality1: '',
+      quality2: ''
     }
   ];
 
   embryoThawingRows: any[] = [
     {
       date: '',
+      time: '',
       straws: '',
-      oocytes: '',
-      survived: '',
-      survival: '',
+      embryos: '',
+      survivedEmbryos: '',
+      survivalPercentage: '',
+      remainingEmbryos: '',
       embryologist: '',
       witness: '',
       notes: ''
@@ -82,52 +90,46 @@ export class EmbryoFreezing {
   embryoTransferRows: any[] = [
     {
       date: '',
-      oocytesUsed: '',
-      fertMethod: '',
-      twoPnFormed: '',
+      time: '',
+      catheter: '',
       embryos: '',
+      status: '',
+      difficulties: '',
       embryologist: '',
       witness: '',
       notes: ''
     }
   ];
 
-  initEmbryoFreezingValues(): void {
-    this.updateTotalEmbroyosFrozen();
-  }
-
   addEmbryoRow(): void {
     this.procedure.values['embryoRows'].push({
       stage: '',
-      quality: '',
-      notes: ''
+      quality1: '',
+      quality2: ''
     });
 
     this.updateTotalEmbroyosFrozen();
   }
 
   removeEmbryoRow(index: number): void {
-
     this.procedure.values['embryoRows'].splice(index, 1);
-
     this.updateTotalEmbroyosFrozen();
-
-
   }
 
   updateTotalEmbroyosFrozen(): void {
-    this.procedure.values['numberOfEmbryos'] = this.procedure.values['embryoRows'].length;
+    this.procedure.values['numberOfEmbryos'] =
+      this.procedure.values['embryoRows']?.length || 0;
   }
 
   addEmbryoThawingRow(): void {
     this.procedure.values['embryoThawingRows'].push({
       date: this.today(),
-      time: '08:00',
-      strawsThawed: '',
-      embryos: '',
-      survived: '',
-      remaining: '',
+      time: '',
       straws: '',
+      embryos: '',
+      survivedEmbryos: '',
+      survivalPercentage: '',
+      remainingEmbryos: '',
       embryologist: '',
       witness: '',
       notes: ''
@@ -141,18 +143,59 @@ export class EmbryoFreezing {
   addEmbryoTransferRow(): void {
     this.procedure.values['embryoTransferRows'].push({
       date: this.today(),
-      time: '11:00',
+      time: '',
       catheter: '',
       embryos: '',
       status: '',
       difficulties: '',
       embryologist: '',
-      witness: ''
+      witness: '',
+      notes: ''
     });
   }
 
   removeEmbryoTransferRow(index: number): void {
     this.procedure.values['embryoTransferRows'].splice(index, 1);
+  }
+
+  normalizeEmbryoRows(): void {
+    this.procedure.values['embryoRows'] =
+      this.procedure.values['embryoRows'].map((row: any) => ({
+        stage: row.stage ?? '',
+        quality1: row.quality1 ?? row.quality ?? '',
+        quality2: row.quality2 ?? ''
+      }));
+  }
+
+  normalizeEmbryoThawingRows(): void {
+    this.procedure.values['embryoThawingRows'] =
+      this.procedure.values['embryoThawingRows'].map((row: any) => ({
+        date: row.date ?? '',
+        time: row.time ?? '',
+        straws: row.straws ?? row.strawsThawed ?? '',
+        embryos: row.embryos ?? '',
+        survivedEmbryos: row.survivedEmbryos ?? row.survived ?? '',
+        survivalPercentage: row.survivalPercentage ?? row.survival ?? '',
+        remainingEmbryos: row.remainingEmbryos ?? row.remaining ?? '',
+        embryologist: row.embryologist ?? '',
+        witness: row.witness ?? '',
+        notes: row.notes ?? ''
+      }));
+  }
+
+  normalizeEmbryoTransferRows(): void {
+    this.procedure.values['embryoTransferRows'] =
+      this.procedure.values['embryoTransferRows'].map((row: any) => ({
+        date: row.date ?? '',
+        time: row.time ?? '',
+        catheter: row.catheter ?? '',
+        embryos: row.embryos ?? '',
+        status: row.status ?? '',
+        difficulties: row.difficulties ?? '',
+        embryologist: row.embryologist ?? '',
+        witness: row.witness ?? '',
+        notes: row.notes ?? ''
+      }));
   }
 
   today(): string {

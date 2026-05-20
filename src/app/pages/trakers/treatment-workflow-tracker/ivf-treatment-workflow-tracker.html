@@ -1,0 +1,689 @@
+<!-- Create Button -->
+<div class="row">
+    <div class="col text-end">
+        <button class="btn" (click)="openCreateModal()">
+            <i class="fa-solid fa-circle-plus me-2"></i>
+            Create Lifecycle
+        </button>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="row g-4 mt-3">
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-spinner"></i>
+            </div>
+            <div>
+                <p>Active Cycles</p>
+                <h3>{{ freshETCycles().length + frozenETCycles().length + opuOnlyCycles().length }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-house-medical-circle-check"></i>
+            </div>
+            <div>
+                <p>Discharged</p>
+                <h3>
+                    {{
+                    freshETCycles().filter(c => c.values['dischargedDone']).length +
+                    frozenETCycles().filter(c => c.values['dischargedDone']).length +
+                    opuOnlyCycles().filter(c => c.values['dischargedDone']).length
+                    }}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-baby"></i>
+            </div>
+            <div>
+                <p>ET / FET Cycles</p>
+                <h3>{{ freshETCycles().length + frozenETCycles().length }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa-solid fa-flask"></i>
+            </div>
+            <div>
+                <p>Lab Ready</p>
+                <h3>
+                    {{
+                    freshETCycles().filter(c => c.values['labReadyDone']).length +
+                    frozenETCycles().filter(c => c.values['readyForEtDone']).length
+                    }}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Fresh ET -->
+<div class="row mt-5" *ngIf="freshETCycles().length > 0">
+
+    <div class="col-12">
+        <h6 class="mb-3">
+            <i class="fa-solid fa-baby me-2"></i>
+            Fresh Embryo Transfer (ET)
+        </h6>
+    </div>
+
+    <div class="col-12 mb-4" *ngFor="let cycle of freshETCycles()">
+
+        <div class="card shadow-sm border-0 section-card">
+
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                    <div>
+                        TT-{{ cycle.id }} |
+                        {{ cycle.patient.name }} + {{ cycle.patient.husbandName }} |
+                        {{ cycle.type }}
+                    </div>
+
+                    <button class="btn btn-sm btn-light w-auto" (click)="deleteCycle(cycle)">
+                        Delete
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <h6 class="mb-4">
+                    <i class="fa-solid fa-person-dress me-2"></i>
+                    WIFE TRACK
+                </h6>
+
+                <div class="row g-4 mb-5">
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'receptionDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-user-check"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['receptionDone']"></i>
+                            </div>
+                            <div>
+                                <p>Reception</p>
+                                <h6>{{ cycle.values['receptionDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'preOpDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-bed-pulse"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['preOpDone']"></i>
+                            </div>
+                            <div>
+                                <p>Pre-Op</p>
+                                <h6>{{ cycle.values['preOpDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'orEtDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-syringe"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['orEtDone']"></i>
+                            </div>
+                            <div>
+                                <p>OR / ET</p>
+                                <h6>{{ cycle.values['orEtDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'recoveryDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-bed"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['recoveryDone']"></i>
+                            </div>
+                            <div>
+                                <p>Recovery</p>
+                                <h6>{{ cycle.values['recoveryDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'dischargedDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-house-medical-circle-check"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['dischargedDone']"></i>
+                            </div>
+                            <div>
+                                <p>Discharged</p>
+                                <h6>{{ cycle.values['dischargedDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <h6 class="mb-4">
+                    <i class="fa-solid fa-flask me-2"></i>
+                    EMBRYOLOGY PREPARATION
+                </h6>
+
+                <div class="row g-4">
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'labReadyDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-dna"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['labReadyDone']"></i>
+                            </div>
+                            <div>
+                                <p>Lab Ready for ET</p>
+                                <h6>{{ cycle.values['labReadyDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Frozen ET -->
+<div class="row mt-5" *ngIf="frozenETCycles().length > 0">
+
+    <div class="col-12">
+        <h6 class="mb-3">
+            <i class="fa-solid fa-temperature-low me-2"></i>
+            Frozen Embryo Transfer (FET)
+        </h6>
+    </div>
+
+    <div class="col-12 mb-4" *ngFor="let cycle of frozenETCycles()">
+
+        <div class="card shadow-sm border-0 section-card">
+
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                    <div>
+                        TT-{{ cycle.id }} |
+                        {{ cycle.patient.name }} + {{ cycle.patient.husbandName }} |
+                        {{ cycle.type }}
+                    </div>
+
+                    <button class="btn btn-sm btn-light w-auto" (click)="deleteCycle(cycle)">
+                        Delete
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <h6 class="mb-4">
+                    <i class="fa-solid fa-person-dress me-2"></i>
+                    WIFE TRACK
+                </h6>
+
+                <div class="row g-4 mb-5">
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'receptionDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-user-check"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['receptionDone']"></i>
+                            </div>
+                            <div>
+                                <p>Reception</p>
+                                <h6>{{ cycle.values['receptionDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'preOpDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-bed-pulse"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['preOpDone']"></i>
+                            </div>
+                            <div>
+                                <p>Pre-Op</p>
+                                <h6>{{ cycle.values['preOpDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'orEtDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-syringe"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['orEtDone']"></i>
+                            </div>
+                            <div>
+                                <p>OR / ET</p>
+                                <h6>{{ cycle.values['orEtDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'recoveryDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-bed"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['recoveryDone']"></i>
+                            </div>
+                            <div>
+                                <p>Recovery</p>
+                                <h6>{{ cycle.values['recoveryDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'dischargedDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-house-medical-circle-check"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['dischargedDone']"></i>
+                            </div>
+                            <div>
+                                <p>Discharged</p>
+                                <h6>{{ cycle.values['dischargedDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <h6 class="mb-4">
+                    <i class="fa-solid fa-dna me-2"></i>
+                    EMBRYO PREPARATION
+                </h6>
+
+                <div class="row g-4">
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'embryoThawedDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-temperature-low"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['embryoThawedDone']"></i>
+                            </div>
+                            <div>
+                                <p>Embryo Thawed</p>
+                                <h6>{{ cycle.values['embryoThawedDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'readyForEtDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['readyForEtDone']"></i>
+                            </div>
+                            <div>
+                                <p>Ready for ET</p>
+                                <h6>{{ cycle.values['readyForEtDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- OPU Only -->
+<div class="row mt-5" *ngIf="opuOnlyCycles().length > 0">
+
+    <div class="col-12">
+        <h6 class="mb-3">
+            <i class="fa-solid fa-syringe me-2"></i>
+            OPU Only
+        </h6>
+    </div>
+
+    <div class="col-12 mb-4" *ngFor="let cycle of opuOnlyCycles()">
+
+        <div class="card shadow-sm border-0 section-card">
+
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                    <div>
+                        TT-{{ cycle.id }} |
+                        {{ cycle.patient.name }} + {{ cycle.patient.husbandName }} |
+                        {{ cycle.type }}
+                    </div>
+
+                    <button class="btn btn-sm btn-light w-auto" (click)="deleteCycle(cycle)">
+                        Delete
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <h6 class="mb-4">
+                    <i class="fa-solid fa-person-dress me-2"></i>
+                    WIFE TRACK
+                </h6>
+
+                <div class="row g-4 mb-5">
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'receptionDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-user-check"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['receptionDone']"></i>
+                            </div>
+                            <div>
+                                <p>Reception</p>
+                                <h6>{{ cycle.values['receptionDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'preOpDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-bed-pulse"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['preOpDone']"></i>
+                            </div>
+                            <div>
+                                <p>Pre-Op</p>
+                                <h6>{{ cycle.values['preOpDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'opuDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-syringe"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['opuDone']"></i>
+                            </div>
+                            <div>
+                                <p>OPU</p>
+                                <h6>{{ cycle.values['opuDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'recoveryDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-bed"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['recoveryDone']"></i>
+                            </div>
+                            <div>
+                                <p>Recovery</p>
+                                <h6>{{ cycle.values['recoveryDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'dischargedDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-house-medical-circle-check"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['dischargedDone']"></i>
+                            </div>
+                            <div>
+                                <p>Discharged</p>
+                                <h6>{{ cycle.values['dischargedDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <h6 class="mb-4">
+                    <i class="fa-solid fa-vial me-2"></i>
+                    SEMEN TRACK
+                </h6>
+
+                <div class="row g-4">
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'semenReceptionDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-vial"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['semenReceptionDone']"></i>
+                            </div>
+                            <div>
+                                <p>Semen Reception</p>
+                                <h6>{{ cycle.values['semenReceptionDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'collectionRoomDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-flask"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['collectionRoomDone']"></i>
+                            </div>
+                            <div>
+                                <p>Collection Room</p>
+                                <h6>{{ cycle.values['collectionRoomDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'labPreparationDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-microscope"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['labPreparationDone']"></i>
+                            </div>
+                            <div>
+                                <p>Lab Preparation</p>
+                                <h6>{{ cycle.values['labPreparationDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'readyDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-check-double"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['readyDone']"></i>
+                            </div>
+                            <div>
+                                <p>READY</p>
+                                <h6>{{ cycle.values['readyDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'usedCryoDone')">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-snowflake"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['usedCryoDone']"></i>
+                            </div>
+                            <div>
+                                <p>Used / Cryo</p>
+                                <h6>{{ cycle.values['usedCryoDone'] ? 'Done' : 'Mark' }}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row mt-5" *ngIf="freshETCycles().length === 0 && frozenETCycles().length === 0 && opuOnlyCycles().length === 0">
+
+    <div class="col-12">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center p-5">
+
+                <h5>
+                    No Cycles Found
+                </h5>
+
+                <p class="text-muted mb-0">
+                    Create a new Cycle.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- Create Modal -->
+<ng-template #createTemplate let-modal>
+
+    <div class="modal-header">
+        <h6 class="modal-title">
+            Create Treatment Lifecycle
+        </h6>
+
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="row g-3 mt-3">
+
+            <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.name">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">National ID</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.nationalId">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Phone Number</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.phoneNumber">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Husband's Name</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.husbandName">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Husband's ID</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.husbandNationalId">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Husband's Phone Number</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.husbandPhoneNumber">
+            </div>
+
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <button class="btn me-1" (click)="searchForPatients()">
+                    Search
+                </button>
+
+                <button class="btn" (click)="reset()">
+                    Reset
+                </button>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <table class="table custom-table">
+
+                <thead>
+                    <tr>
+                        <th>File Number</th>
+                        <th>Name</th>
+                        <th>National ID</th>
+                        <th>Phone Number</th>
+                        <th>Husband</th>
+                        <th>Type</th>
+                        <th>Create</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let p of patients()">
+                        <td data-label="File Number">IVF-{{ p.id }}</td>
+                        <td data-label="Name">{{ p.name }}</td>
+                        <td data-label="National ID">{{ p.nationalId }}</td>
+                        <td data-label="Phone Number">{{ p.phoneNumber }}</td>
+                        <td data-label="Husband">{{ p.husbandName }}</td>
+
+                        <td data-label="Type">
+                            <select class="form-select" [(ngModel)]="p.selectedTreatmentType">
+                                <option value="Fresh ET">Fresh Embryo Transfer (ET)</option>
+                                <option value="Frozen ET">Frozen Embryo Transfer (FET)</option>
+                                <option value="OPU Only">OPU Only</option>
+                            </select>
+                        </td>
+
+                        <td class="text-center">
+                            <a (click)="p.selectedTreatmentType && createCycleFromPatient(p)"
+                                [style.pointer-events]="!p.selectedTreatmentType ? 'none' : 'auto'"
+                                [style.opacity]="!p.selectedTreatmentType ? '0.5' : '1'">
+                                <i class="fa-solid fa-plus"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="patients().length === 0">
+                        <td colspan="7" class="text-center">
+                            No patients found
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">
+            Close
+        </button>
+    </div>
+
+</ng-template>

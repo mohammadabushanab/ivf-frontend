@@ -11,4 +11,5 @@ export interface Patient {
     modifiedDate: string;
     fromDate: string;
     toDate: string;
+    selectedTreatmentType: string;
 }

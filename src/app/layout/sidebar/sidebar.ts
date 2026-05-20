@@ -21,6 +21,10 @@ export class Sidebar {
 
   role = this.authService.getRole();
 
+  isTrackerMenuOpen = false;
+
+  isFreezingMenuOpen = false;
+
   toggleSidebar() {
     this.layoutService.toggleSidebar();
   }

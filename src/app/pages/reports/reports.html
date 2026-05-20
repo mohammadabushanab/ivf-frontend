@@ -107,6 +107,11 @@
                                 </a>
                             </td>
                         </tr>
+                        <tr *ngIf="reports().length === 0">
+                            <td colspan="10" class="text-center">
+                                No reports found
+                            </td>
+                        </tr>                        
                     </tbody>
                 </table>
             </div>

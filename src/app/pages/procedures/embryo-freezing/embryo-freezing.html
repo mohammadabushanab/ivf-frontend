@@ -4,145 +4,223 @@
       <div class="card-header blue-header">
         Patient Information
       </div>
+
       <div class="card-body">
         <div class="row g-3">
+
           <div class="col-md-6">
-            <label for="name" class="form-label">Name </label>
-            <input type="text" class="form-control" id="name" [(ngModel)]="procedure.patient.name" #name="ngModel"
-              name="name" disabled>
+            <label for="patientName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="patientName"
+              [(ngModel)]="procedure.patient.name"
+              #patientName="ngModel"
+              name="patientName"
+              disabled>
           </div>
+
           <div class="col-md-6">
-            <label for="nationalId" class="form-label">National ID</label>
-            <input type="text" class="form-control" id="nationalId" [(ngModel)]="procedure.patient.nationalId"
-              #nationalId="ngModel" name="nationalId" disabled>
+            <label for="patientNationalId" class="form-label">National ID</label>
+            <input type="text" class="form-control" id="patientNationalId"
+              [(ngModel)]="procedure.patient.nationalId"
+              #patientNationalId="ngModel"
+              name="patientNationalId"
+              disabled>
           </div>
+
           <div class="col-md-6">
-            <label for="phoneNumber" class="form-label">Phone Number</label>
-            <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="procedure.patient.phoneNumber"
-              #phoneNumber="ngModel" name="phoneNumber" disabled>
+            <label for="patientPhoneNumber" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="patientPhoneNumber"
+              [(ngModel)]="procedure.patient.phoneNumber"
+              #patientPhoneNumber="ngModel"
+              name="patientPhoneNumber"
+              disabled>
           </div>
+
           <div class="col-md-6">
-            <label for="age" class="form-label">Age</label>
-            <input type="text" class="form-control" id="age" [(ngModel)]="procedure.patient.age" #age="ngModel"
-              name="age" disabled>
+            <label for="patientAge" class="form-label">Age</label>
+            <input type="text" class="form-control" id="patientAge"
+              [(ngModel)]="procedure.patient.age"
+              #patientAge="ngModel"
+              name="patientAge"
+              disabled>
           </div>
+
           <div class="col-md-6">
             <label for="husbandName" class="form-label">Husband's Name</label>
-            <input type="text" class="form-control" id="husbandName" [(ngModel)]="procedure.patient.husbandName"
-              #husbandname="ngModel" name="husbandname" disabled>
+            <input type="text" class="form-control" id="husbandName"
+              [(ngModel)]="procedure.patient.husbandName"
+              #husbandNameModel="ngModel"
+              name="husbandName"
+              disabled>
           </div>
+
           <div class="col-md-6">
             <label for="husbandNationalId" class="form-label">Husband's ID</label>
-            <input type="text" class="form-control" id="husbandId" [(ngModel)]="procedure.patient.husbandNationalId"
-              #husbandNationalId="ngModel" name="husbandNationalId" disabled>
+            <input type="text" class="form-control" id="husbandNationalId"
+              [(ngModel)]="procedure.patient.husbandNationalId"
+              #husbandNationalIdModel="ngModel"
+              name="husbandNationalId"
+              disabled>
           </div>
+
           <div class="col-md-6">
             <label for="husbandPhoneNumber" class="form-label">Husband Phone Number</label>
             <input type="text" class="form-control" id="husbandPhoneNumber"
-              [(ngModel)]="procedure.patient.husbandPhoneNumber" #husbandPhoneNumber="ngModel" name="husbandPhoneNumber"
+              [(ngModel)]="procedure.patient.husbandPhoneNumber"
+              #husbandPhoneNumberModel="ngModel"
+              name="husbandPhoneNumber"
               disabled>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <div class="row mt-3">
   <div class="col-12">
     <div class="card shadow-sm border-0 section-card">
       <div class="card-header blue-header">
         Physician & Embryologist Information
       </div>
+
       <div class="card-body">
         <div class="row g-3">
+
           <div class="col-md-6">
-            <label for="physician" class="form-label">Physician</label>
-            <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.physician.name"
-              #physician="ngModel" name="physician" disabled>
+            <label for="physicianName" class="form-label">Physician</label>
+            <input type="text" class="form-control" id="physicianName"
+              [(ngModel)]="procedure.physician.name"
+              #physicianName="ngModel"
+              name="physicianName"
+              disabled>
           </div>
+
           <div class="col-md-6">
-            <label for="embryologist" class="form-label">Embryologist</label>
-            <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.embryologist.name"
-              #embryologist="ngModel" name="embryologist" disabled>
+            <label for="embryologistName" class="form-label">Embryologist</label>
+            <input type="text" class="form-control" id="embryologistName"
+              [(ngModel)]="procedure.embryologist.name"
+              #embryologistName="ngModel"
+              name="embryologistName"
+              disabled>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <div class="row mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
-      <div class="card-header text-white ">
+      <div class="card-header text-white">
         Freezing Details
       </div>
 
       <table class="table table-bordered align-middle mb-3">
         <tbody>
+
           <tr>
             <td class="green-label">No. Of Embryos:</td>
             <td>
-              <input class="form-control" [(ngModel)]="procedure.values['numberOfEmbryos']" name="numberOfEmbryos"
+              <input class="form-control" id="numberOfEmbryos"
+                [(ngModel)]="procedure.values['numberOfEmbryos']"
+                #numberOfEmbryos="ngModel"
+                name="numberOfEmbryos"
                 disabled>
             </td>
 
-            <td class="green-label -label">Dewar:</td>
+            <td class="green-label">Dewar:</td>
             <td>
-              <input class="form-control" [(ngModel)]="procedure.values['dewar']" name="dewar" #dewar="ngModel">
+              <input class="form-control" id="dewar"
+                [(ngModel)]="procedure.values['dewar']"
+                #dewar="ngModel"
+                name="dewar"
+                placeholder="Dewar ID">
             </td>
           </tr>
 
           <tr>
-            <td class="green-label -label">No. Of Straws:</td>
+            <td class="green-label">No. Of Straws:</td>
             <td>
-              <input class="form-control" [(ngModel)]="procedure.values['numberOfStraws']" name="numberOfStraws"
-                #numberOfStraws="ngModel">
+              <input class="form-control" id="numberOfStraws"
+                [(ngModel)]="procedure.values['numberOfStraws']"
+                #numberOfStraws="ngModel"
+                name="numberOfStraws">
             </td>
 
-            <td class="green-label -label">Straw Colors:</td>
+            <td class="green-label">Straw Colors:</td>
             <td>
-              <input class="form-control" [(ngModel)]="procedure.values['strawColors']" name="strawColors"
-                #strawColors="ngModel">
-            </td>
-          </tr>
-
-          <tr>
-            <td class="green-label -label">Cassette/Cane No.:</td>
-            <td>
-              <input class="form-control" [(ngModel)]="procedure.values['cassetteCanNo']" name="cassetteCanNo"
-                #cassetteCanNo="ngModel">
-            </td>
-
-            <td class="green-label -label">Canister No.:</td>
-            <td>
-              <input class="form-control" [(ngModel)]="procedure.values['canisterNo']" name="canisterNo"
-                #canisterNo="ngModel">
+              <input class="form-control" id="strawColors"
+                [(ngModel)]="procedure.values['strawColors']"
+                #strawColors="ngModel"
+                name="strawColors"
+                placeholder="Straw/Vial Color">
             </td>
           </tr>
 
           <tr>
-            <td class="green-label -label">Witness:</td>
-            <td colspan="3">
-              <select class="form-select" [(ngModel)]="procedure.values['freezingWitness']" name="freezingWitness"
-                #freezingWitness="ngModel" [compareWith]="compareObjects">
+            <td class="green-label">Cassette/Cane No.:</td>
+            <td>
+              <input class="form-control" id="cassetteCaneNo"
+                [(ngModel)]="procedure.values['cassetteCaneNo']"
+                #cassetteCaneNo="ngModel"
+                name="cassetteCaneNo"
+                placeholder="Cane/Cassette ID">
+            </td>
+
+            <td class="green-label">Canister No.:</td>
+            <td>
+              <input class="form-control" id="canisterNo"
+                [(ngModel)]="procedure.values['canisterNo']"
+                #canisterNo="ngModel"
+                name="canisterNo"
+                placeholder="Canister Number">
+            </td>
+          </tr>
+
+          <tr>
+            <td class="pink-label">Freezing Date:</td>
+            <td>
+              <input type="date" class="form-control" id="freezingDate"
+                [(ngModel)]="procedure.values['freezingDate']"
+                #freezingDate="ngModel"
+                name="freezingDate">
+            </td>
+
+            <td class="green-label">Witness:</td>
+            <td>
+              <select class="form-select" id="freezingWitness"
+                [(ngModel)]="procedure.values['freezingWitness']"
+                #freezingWitness="ngModel"
+                name="freezingWitness"
+                [compareWith]="compareObjects">
+
                 <option *ngFor="let p of embryologists()" [ngValue]="p">
                   {{ p.name }}
                 </option>
+
               </select>
             </td>
           </tr>
+
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
 <div class="row mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
       <div class="card-header text-white d-flex justify-content-between align-items-center">
         <span>Embryo Details</span>
+
         <div class="d-flex gap-2 no-print">
-          <button type="button" class="btn btn-sm btn-light" (click)="addEmbryoRow()">+ Add</button>
+          <button type="button" class="btn btn-sm btn-light" (click)="addEmbryoRow()">
+            + Add
+          </button>
         </div>
       </div>
 
@@ -158,51 +236,71 @@
 
         <tbody>
           <tr *ngFor="let row of procedure.values['embryoRows']; let i = index">
+
             <td>
-              <input class="form-control" [(ngModel)]="row.stage" [name]="'stage' + i" #stage="ngModel">
+              <input class="form-control" id="embryoStage{{ i }}"
+                [(ngModel)]="row.stage"
+                [name]="'embryoStage' + i"
+                #embryoStage="ngModel">
             </td>
+
             <td>
-              <select class="form-select" [(ngModel)]="row.quality1" [name]="'quality1' + i" #quality="ngModel">                
+              <select class="form-select" id="embryoQuality1{{ i }}"
+                [(ngModel)]="row.quality1"
+                [name]="'embryoQuality1' + i"
+                #embryoQuality1="ngModel">
+
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-                <option value="3">4</option>
+                <option value="4">4</option>
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
+
               </select>
             </td>
 
             <td>
-              <select class="form-select" [(ngModel)]="row.quality2" [name]="'quality2' + i" #quality="ngModel">
+              <select class="form-select" id="embryoQuality2{{ i }}"
+                [(ngModel)]="row.quality2"
+                [name]="'embryoQuality2' + i"
+                #embryoQuality2="ngModel">
 
-                
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-                <option value="3">4</option>
+                <option value="4">4</option>
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
+
               </select>
             </td>
 
             <td class="text-center no-print">
-              <button type="button" class="btn btn-sm btn-danger" (click)="removeEmbryoRow(i)">x</button>
+              <button type="button" class="btn btn-sm btn-danger" (click)="removeEmbryoRow(i)">
+                x
+              </button>
             </td>
+
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
 <div class="row mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
       <div class="card-header text-white d-flex justify-content-between align-items-center">
         <span>Thawing</span>
+
         <div class="d-flex gap-2 no-print">
-          <button type="button" class="btn btn-sm btn-light" (click)="addEmbryoThawingRow()">+ Add</button>
+          <button type="button" class="btn btn-sm btn-light" (click)="addEmbryoThawingRow()">
+            + Add
+          </button>
         </div>
       </div>
 
@@ -212,11 +310,11 @@
             <th>#</th>
             <th>Date</th>
             <th>Time</th>
-            <th>Straws Thawed</th>
-            <th>Embryos</th>
-            <th>Survived</th>
-            <th>Remaining</th>
             <th>Straws</th>
+            <th>Embryos</th>
+            <th>Survived Embryos</th>
+            <th>Survival %</th>
+            <th>Remaining Embryos</th>
             <th>Embryologist</th>
             <th>Witness</th>
             <th>Notes</th>
@@ -226,60 +324,92 @@
 
         <tbody>
           <tr *ngFor="let row of procedure.values['embryoThawingRows']; let i = index">
+
             <td>{{ i + 1 }}</td>
 
             <td>
-              <input type="date" class="form-control" [(ngModel)]="row.date" [name]="'embryoThawingDate' + i"
+              <input type="date" class="form-control" id="embryoThawingDate{{ i }}"
+                [(ngModel)]="row.date"
+                [name]="'embryoThawingDate' + i"
                 #embryoThawingDate="ngModel">
             </td>
 
             <td>
-              <input type="time" class="form-control" [(ngModel)]="row.time" [name]="'embryoThawingTime' + i"
+              <input type="time" class="form-control" id="embryoThawingTime{{ i }}"
+                [(ngModel)]="row.time"
+                [name]="'embryoThawingTime' + i"
                 #embryoThawingTime="ngModel">
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.strawsThawed" [name]="'strawsThawed' + i"
-                #strawsThawed="ngModel">
+              <input class="form-control" id="embryoThawingStraws{{ i }}"
+                [(ngModel)]="row.straws"
+                [name]="'embryoThawingStraws' + i"
+                #embryoThawingStraws="ngModel">
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.embryos" [name]="'thawingEmbryos' + i"
-                #thawingEmbryos="ngModel">
+              <input class="form-control" id="embryosThawed{{ i }}"
+                [(ngModel)]="row.embryos"
+                [name]="'embryosThawed' + i"
+                #embryosThawed="ngModel">
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.survived" [name]="'survived' + i" #survived="ngModel">
+              <input class="form-control" id="survivedEmbryos{{ i }}"
+                [(ngModel)]="row.survivedEmbryos"
+                [name]="'survivedEmbryos' + i"
+                #survivedEmbryos="ngModel">
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.remaining" [name]="'remaining' + i" #remaining="ngModel">
+              <input class="form-control" id="embryoSurvivalPercentage{{ i }}"
+                [(ngModel)]="row.survivalPercentage"
+                [name]="'embryoSurvivalPercentage' + i"
+                #embryoSurvivalPercentage="ngModel">
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.straws" [name]="'straws' + i" #straws="ngModel">
+              <input class="form-control" id="remainingEmbryos{{ i }}"
+                [(ngModel)]="row.remainingEmbryos"
+                [name]="'remainingEmbryos' + i"
+                #remainingEmbryos="ngModel">
             </td>
 
             <td>
-              <select class="form-select" [(ngModel)]="row.embryologist" [name]="'thawingEmbryologist' + i"
-                #thawingEmbryologist="ngModel" [compareWith]="compareObjects">
+              <select class="form-select" id="embryoThawingEmbryologist{{ i }}"
+                [(ngModel)]="row.embryologist"
+                [name]="'embryoThawingEmbryologist' + i"
+                #embryoThawingEmbryologist="ngModel"
+                [compareWith]="compareObjects">
+
                 <option *ngFor="let p of embryologists()" [ngValue]="p">
                   {{ p.name }}
                 </option>
+
               </select>
             </td>
 
             <td>
-              <select class="form-select" [(ngModel)]="row.witness" [name]="'thawingWitness' + i"
-                #thawingWitness="ngModel" [compareWith]="compareObjects">
+              <select class="form-select" id="embryoThawingWitness{{ i }}"
+                [(ngModel)]="row.witness"
+                [name]="'embryoThawingWitness' + i"
+                #embryoThawingWitness="ngModel"
+                [compareWith]="compareObjects">
+
                 <option *ngFor="let p of embryologists()" [ngValue]="p">
                   {{ p.name }}
                 </option>
+
               </select>
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.notes" [name]="'thawingComments' + i" placeholder="Notes">
+              <input class="form-control" id="embryoThawingNotes{{ i }}"
+                [(ngModel)]="row.notes"
+                [name]="'embryoThawingNotes' + i"
+                #embryoThawingNotes="ngModel"
+                placeholder="Notes">
             </td>
 
             <td class="text-center no-print">
@@ -287,19 +417,24 @@
                 x
               </button>
             </td>
+
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
 <div class="row mt-3">
   <div class="col-md-12">
     <div class="card shadow-sm border-0">
       <div class="card-header text-white d-flex justify-content-between align-items-center">
         <span>Transfer</span>
+
         <div class="d-flex gap-2 no-print">
-          <button type="button" class="btn btn-sm btn-light" (click)="addEmbryoTransferRow()">+ Add</button>
+          <button type="button" class="btn btn-sm btn-light" (click)="addEmbryoTransferRow()">
+            + Add
+          </button>
         </div>
       </div>
 
@@ -322,60 +457,93 @@
 
         <tbody>
           <tr *ngFor="let row of procedure.values['embryoTransferRows']; let i = index">
+
             <td>{{ i + 1 }}</td>
 
             <td>
-              <input type="date" class="form-control" [(ngModel)]="row.date" [name]="'embryoTransferDate' + i"
+              <input type="date" class="form-control" id="embryoTransferDate{{ i }}"
+                [(ngModel)]="row.date"
+                [name]="'embryoTransferDate' + i"
                 #embryoTransferDate="ngModel">
             </td>
 
             <td>
-              <input type="time" class="form-control" [(ngModel)]="row.time" [name]="'embryoTransferTime' + i"
+              <input type="time" class="form-control" id="embryoTransferTime{{ i }}"
+                [(ngModel)]="row.time"
+                [name]="'embryoTransferTime' + i"
                 #embryoTransferTime="ngModel">
             </td>
 
             <td>
-              <select class="form-select" [(ngModel)]="row.catheter" [name]="'catheter' + i" #catheter="ngModel">
-                <option>COOK</option>
-                <option>WALLACE</option>
-                <option>OTHER</option>
+              <select class="form-select" id="embryoTransferCatheter{{ i }}"
+                [(ngModel)]="row.catheter"
+                [name]="'embryoTransferCatheter' + i"
+                #embryoTransferCatheter="ngModel">
+
+                <option value="COOK">COOK</option>
+                <option value="WALLACE">WALLACE</option>
+                <option value="OTHER">OTHER</option>
+
               </select>
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.embryos" [name]="'transferEmbryos' + i"
+              <input class="form-control" id="transferEmbryos{{ i }}"
+                [(ngModel)]="row.embryos"
+                [name]="'transferEmbryos' + i"
                 #transferEmbryos="ngModel">
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.status" [name]="'status' + i" #status="ngModel">
+              <input class="form-control" id="embryoTransferStatus{{ i }}"
+                [(ngModel)]="row.status"
+                [name]="'embryoTransferStatus' + i"
+                #embryoTransferStatus="ngModel">
             </td>
 
             <td>
-              <textarea class="form-control" rows="2" [(ngModel)]="row.difficulties"
-                [name]="'difficulties' + i"></textarea>
+              <textarea class="form-control" id="embryoTransferDifficulties{{ i }}"
+                rows="2"
+                [(ngModel)]="row.difficulties"
+                [name]="'embryoTransferDifficulties' + i"
+                #embryoTransferDifficulties="ngModel">
+              </textarea>
             </td>
 
             <td>
-              <select class="form-select" [(ngModel)]="row.embryologist" [name]="'transferEmbryologist' + i"
-                #transferEmbryologist="ngModel" [compareWith]="compareObjects">
+              <select class="form-select" id="embryoTransferEmbryologist{{ i }}"
+                [(ngModel)]="row.embryologist"
+                [name]="'embryoTransferEmbryologist' + i"
+                #embryoTransferEmbryologist="ngModel"
+                [compareWith]="compareObjects">
+
                 <option *ngFor="let p of embryologists()" [ngValue]="p">
                   {{ p.name }}
                 </option>
+
               </select>
             </td>
 
             <td>
-              <select class="form-select" [(ngModel)]="row.witness" [name]="'transferWitness' + i"
-                #transferWitness="ngModel" [compareWith]="compareObjects">
+              <select class="form-select" id="embryoTransferWitness{{ i }}"
+                [(ngModel)]="row.witness"
+                [name]="'embryoTransferWitness' + i"
+                #embryoTransferWitness="ngModel"
+                [compareWith]="compareObjects">
+
                 <option *ngFor="let p of embryologists()" [ngValue]="p">
                   {{ p.name }}
                 </option>
+
               </select>
             </td>
 
             <td>
-              <input class="form-control" [(ngModel)]="row.notes" [name]="'transferComments' + i" placeholder="Notes">
+              <input class="form-control" id="embryoTransferNotes{{ i }}"
+                [(ngModel)]="row.notes"
+                [name]="'embryoTransferNotes' + i"
+                #embryoTransferNotes="ngModel"
+                placeholder="Notes">
             </td>
 
             <td class="text-center no-print">
@@ -383,6 +551,7 @@
                 x
               </button>
             </td>
+
           </tr>
         </tbody>
       </table>

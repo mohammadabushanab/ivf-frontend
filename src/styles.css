@@ -1,6 +1,6 @@
 /* vars */
 :root {
-  --sidebar-width: 17rem;
+  --sidebar-width: 25rem;
 }
 
 /* Layout */
@@ -34,7 +34,7 @@
 
 @media (max-width: 768px) {
   #sidebar-wrapper {
-    margin-left: -17rem;
+    margin-left: calc(-1 * var(--sidebar-width));
     transition: 0.3s ease;
   }
 
@@ -106,7 +106,6 @@
   color: #FFF;
   background: #1E90FF;
   border: none;
-  margin: 5px;
   border-radius: 10px;
   margin: 0;
 }
@@ -127,7 +126,7 @@
 
 @media (min-width: 768px) {
   .sb-sidenav-toggled #sidebar-wrapper {
-    margin-left: -17rem;
+    margin-left: calc(-1 * var(--sidebar-width));
   }
 }
 
@@ -257,6 +256,18 @@ body {
   border: 1px solid #1E90FF;
   color: 1E90FF;
   background: #FFF;
+}
+
+.viceVersa.btn {
+  background: #FFF;
+  color: #1E90FF;
+
+}
+
+.viceVersa.btn:hover {
+  background: #1E90FF;
+  color: #FFF;
+  border: 1px solid #FFF;
 }
 
 .input-group .btn {

@@ -73,6 +73,7 @@ export class Reports {
 
   reset() {
     this.reportForSearch = this.newProcedure();
+    this.reports.set([])
   }
 
   printPage() {
@@ -127,6 +128,7 @@ export class Reports {
         husbandNationalId: '',
         husbandName: '',
         husbandPhoneNumber: '',
+        selectedTreatmentType:'',
         createdDate: '',
         modifiedDate: '',
         fromDate: '',

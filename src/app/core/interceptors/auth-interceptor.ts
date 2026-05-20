@@ -10,7 +10,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   console.log("url : " + req.url);
   console.log("token :" + token);
 
-  if (req.url.includes('/login')) {
+  if (req.url.includes('/login') || req.url.includes('/ws')) {
     return next(req);
   }
 

@@ -10,44 +10,97 @@
   <div class="list-group list-group-flush">
     <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/dashboard"
       routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-solid fa-chart-pie"></i>
+      <i class="fa-solid fa-chart-pie me-2"></i>
       Dashboard
     </a>
-  </div>  
+  </div>
   <div class="list-group list-group-flush" *ngIf="role == 'Coordinator' || role == 'Physician'">
     <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/patients"
       routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-solid fa-hospital-user"></i>
+      <i class="fa-solid fa-hospital-user me-2"></i>
       Patients
     </a>
   </div>
-  <div class="list-group list-group-flush" *ngIf="role == 'Coordinator' || role == 'Embryologist' || role == 'Physician'">
+  <div class="list-group list-group-flush"
+    *ngIf="role == 'Coordinator' || role == 'Embryologist' || role == 'Physician'">
     <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/procedures"
       routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-solid fa-medkit"></i>
+      <i class="fa-solid fa-vials me-2"></i>
       Procedures
     </a>
   </div>
-  <div class="list-group list-group-flush" *ngIf="role == 'Coordinator' || role == 'Embryologist' || role == 'Physician'">
+  <div class="list-group list-group-flush"
+    *ngIf="role == 'Coordinator' || role == 'Embryologist' || role == 'Physician'">
     <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/reports"
       routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-solid fa-chart-column"></i>
+      <i class="fa-solid fa-file-medical me-2"></i>
       Reports
     </a>
   </div>
-
+  <div class="list-group list-group-flush" *ngIf="role == 'Embryologist' || role == 'Physician'">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" role="button"
+      (click)="isTrackerMenuOpen = !isTrackerMenuOpen">
+      <i class="fa-solid fa-wave-square me-2"></i>
+      Live Trackers
+      <i class="fa-solid float-end mt-1" [ngClass]="isTrackerMenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'">
+      </i>
+    </a>
+    <div *ngIf="isTrackerMenuOpen" class="ps-3 mt-2">
+      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2" routerLink="/treatmentWorkflowTracker"
+        routerLinkActive="active">
+        <i class="fa-solid fa-bed-pulse me-2"></i>
+        IVF Workflow Tracker
+      </a>
+      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2" routerLink="/opuLiveTracker"
+        routerLinkActive="active">
+        <i class="fa-solid fa-syringe me-2"></i>
+        OPU Live Tracker
+      </a>
+    </div>
+  </div>
+  <div class="list-group list-group-flush" *ngIf="role == 'Embryologist' || role == 'Physician'">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2" role="button"
+      (click)="isFreezingMenuOpen = !isFreezingMenuOpen">
+      <i class="fa-solid fa-snowflake me-2"></i>
+      Freezing
+      <i class="fa-solid float-end mt-1" [ngClass]="isFreezingMenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'">
+      </i>
+    </a>
+    <div *ngIf="isFreezingMenuOpen" class="ps-3 mt-2">
+      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2" routerLink="/embryoFreezing"
+        routerLinkActive="active">
+        <i class="fa-solid fa-baby me-2"></i>
+        Embryo Freezing
+      </a>
+      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2" routerLink="/oocyteFreezing"
+        routerLinkActive="active">
+        <i class="fa-solid fa-egg me-2"></i>
+        Oocyte Freezing
+      </a>
+      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2" routerLink="/spermFreezing"
+        routerLinkActive="active">
+        <i class="fa-solid fa-vial me-2"></i>
+        Sperm Freezing
+      </a>
+      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2"
+        routerLink="/ovarianTissueCryopreservation" routerLinkActive="active">
+        <i class="fa-solid fa-snowflake me-2"></i>
+        Ovarian Tissue Cryopreservation Freezing
+      </a>
+    </div>
+  </div>
   <div class="list-group list-group-flush" *ngIf="role == 'Admin'">
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/reports"
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/users"
       routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-solid fa-users"></i>
+      <i class="fa-solid fa-users me-2"></i>
       Users
     </a>
   </div>
   <div class="list-group list-group-flush" *ngIf="role == 'Admin'">
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/reports"
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/procedureTypes"
       routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-solid fa-clipboard-list"></i>
+      <i class="fa-solid fa-clipboard-list me-2"></i>
       Procedure Types
     </a>
-  </div>  
+  </div>
 </div>

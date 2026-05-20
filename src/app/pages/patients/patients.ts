@@ -217,6 +217,7 @@ export class Patients {
     this.patientForAdd = this.newPatient();
     this.patientForSearch = this.newPatient();
     this.patientForEdit = this.newPatient();
+    this.patients.set([]);
   }
 
   newPatient(): Patient {
@@ -229,6 +230,7 @@ export class Patients {
       husbandName: '',
       husbandNationalId: '',
       husbandPhoneNumber: '',
+      selectedTreatmentType:'',
       createdDate: '',
       modifiedDate: '',
       fromDate: '',
@@ -273,6 +275,7 @@ export class Patients {
         husbandNationalId: '',
         husbandName: '',
         husbandPhoneNumber: '',
+        selectedTreatmentType:'',
         createdDate: '',
         modifiedDate: '',
         fromDate: '',
@@ -338,7 +341,7 @@ export class Patients {
   }
 
   isAddProceDureDisabled(): boolean {
-    if (this.procedure.procedureType.id != '') {
+    if (this.procedure.procedureType.id != '' ) {
       return false;
     }
     return true;
