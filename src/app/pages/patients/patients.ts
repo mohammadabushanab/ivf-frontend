@@ -52,6 +52,7 @@ export class Patients {
   private authService = inject(AuthService);
 
   role = this.authService.getRole();
+  currentUser = this.authService.getUser();
 
   currentModalRef!: NgbModalRef;
 
@@ -174,8 +175,6 @@ export class Patients {
 
   async addProcedure() {
 
-    console.log("this.procedure" + this.procedure)
-
     const data = await this.procedureService.add(this.procedure);
 
     if (data != null) {
@@ -183,18 +182,6 @@ export class Patients {
       this.messageText = "Your Request has been submitted successfully";
 
       this.closeModal();
-
-      // const qrCode = await this.qrService.generateQrDataUrl(String(data.id), 100);
-
-      // this.procedure.qrCode = qrCode;
-
-
-      // if (this.procedure.paymentStatus == "Paid") {
-      //   this.open(this.procedureMessageModal, 'lg')
-      // }
-      // else {
-      //   this.open(this.messageModal, 'lg')
-      // }
 
       this.open(this.messageModal, 'lg')
     }
@@ -230,7 +217,7 @@ export class Patients {
       husbandName: '',
       husbandNationalId: '',
       husbandPhoneNumber: '',
-      selectedTreatmentType:'',
+      selectedTreatmentType: '',
       createdDate: '',
       modifiedDate: '',
       fromDate: '',
@@ -253,13 +240,12 @@ export class Patients {
       paymentStatus: '',
       createdDate: '',
       modifiedDate: '',
-      isPaid: false,
-      isReport: false,
       dateSearchType: '',
       fromDate: '',
       toDate: '',
       scheduledDate: '',
-      notes:'',
+      notes: '',
+      status: '',
       procedureType: {
         id: '',
         name: '',
@@ -275,7 +261,7 @@ export class Patients {
         husbandNationalId: '',
         husbandName: '',
         husbandPhoneNumber: '',
-        selectedTreatmentType:'',
+        selectedTreatmentType: '',
         createdDate: '',
         modifiedDate: '',
         fromDate: '',
@@ -316,7 +302,12 @@ export class Patients {
 
     this.procedure.patient = { ...patient };
 
-   this.procedure.paymentStatus = "Unpaid"
+    if (this.currentUser != null) {
+      this.procedure.physician = this.currentUser;
+    }
+
+    this.procedure.paymentStatus = "Unpaid"
+    this.procedure.status = "Created";
 
     this.open(this.procedureModal, 'xl')
   }
@@ -341,7 +332,7 @@ export class Patients {
   }
 
   isAddProceDureDisabled(): boolean {
-    if (this.procedure.procedureType.id != '' ) {
+    if (this.procedure.procedureType.id != '') {
       return false;
     }
     return true;

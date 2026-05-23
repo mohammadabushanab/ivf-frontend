@@ -45,15 +45,15 @@ export class SpermFreezing {
     const usersByRole = await this.userService.getUsersByRole(searchCriteria);
     this.embryologists.set(usersByRole);
 
-    if (!Array.isArray(this.procedure.values['thawingRows'])) {
-      this.procedure.values['thawingRows'] = [...this.thawingRows];
+    if (!Array.isArray(this.procedure.values['spermThawingRows'])) {
+      this.procedure.values['spermThawingRows'] = [...this.spermThawingRows];
     }
 
     this.initDefaultValues();
     this.normalizeThawingRows();
   }
 
-  thawingRows: any[] = [
+  spermThawingRows: any[] = [
     {
       thawingDate: '',
       thawingTime: '',

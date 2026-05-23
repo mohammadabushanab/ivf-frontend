@@ -1,41 +1,85 @@
 <section id="login-wrapper">
-  <div class="container-fluid h-100">
-    <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>
-      <div class="row h-100">
-        <div class="col-lg-7 d-none d-lg-flex align-items-center">
+  <div class="container-fluid p-0 h-100">
+    <form #loginForm="ngForm" (ngSubmit)="login()" novalidate class="h-100">
+      <div class="row g-0 h-100">
+
+        <div class="col-lg-7 left-panel d-none d-lg-flex">
           <div class="left-content text-white">
-            <img src="logo.png" alt="Logo" class="logo img-fluid">
-            <hr class="custom-line">
-            <h1 class="main-title">
-              Third EYE- Embryologist Assist
-            </h1>
+
+            <div class="ai-eye-container">
+              <div class="orbit orbit1"></div>
+              <div class="orbit orbit2"></div>
+              <div class="orbit orbit3"></div>
+
+              <div class="eye">
+                <div class="iris">
+                  <div class="core"></div>
+                  <div class="scanner"></div>
+                </div>
+              </div>
+            </div>
+
+            <h1 class="main-title">Third <span>EYE</span></h1>
+
+            <h5 class="sub-title">
+              Intelligent Embryologist Assist Platform
+            </h5>
+
+            <div class="title-line"></div>
+
             <p class="description">
-              Advanced IVF platform combining patient management, electronic witnessing, laboratory workflows, and clinic operations in one secure and efficient system.
+              Intelligent Embryologist Assist platform designed for
+              cryostorage management, laboratory workflows,
+              electronic witnessing, and precision embryology operations.
             </p>
+
           </div>
         </div>
 
-        <div class="col-lg-5 d-flex align-items-center justify-content-center">
+        <div class="col-lg-5 right-panel">
           <div class="login-card">
-            <h2 class="fw-bold mb-2">Sign in</h2>
+
+            <div class="security-icon">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <div class="login-header">
+              <h2>Welcome Back</h2>
+              <p>Sign in to continue to Third EYE</p>
+            </div>
+
             <div class="mb-4">
-              <input type="email" class="form-control" placeholder="Email" [(ngModel)]="user.email"
-                name="email" required>
-            </div>
-            <div class="mb-3">
-              <input type="password" class="form-control" placeholder="Password"
-                [(ngModel)]="user.password" name="password" required>
-            </div>
-            <div class="d-grid mb-4">
-              <button type="submit" class="btn" [disabled]="loginForm.invalid">
-                Log in now
-              </button>
-              <div *ngIf="errorMessage()" class="error mt-3">
-                {{ errorMessage() }}
+              <label class="form-label">Email Address</label>
+              <div class="input-wrap">
+                <i class="fa-regular fa-envelope input-icon"></i>
+                <input type="email" class="form-control" placeholder="Enter your email" [(ngModel)]="user.email"
+                  name="email" required>
               </div>
             </div>
+
+            <div class="mb-4">
+              <label class="form-label">Password</label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-lock input-icon"></i>
+                <input type="password" class="form-control" placeholder="Enter your password"
+                  [(ngModel)]="user.password" name="password" required>
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn login-btn" [disabled]="loginForm.invalid">
+                <span>Log in now</span>
+              </button>
+            </div>
+
+            <div *ngIf="errorMessage()" class="error mt-4">
+              <i class="fa-solid fa-circle-exclamation me-2"></i>
+              {{ errorMessage() }}
+            </div>
+
           </div>
         </div>
+
       </div>
     </form>
   </div>

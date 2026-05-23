@@ -2,7 +2,7 @@
     <li [ngbNavItem]="1">
         <button ngbNavLink>Search</button>
         <ng-template ngbNavContent>
-            <div class="row g-3 mt-3">
+            <div class="row g-3 mt-5">
                 <div class="col-md-6">
                     <label for="name" class="form-label">QR Code </label>
                     <input type="text" class="form-control" id="name" [(ngModel)]="reportForSearch.id"
@@ -58,17 +58,54 @@
                             Scheduled Date
                         </option>
                     </select>
-                </div>              
-                <div class="col-md-6">
-                    <label for="procedureType" class="form-label">From Date</label>
-                    <input type="date" class="form-control" [(ngModel)]="reportForSearch.fromDate" name="fromDate" [disabled]="!reportForSearch.dateSearchType">
                 </div>
-                <div class="col-md-6">
-                    <label for="procedureType" class="form-label">To Date</label>
-                    <input type="date" class="form-control" [(ngModel)]="reportForSearch.toDate" name="toDate" [disabled]="!reportForSearch.dateSearchType">
+                <div class="col-md-12">
+
+                    <label class="form-label">
+                        Date Search
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </span>
+
+                        <select class="form-select" [(ngModel)]="reportForSearch.dateSearchType" name="dateSearchType">
+
+                            <option value="">
+                                Select Date Type
+                            </option>
+
+                            <option value="createdDate">
+                                Created Date
+                            </option>
+
+                            <option value="scheduledDate">
+                                Scheduled Date
+                            </option>
+
+                        </select>
+
+                        <span class="input-group-text">
+                            From
+                        </span>
+
+                        <input type="date" class="form-control" [(ngModel)]="reportForSearch.fromDate" name="fromDate"
+                            [disabled]="!reportForSearch.dateSearchType">
+
+                        <span class="input-group-text">
+                            To
+                        </span>
+
+                        <input type="date" class="form-control" [(ngModel)]="reportForSearch.toDate" name="toDate"
+                            [disabled]="!reportForSearch.dateSearchType">
+
+                    </div>
+
                 </div>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-5">
                 <div class="col">
                     <button class="btn me-1" (click)="searchForReports()">
                         Search
@@ -111,7 +148,7 @@
                             <td colspan="8" class="text-center">
                                 No reports found
                             </td>
-                        </tr>                        
+                        </tr>
                     </tbody>
                 </table>
             </div>

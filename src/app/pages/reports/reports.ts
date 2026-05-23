@@ -10,7 +10,6 @@ import { PrintConfigurations } from '../../models/print-configurations';
 import { DNAFragmentationTest } from '../procedures/dna-fragmentation-test/dna-fragmentation-test';
 import { EggFreezing } from '../procedures/egg-freezing/egg-freezing';
 import { EmbryoFreezing } from '../procedures/embryo-freezing/embryo-freezing';
-import { OocytePickUp } from '../procedures/oocyte-pick-up/oocyte-pick-up';
 import { OvarianTissueCryopreservation } from '../procedures/ovarian-tissue-cryopreservation/ovarian-tissue-cryopreservation';
 import { RetrogradeEjaculateAnalysis } from '../procedures/retrograde-ejaculate-analysis/retrograde-ejaculate-analysis';
 import { SemenAnalysis } from '../procedures/semen-analysis/semen-analysis';
@@ -18,6 +17,7 @@ import { SemenPreparationForIui } from '../procedures/semen-preparation-for-iui/
 import { SpermFreezing } from '../procedures/sperm-freezing/sperm-freezing';
 import { TesticularSpermRetrieval } from '../procedures/testicular-sperm-retrieval/testicular-sperm-retrieval';
 import { ProcedureType } from '../../models/procedure-type';
+import { OocytePickUp } from '../procedures/oocyte-pick-up/oocyte-pick-up';
 
 @Component({
   selector: 'app-reports',
@@ -61,7 +61,7 @@ export class Reports {
   }
 
   async searchForReports() {
-    this.reportForSearch.isReport = true;
+    this.reportForSearch.status = 'Completed';
     const data = await this.procedureService.get(this.reportForSearch);
     this.reports.set(data);
   }
@@ -109,10 +109,9 @@ export class Reports {
       scheduledDate: '',
       dateSearchType: '',
       notes:'',
-      isPaid: false,
-      isReport: false,
       fromDate: '',
       toDate: '',
+      status:'',
       procedureType: {
         id: '',
         name: '',

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IVFTreatmentWorkflowTracker } from './ivf-treatment-workflow-tracker';
+import { TreatmentWorkflowTracker } from './treatment-workflow-tracker';
 
 describe('TreatmentWorkflowTracker', () => {
-  let component: IVFTreatmentWorkflowTracker;
-  let fixture: ComponentFixture<IVFTreatmentWorkflowTracker>;
+  let component: TreatmentWorkflowTracker;
+  let fixture: ComponentFixture<TreatmentWorkflowTracker>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IVFTreatmentWorkflowTracker],
+      imports: [TreatmentWorkflowTracker],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(IVFTreatmentWorkflowTracker);
+    fixture = TestBed.createComponent(TreatmentWorkflowTracker);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

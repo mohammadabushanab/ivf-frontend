@@ -79,7 +79,7 @@
       <div class="card-header text-white ">
         Patient Clinical History
       </div>
-      <table class="table table-bordered align-middle mb-2">
+      <table class="table  custom-table">
         <thead class="table-light">
           <tr>
             <th>Parameter</th>
@@ -137,7 +137,7 @@
       <div class="card-header text-white ">
         Macroscopic Examination
       </div>
-      <table class="table table-bordered align-middle mb-2">
+      <table class="table  custom-table">
         <thead class="table-light">
           <tr>
             <th>Parameter</th>
@@ -172,7 +172,7 @@
       <div class="card-header text-white ">
         Microscopic Examination
       </div>
-      <table class="table table-bordered align-middle mb-2">
+      <table class="table  custom-table">
         <thead class="table-light">
           <tr>
             <th>Parameter</th>
@@ -235,7 +235,7 @@
       <div class="card-header text-white ">
         Sperm Freezing & Cryopreservation
       </div>
-      <table class="table table-bordered align-middle mb-2">
+      <table class="table  custom-table">
         <thead class="table-light">
           <tr>
             <th>Parameter</th>
@@ -261,17 +261,24 @@
 </div>
 <div class="row g-3 mt-3">
   <div class="col-md-12">
+    <label class="form-label">Comment</label>
+    <textarea #commentBox class="form-control" id="comment" name="comment"
+      [(ngModel)]="procedure.values['comment']"></textarea>
+  </div>
+</div>
+<div class="row g-3 mt-3">
+  <div class="col-md-12">
     <div class="card shadow-sm border-0">
       <div class="card-header text-white ">
         Signatures & Attestation
       </div>
       <div class="row g-3 mb-2">
         <div class="col-md-12">
-          <table class="table table-bordered mb-0">
+          <table class="table  custom-table">
             <thead class="table-light">
               <tr>
-                <th>Parameter</th>
-                <th>Results</th>
+                <th>Role</th>
+                <th>Name</th>
                 <th>Signature</th>
               </tr>
             </thead>
@@ -279,8 +286,8 @@
               <tr>
                 <td>Embryologist</td>
                 <td>
-                  <select class="form-select" [(ngModel)]="procedure.values['embryologist']" name="embryologist"
-                    #embryologist="ngModel" [compareWith]="compareObjects">
+                  <select class="form-select" [(ngModel)]="procedure.values['embryologist']" name="embryologistSignature"
+                    #embryologistSignature="ngModel" [compareWith]="compareObjects">
                     <option *ngFor="let p of embryologists()" [ngValue]="p">
                       {{ p.name }}
                     </option>
@@ -293,8 +300,8 @@
               <tr>
                 <td>Witness</td>
                 <td>
-                  <select class="form-select" [(ngModel)]="procedure.values['witness']" name="witness"
-                    #witness="ngModel" [compareWith]="compareObjects">
+                  <select class="form-select" [(ngModel)]="procedure.values['witness']" name="witnessSignature"
+                    #witnessSignature="ngModel" [compareWith]="compareObjects">
                     <option *ngFor="let p of embryologists()" [ngValue]="p">
                       {{ p.name }}
                     </option>
@@ -307,12 +314,5 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-<div class="row g-3 mt-3">
-  <div class="col-md-12">
-    <label class="form-label">Comment</label>
-    <textarea #commentBox class="form-control" id="comment" name="comment"
-      [(ngModel)]="procedure.values['comment']"></textarea>
   </div>
 </div>

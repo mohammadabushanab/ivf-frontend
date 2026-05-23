@@ -1,504 +1,141 @@
-<!-- Create / Search -->
-<div class="row g-3 mt-3">
-
-    <div class="col-md-6">
-        <label class="form-label">Name</label>
-        <input type="text" class="form-control" [(ngModel)]="patientForSearch.name">
-    </div>
-
-    <div class="col-md-6">
-        <label class="form-label">National ID</label>
-        <input type="text" class="form-control" [(ngModel)]="patientForSearch.nationalId">
-    </div>
-
-    <div class="col-md-6">
-        <label class="form-label">Phone Number</label>
-        <input type="text" class="form-control" [(ngModel)]="patientForSearch.phoneNumber">
-    </div>
-
-    <div class="col-md-6">
-        <label class="form-label">Husband's Name</label>
-        <input type="text" class="form-control" [(ngModel)]="patientForSearch.husbandName">
-    </div>
-
-</div>
-
-<div class="row mt-3">
-
-    <div class="col">
-
-        <button class="btn me-1" (click)="searchForPatients()">
-
-            Search
-
-        </button>
-
-        <button class="btn" (click)="reset()">
-
-            Reset
-
-        </button>
-
-    </div>
-
-</div>
-
-<!-- Search Result -->
-<div class="row mt-3">
-
-    <table class="table custom-table">
-
-        <thead>
-
-            <tr>
-                <th>File Number</th>
-                <th>Name</th>
-                <th>National ID</th>
-                <th>Phone Number</th>
-                <th>Husband</th>
-                <th>Create OPU</th>
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            <tr *ngFor="let p of patients()">
-
-                <td data-label="File Number">
-                    IVF-{{ p.id }}
-                </td>
-
-                <td data-label="Name">
-                    {{ p.name }}
-                </td>
-
-                <td data-label="National ID">
-                    {{ p.nationalId }}
-                </td>
-
-                <td data-label="Phone Number">
-                    {{ p.phoneNumber }}
-                </td>
-
-                <td data-label="Husband">
-                    {{ p.husbandName }}
-                </td>
-
-                <td class="text-center">
-
-                    <a (click)="createOPUFromPatient(p)">
-
-                        <i class="fa-solid fa-plus"></i>
-
-                    </a>
-
-                </td>
-
-            </tr>
-
-            <tr *ngIf="patients().length === 0">
-
-                <td colspan="6" class="text-center">
-
-                    No patients found
-
-                </td>
-
-            </tr>
-
-        </tbody>
-
-    </table>
-
-</div>
-
-<!-- Summary -->
-<div class="row g-4 mt-3" *ngIf="opuSessions().length > 0">
-
-    <div class="col-xl-3 col-md-6">
-
-        <div class="summary-circle mt-4">
-
-            <h2>
-                {{ opuSessions().length }}
-            </h2>
-
-            <p>
-                Active OPU Sessions
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-
-        <div class="summary-circle mt-4">
-
-            <h2>
-                {{ getTotalTubes() }}
-            </h2>
-
-            <p>
-                Total Tubes
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-
-        <div class="summary-circle mt-4">
-
-            <h2>
-                {{ getTotalOocytes() }}
-            </h2>
-
-            <p>
-                Total Oocytes
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-
-        <div class="summary-circle mt-4">
-
-            <h2>
-                {{ getNoOocyteTubes() }}
-            </h2>
-
-            <p>
-                No Oocyte Tubes
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Empty -->
-<div class="row mt-5" *ngIf="opuSessions().length === 0">
-
-    <div class="col-12">
-
-        <div class="card shadow-sm border-0">
-
-            <div class="card-body text-center p-5">
-
-                <h5>
-                    No OPU Sessions Found
-                </h5>
-
-                <p class="text-muted mb-0">
-                    Search for a patient and create a new OPU session.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- OPU Sessions -->
 <div class="row mt-5" *ngIf="opuSessions().length > 0">
 
-    <div class="col-12">
+  <div class="col-12 mb-4" *ngFor="let opu of opuSessions()">
 
-        <h6 class="mb-3">
+    <div class="opu-session-card">
 
-            <i class="fa-solid fa-syringe me-2"></i>
-
-            OPU Live Tracker
-
-        </h6>
-
-    </div>
-
-    <div class="col-12 mb-4" *ngFor="let opu of opuSessions()">
-
-        <div class="card shadow-sm border-0 section-card">
-
-            <!-- Header -->
-            <div class="card-header">
-
-                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-
-                    <div>
-
-                        OPU-{{ opu.id }} |
-
-                        {{ opu.patient.name }} |
-
-                        File: IVF-{{ opu.patient.id }}
-
-                    </div>
-
-                    <div class="d-flex align-items-center gap-2">
-
-                        <button class="btn btn-sm btn-light w-auto" (click)="deleteOPU(opu)">Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Body -->
-            <div class="card-body">
-
-                <!-- Controls -->
-                <div class="row mt-2 mb-4">
-
-                    <div class="col">
-
-                        <button class="btn me-2" (click)="startOPU(opu)">
-
-                            <i class="fa-solid fa-play me-2"></i>
-
-                            Start OPU
-
-                        </button>
-
-                        <button class="btn me-2" (click)="finishOPU(opu)">
-
-                            <i class="fa-solid fa-stop me-2"></i>
-
-                            Finish
-
-                        </button>
-
-                        <button class="btn me-2" (click)="resetOPU(opu)">
-
-                            <i class="fa-solid fa-rotate-right me-2"></i>
-
-                            Reset
-
-                        </button>
-
-                        <button class="btn" (click)="addTube(opu)">
-
-                            <i class="fa-solid fa-plus me-2"></i>
-
-                            Add Tube
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <!-- Time Cards -->
-                <div class="row g-4 mb-4">
-
-                    <div class="col-md-6">
-
-                        <div class="stat-card">
-
-                            <div class="stat-icon">
-
-                                <i class="fa-solid fa-clock"></i>
-
-                            </div>
-
-                            <div>
-
-                                <p>
-                                    OPU Start
-                                </p>
-
-                                <h6>
-                                    {{ opu.values['opuStartTime'] || '--:--:--' }}
-                                </h6>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <div class="stat-card">
-
-                            <div class="stat-icon">
-
-                                <i class="fa-solid fa-flag-checkered"></i>
-
-                            </div>
-
-                            <div>
-
-                                <p>
-                                    OPU Finish
-                                </p>
-
-                                <h6>
-                                    {{ opu.values['opuFinishTime'] || '--:--:--' }}
-                                </h6>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- Tubes -->
-                <div class="row mt-4">
-
-                    <div class="col-12" *ngFor="let tube of opu.values['tubes'] || []">
-
-                        <div class="card shadow-sm border-0 mb-3">
-
-                            <div class="card-body">
-
-                                <div class="row align-items-center g-3">
-
-                                    <!-- Tube -->
-                                    <div class="col-xl-2 col-md-12">
-
-                                        <div class="d-flex align-items-center">
-
-                                            <div class="stat-icon me-3">
-
-                                                <i class="fa-solid fa-vial"></i>
-
-                                            </div>
-
-                                            <div>
-
-                                                <h6 class="mb-1">
-
-                                                    Tube #{{ tube.tubeNumber }}
-
-                                                </h6>
-
-                                                <small class="text-muted">
-
-                                                    {{
-                                                    tube.oocytes > 0
-                                                    ? 'Oocyte Found'
-                                                    : 'No Oocyte'
-                                                    }}
-
-                                                </small>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Count -->
-                                    <div class="col-xl-2 col-md-6">
-
-                                        <div class="text-center">
-
-                                            <h3 class="mb-0">
-
-                                                {{ tube.oocytes }}
-
-                                            </h3>
-
-                                            <small class="text-muted">
-
-                                                Oocytes
-
-                                            </small>
-
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Add -->
-                                    <div class="col-xl-2 col-md-6">
-
-                                        <button class="btn w-100" (click)="increaseOocyte(opu, tube)">
-
-                                            <i class="fa-solid fa-plus me-2"></i>
-
-                                            Add Oocyte
-
-                                        </button>
-
-                                    </div>
-
-                                    <!-- Remove -->
-                                    <div class="col-xl-2 col-md-6">
-
-                                        <button class="btn viceVersa w-100" (click)="decreaseOocyte(opu, tube)">
-
-                                            <i class="fa-solid fa-minus me-2"></i>
-
-                                            Remove
-
-                                        </button>
-
-                                    </div>
-
-                                    <!-- Set 0 -->
-                                    <div class="col-xl-2 col-md-6">
-
-                                        <button class="btn btn-outline-secondary w-100"
-                                            (click)="setNoOocyte(opu, tube)">
-
-                                            <i class="fa-solid fa-ban me-2"></i>
-
-                                            No Oocyte
-
-                                        </button>
-
-                                    </div>
-
-                                    <!-- Notes -->
-                                    <div class="col-xl-2 col-md-12">
-
-                                        <textarea class="form-control" rows="2" [(ngModel)]="tube.notes"
-                                            (blur)="updateNotes(opu)" placeholder="Notes">
-                                        </textarea>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!-- Empty Tubes -->
-                    <div class="col-12" *ngIf="(opu.values['tubes'] || []).length === 0">
-
-                        <div class="card shadow-sm border-0">
-
-                            <div class="card-body text-center p-5">
-                                <h6>
-                                    No Tubes Added Yet
-                                </h6>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
+      <div class="opu-header">
+        <div class="opu-icon">
+          <i class="fa-solid fa-syringe"></i>
         </div>
 
+        <div class="opu-title">
+          <h4>OPU-{{ opu.id }}</h4>
+          <p>{{ opu.patient.name }} | File: IVF-{{ opu.patient.id }}</p>
+        </div>
+
+        <span class="opu-status"
+          [ngClass]="opu.values['opuStartTime'] ? 'running' : 'not-started'">
+          {{ opu.values['opuStartTime'] ? 'Running' : 'Not Started' }}
+        </span>
+
+        <button class="delete-btn" (click)="deleteOPU(opu)">
+          <i class="fa-solid fa-trash"></i>
+          Delete
+        </button>
+      </div>
+
+      <div class="opu-actions">
+        <button class="opu-action primary" (click)="startOPU(opu)">
+          <i class="fa-solid fa-play"></i>
+          Start OPU
+        </button>
+
+        <button class="opu-action" (click)="finishOPU(opu)">
+          <i class="fa-solid fa-flag-checkered"></i>
+          Finish
+        </button>
+
+        <button class="opu-action" (click)="resetOPU(opu)">
+          <i class="fa-solid fa-rotate-right"></i>
+          Reset
+        </button>
+
+        <button class="opu-action primary" (click)="addTube(opu)">
+          <i class="fa-solid fa-plus"></i>
+          Add Tube
+        </button>
+      </div>
+
+      <div class="opu-time-grid">
+        <div class="opu-time-card">
+          <div class="time-icon">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div>
+            <p>OPU Start</p>
+            <h5>{{ opu.values['opuStartTime'] || '--:--:--' }}</h5>
+          </div>
+        </div>
+
+        <div class="opu-time-card">
+          <div class="time-icon">
+            <i class="fa-solid fa-flag-checkered"></i>
+          </div>
+          <div>
+            <p>OPU Finish</p>
+            <h5>{{ opu.values['opuFinishTime'] || '--:--:--' }}</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="tube-card" *ngFor="let tube of opu.values['tubes'] || []">
+
+        <div class="tube-visual">
+          <div class="tube-shape" [class.empty]="tube.oocytes === 0">
+            <div class="tube-cap"></div>
+            <div class="tube-liquid"></div>
+          </div>
+        </div>
+
+        <div class="tube-info">
+          <h5>Tube #{{ tube.tubeNumber }}</h5>
+          <span [ngClass]="tube.oocytes > 0 ? 'tube-badge found' : 'tube-badge empty'">
+            {{ tube.oocytes > 0 ? 'Oocyte Found' : 'No Oocyte' }}
+          </span>
+        </div>
+
+        <div class="oocyte-count">
+          <h3>{{ tube.oocytes }}</h3>
+          <p>Oocytes</p>
+        </div>
+
+        <div class="oocyte-visuals">
+          <span
+            class="oocyte-dot"
+            *ngFor="let item of [].constructor(tube.oocytes)">
+          </span>
+
+          <span
+            class="oocyte-dot empty"
+            *ngFor="let item of [].constructor(5 - tube.oocytes > 0 ? 5 - tube.oocytes : 0)">
+          </span>
+        </div>
+
+        <div class="tube-actions">
+          <button class="small-action primary" (click)="increaseOocyte(opu, tube)">
+            <i class="fa-solid fa-plus"></i>
+            Add
+          </button>
+
+          <button class="small-action" (click)="decreaseOocyte(opu, tube)">
+            <i class="fa-solid fa-minus"></i>
+            Remove
+          </button>
+
+          <button class="small-action danger" (click)="setNoOocyte(opu, tube)">
+            <i class="fa-solid fa-ban"></i>
+            No Oocyte
+          </button>
+        </div>
+
+        <textarea
+          class="tube-notes"
+          rows="2"
+          [(ngModel)]="tube.notes"
+          (blur)="updateNotes(opu)"
+          placeholder="Notes">
+        </textarea>
+
+      </div>
+
+      <div class="empty-tube-card" *ngIf="(opu.values['tubes'] || []).length === 0">
+        <i class="fa-solid fa-vial"></i>
+        <h6>No Tubes Added Yet</h6>
+      </div>
+
     </div>
+
+  </div>
 
 </div>

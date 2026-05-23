@@ -13,7 +13,9 @@ export class FreezingService {
 
   private http = inject(HttpClient);
 
-    async getBySearchCriteria(freezing:Freezing): Promise<Freezing[] | null> {
+  async getBySearchCriteria(freezing: Freezing): Promise<Freezing[] | null> {
+
+    console.log(freezing)
 
     try {
 
@@ -33,7 +35,7 @@ export class FreezingService {
     }
   }
 
-  async getTotalByType(freezing:Freezing): Promise<number> {
+  async getTotalByType(freezing: Freezing): Promise<number> {
 
     try {
 

@@ -98,7 +98,7 @@
                 Freezing Details
             </div>
 
-            <table class="table table-bordered align-middle mb-2">
+            <table class="table custom-table">
                 <tbody>
 
                     <tr>
@@ -111,8 +111,8 @@
 
                         <td class="pink-label">Dewar:</td>
                         <td>
-                            <input class="form-control" id="dewar" [(ngModel)]="procedure.values['dewar']"
-                                #dewar="ngModel" name="dewar" placeholder="Dewar ID">
+                            <input class="form-control" id="spermDewar" [(ngModel)]="procedure.values['spermDewar']"
+                                #spermDewar="ngModel" name="spermDewar" placeholder="Dewar ID">
                         </td>
                     </tr>
 
@@ -141,17 +141,17 @@
 
                         <td class="green-label">Canister No.:</td>
                         <td>
-                            <input class="form-control" id="canisterNo" [(ngModel)]="procedure.values['canisterNo']"
-                                #canisterNo="ngModel" name="canisterNo" placeholder="Canister Number">
+                            <input class="form-control" id="spermCanisterNo" [(ngModel)]="procedure.values['spermCanisterNo']"
+                                #spermCanisterNo="ngModel" name="spermCanisterNo" placeholder="Canister Number">
                         </td>
                     </tr>
 
                     <tr>
                         <td class="pink-label">Freezing Date:</td>
                         <td>
-                            <input type="date" class="form-control" id="freezingDate"
-                                [(ngModel)]="procedure.values['freezingDate']" #freezingDate="ngModel"
-                                name="freezingDate">
+                            <input type="date" class="form-control" id="spermFreezingDate"
+                                [(ngModel)]="procedure.values['spermFreezingDate']" #spermFreezingDate="ngModel"
+                                name="spermFreezingDate">
                         </td>
 
                         <td class="green-label">Witness:</td>
@@ -181,7 +181,7 @@
                 Sperm Details
             </div>
 
-            <table class="table table-bordered mb-0 align-middle">
+            <table class="table custom-table">
                 <tbody>
                     <tr>
                         <td>Source</td>
@@ -200,7 +200,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table class="table table-bordered mb-0 align-middle">
+            <table class="table custom-table">
                 <thead class="table-light">
                     <tr>
                         <th>Parameter</th>
@@ -296,7 +296,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered mb-0 align-middle">
+                <table class="table custom-table">
                     <thead class="table-light">
                         <tr>
                             <th>No.</th>
@@ -315,7 +315,7 @@
                     </thead>
 
                     <tbody>
-                        <tr *ngFor="let row of procedure.values['thawingRows']; let i = index">
+                        <tr *ngFor="let row of procedure.values['spermThawingRows']; let i = index">
 
                             <td>{{ i + 1 }}</td>
 

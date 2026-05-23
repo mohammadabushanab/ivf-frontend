@@ -118,7 +118,7 @@
         Freezing Details
       </div>
 
-      <table class="table table-bordered align-middle mb-3">
+      <table class="table custom-table">
         <tbody>
 
           <tr>
@@ -224,7 +224,7 @@
         </div>
       </div>
 
-      <table class="table table-bordered mb-0 align-middle">
+      <table class="table custom-table">
         <thead class="table-light">
           <tr>
             <th>Stage</th>
@@ -304,7 +304,7 @@
         </div>
       </div>
 
-      <table class="table table-bordered align-middle text-center mb-0">
+      <table class="table custom-table">
         <thead class="green-thead">
           <tr>
             <th>#</th>
@@ -313,7 +313,6 @@
             <th>Straws</th>
             <th>Embryos</th>
             <th>Survived Embryos</th>
-            <th>Survival %</th>
             <th>Remaining Embryos</th>
             <th>Embryologist</th>
             <th>Witness</th>
@@ -360,13 +359,6 @@
                 [(ngModel)]="row.survivedEmbryos"
                 [name]="'survivedEmbryos' + i"
                 #survivedEmbryos="ngModel">
-            </td>
-
-            <td>
-              <input class="form-control" id="embryoSurvivalPercentage{{ i }}"
-                [(ngModel)]="row.survivalPercentage"
-                [name]="'embryoSurvivalPercentage' + i"
-                #embryoSurvivalPercentage="ngModel">
             </td>
 
             <td>
@@ -438,7 +430,7 @@
         </div>
       </div>
 
-      <table class="table table-bordered align-middle text-center mb-0">
+      <table class="table custom-table">
         <thead class="green-thead">
           <tr>
             <th>#</th>

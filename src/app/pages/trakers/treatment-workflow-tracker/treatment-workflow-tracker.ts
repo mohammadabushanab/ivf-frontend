@@ -13,10 +13,10 @@ import { SocketService } from '../../../core/services/socket-service';
   selector: 'app-treatment-workflow-tracker',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './ivf-treatment-workflow-tracker.html',
-  styleUrl: './ivf-treatment-workflow-tracker.css',
+  templateUrl: './treatment-workflow-tracker.html',
+  styleUrl: './treatment-workflow-tracker.css',
 })
-export class IVFTreatmentWorkflowTracker implements OnInit, OnDestroy {
+export class TreatmentWorkflowTracker implements OnInit, OnDestroy {
 
   @ViewChild('createTemplate')
   createModal!: TemplateRef<any>;

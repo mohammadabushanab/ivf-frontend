@@ -1,77 +1,74 @@
 <div class="row mt-3">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 section-card">
-            <div class="card-header blue-header">
-                Patient Information
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="name" class="form-label">Name </label>
-                        <input type="text" class="form-control" id="name" [(ngModel)]="procedure.patient.name"
-                            #name="ngModel" name="name" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="nationalId" class="form-label">National ID</label>
-                        <input type="text" class="form-control" id="nationalId"
-                            [(ngModel)]="procedure.patient.nationalId" #nationalId="ngModel" name="nationalId" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="phoneNumber" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNumber"
-                            [(ngModel)]="procedure.patient.phoneNumber" #phoneNumber="ngModel" name="phoneNumber"
-                            disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="age" class="form-label">Age</label>
-                        <input type="text" class="form-control" id="age" [(ngModel)]="procedure.patient.age"
-                            #age="ngModel" name="age" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="husbandName" class="form-label">Husband's Name</label>
-                        <input type="text" class="form-control" id="husbandName"
-                            [(ngModel)]="procedure.patient.husbandName" #husbandname="ngModel" name="husbandname"
-                            disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="husbandNationalId" class="form-label">Husband's ID</label>
-                        <input type="text" class="form-control" id="husbandId"
-                            [(ngModel)]="procedure.patient.husbandNationalId" #husbandNationalId="ngModel"
-                            name="husbandNationalId" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="husbandPhoneNumber" class="form-label">Husband Phone Number</label>
-                        <input type="text" class="form-control" id="husbandPhoneNumber"
-                            [(ngModel)]="procedure.patient.husbandPhoneNumber" #husbandPhoneNumber="ngModel"
-                            name="husbandPhoneNumber" disabled>
-                    </div>
-                </div>
-            </div>
+  <div class="col-12">
+    <div class="card shadow-sm border-0 section-card">
+      <div class="card-header blue-header">
+        Patient Information
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="name" class="form-label">Name </label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="procedure.patient.name" #name="ngModel"
+              name="name" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="nationalId" class="form-label">National ID</label>
+            <input type="text" class="form-control" id="nationalId" [(ngModel)]="procedure.patient.nationalId"
+              #nationalId="ngModel" name="nationalId" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="procedure.patient.phoneNumber"
+              #phoneNumber="ngModel" name="phoneNumber" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="age" class="form-label">Age</label>
+            <input type="text" class="form-control" id="age" [(ngModel)]="procedure.patient.age" #age="ngModel"
+              name="age" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="husbandName" class="form-label">Husband's Name</label>
+            <input type="text" class="form-control" id="husbandName" [(ngModel)]="procedure.patient.husbandName"
+              #husbandname="ngModel" name="husbandname" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="husbandNationalId" class="form-label">Husband's ID</label>
+            <input type="text" class="form-control" id="husbandId" [(ngModel)]="procedure.patient.husbandNationalId"
+              #husbandNationalId="ngModel" name="husbandNationalId" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="husbandPhoneNumber" class="form-label">Husband Phone Number</label>
+            <input type="text" class="form-control" id="husbandPhoneNumber"
+              [(ngModel)]="procedure.patient.husbandPhoneNumber" #husbandPhoneNumber="ngModel" name="husbandPhoneNumber"
+              disabled>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <div class="row mt-3">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 section-card">
-            <div class="card-header blue-header">
-                Physician & Embryologist Information
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="physician" class="form-label">Physician</label>
-                        <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.physician.name"
-                            #physician="ngModel" name="physician" disabled>
-                    </div>                    
-                    <div class="col-md-6">
-                        <label for="embryologist" class="form-label">Embryologist</label>
-                        <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.embryologist.name"
-                            #embryologist="ngModel" name="embryologist" disabled>
-                    </div>
-                </div>
-            </div>
+  <div class="col-12">
+    <div class="card shadow-sm border-0 section-card">
+      <div class="card-header blue-header">
+        Physician & Embryologist Information
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="physician" class="form-label">Physician</label>
+            <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.physician.name"
+              #physician="ngModel" name="physician" disabled>
+          </div>
+          <div class="col-md-6">
+            <label for="embryologist" class="form-label">Embryologist</label>
+            <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.embryologist.name"
+              #embryologist="ngModel" name="embryologist" disabled>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <div class="row mt-3">
   <div class="col-md-12">
@@ -79,7 +76,7 @@
       <div class="card-header text-white ">
         Pre-Retrograde Ejaculate Analysis
       </div>
-      <table class="table table-bordered mb-2">
+      <table class="table  custom-table">
         <thead class="table-light">
           <tr>
             <th>Parameter</th>
@@ -121,7 +118,7 @@
       <div class="card-header text-white ">
         Microscopic Examination
       </div>
-      <table class="table table-bordered mb-2">
+      <table class="table  custom-table">
         <thead class="table-light">
           <tr>
             <th>Parameter</th>
@@ -171,7 +168,7 @@
       <div class="card-header text-white ">
         Microscopic Examination (Sperm Concentration & Cells)
       </div>
-      <table class="table table-bordered mb-2">
+      <table class="table  custom-table">
         <thead class="table-light">
           <tr>
             <th>Parameter</th>
@@ -220,5 +217,55 @@
     <label class="form-label">Comment</label>
     <textarea #commentBox class="form-control" id="comment" name="comment"
       [(ngModel)]="procedure.values['comment']"></textarea>
+  </div>
+</div>
+<div class="row g-3 mt-3">
+  <div class="col-md-12">
+    <div class="card shadow-sm border-0">
+      <div class="card-header text-white ">
+        Signatures & Attestation
+      </div>
+      <div class="row g-3 mb-2">
+        <div class="col-md-12">
+          <table class="table  custom-table">
+            <thead class="table-light">
+              <tr>
+                <th>Role</th>
+                <th>Name</th>
+                <th>Signature</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Embryologist</td>
+                <td>
+                  <select class="form-select" [(ngModel)]="procedure.values['embryologist']"
+                    name="embryologistSignature" #embryologistSignature="ngModel" [compareWith]="compareObjects">
+                    <option *ngFor="let p of embryologists()" [ngValue]="p">
+                      {{ p.name }}
+                    </option>
+                  </select>
+                </td>
+                <td>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Witness</td>
+                <td>
+                  <select class="form-select" [(ngModel)]="procedure.values['witness']" name="witnessSignature"
+                    #witnessSignature="ngModel" [compareWith]="compareObjects">
+                    <option *ngFor="let p of embryologists()" [ngValue]="p">
+                      {{ p.name }}
+                    </option>
+                  </select>
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

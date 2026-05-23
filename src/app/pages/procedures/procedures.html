@@ -2,7 +2,7 @@
     <li [ngbNavItem]="1">
         <button ngbNavLink>Search</button>
         <ng-template ngbNavContent>
-            <div class="row g-3 mt-3">
+            <div class="row g-3 mt-5">
                 <div class="col-md-6">
                     <label for="name" class="form-label">QR Code </label>
                     <input type="text" class="form-control" id="name" [(ngModel)]="procedureForSearch.id"
@@ -39,38 +39,76 @@
                 </div>
                 <div class="col-md-6">
                     <label for="procedureType" class="form-label">Procedure Type</label>
-                    <select class="form-select" [(ngModel)]="procedureForSearch.procedureType" name="physician"
-                        #physician="ngModel" required [compareWith]="compareObjects">
+                    <select class="form-select" [(ngModel)]="procedureForSearch.procedureType" name="procedureType"
+                        #procedureType="ngModel" required [compareWith]="compareObjects">
                         <option *ngFor="let p of procedureTypes()" [ngValue]="p">
                             {{ p.name }}
                         </option>
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">
-                        Date Type
-                    </label>
-                    <select class="form-select" [(ngModel)]="procedureForSearch.dateSearchType" name="dateSearchType">
-                        <option value="createdDate">
-                            Created Date
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" [(ngModel)]="procedureForSearch.status" name="status" #status="ngModel"
+                        required [compareWith]="compareObjects">
+                        <option value="Created">
+                            Created
                         </option>
-                        <option value="scheduledDate">
-                            Scheduled Date
+                        <option value="In Progress">
+                            In Progress
+                        </option>
+                        <option value="Completed">
+                            Completed
                         </option>
                     </select>
                 </div>
-                <div class="col-md-6">
-                    <label for="procedureType" class="form-label">From Date</label>
-                    <input type="date" class="form-control" [(ngModel)]="procedureForSearch.fromDate" name="fromDate"
-                        [disabled]="!procedureForSearch.dateSearchType" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="procedureType" class="form-label">To Date</label>
-                    <input type="date" class="form-control" [(ngModel)]="procedureForSearch.toDate" name="toDate"
-                        [disabled]="!procedureForSearch.dateSearchType" required>
+                <div class="col-md-12">
+
+                    <label class="form-label">
+                        Date Search
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </span>
+
+                        <select class="form-select" [(ngModel)]="procedureForSearch.dateSearchType"
+                            name="dateSearchType">
+
+                            <option value="">
+                                Select Date Type
+                            </option>
+
+                            <option value="createdDate">
+                                Created Date
+                            </option>
+
+                            <option value="scheduledDate">
+                                Scheduled Date
+                            </option>
+
+                        </select>
+
+                        <span class="input-group-text">
+                            From
+                        </span>
+
+                        <input type="date" class="form-control" [(ngModel)]="procedureForSearch.fromDate"
+                            name="fromDate" [disabled]="!procedureForSearch.dateSearchType">
+
+                        <span class="input-group-text">
+                            To
+                        </span>
+
+                        <input type="date" class="form-control" [(ngModel)]="procedureForSearch.toDate" name="toDate"
+                            [disabled]="!procedureForSearch.dateSearchType">
+
+                    </div>
+
                 </div>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-5">
                 <div class="col">
                     <button class="btn me-1" (click)="searchForProcedures()">
                         Search
@@ -95,6 +133,7 @@
                             <th>Scheduled Date</th>
                             <th>Notes</th>
                             <th *ngIf="role == 'Coordinator'">Payment Status</th>
+                            <th>Status</th>
                             <th *ngIf="role == 'Coordinator' || role == 'Embryologist'">Edit</th>
                             <th *ngIf="role == 'Coordinator' || role == 'Physician'">Delete</th>
                             <th *ngIf="role == 'Coordinator'">Print Worksheet</th>
@@ -114,6 +153,12 @@
                             <td data-label="Scheduled Date">{{p.scheduledDate | date:'dd MMM yyyy, HH:mm' }}</td>
                             <td data-label="Notes">{{p.notes}}</td>
                             <td *ngIf="role == 'Coordinator'" data-label="Payment Status">{{p.paymentStatus}}</td>
+                            <td data-label="Status">
+                                <span class="status-badge"
+                                    [ngClass]="{'status1': p.status === 'Created','status2': p.status === 'In Progress','status3': p.status === 'Completed'}">
+                                    {{ p.status }}
+                                </span>
+                            </td>
                             <td *ngIf="role == 'Coordinator' || role == 'Embryologist'" data-label="Edit"
                                 class="text-center cursor-pointer">
                                 <a (click)="openEditModal(p)">
@@ -160,21 +205,9 @@
         <h6 class="modal-title" id="modal-basic-title">Procedure</h6>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
-    <form #procedureForm="ngForm" (ngSubmit)="updateProcedure()" novalidate>
+    <form #procedureForm="ngForm" novalidate>
         <div class="modal-body">
             <div class="row g-3 mt-3">
-                <div class="col-md-12">
-                    <label for="physician" class="form-label">Physician</label>
-                    <select class="form-select" [(ngModel)]="procedureForEdit.physician" name="physician"
-                        #physician="ngModel" required [compareWith]="compareObjects">
-                        <option *ngFor="let p of physicians()" [ngValue]="p">
-                            {{ p.name }}
-                        </option>
-                    </select>
-                    <div class="error mt-1" *ngIf="physician.invalid && physician.touched">
-                        Please select a value
-                    </div>
-                </div>
                 <div class="col-md-12">
                     <label for="procedureType" class="form-label">Scheduled Date</label>
                     <input type="datetime-local" class="form-control" [(ngModel)]="procedureForEdit.scheduledDate"
@@ -211,8 +244,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-secondary"
-                [disabled]="isUpdateProceDureDisabled()">Submit</button>
+            <button type="submit" class="btn btn-outline-secondary" [disabled]="isUpdateProceDureDisabled()"
+                (click)="updateProcedure('In Progress')">Submit</button>
         </div>
     </form>
 </ng-template>
@@ -221,7 +254,7 @@
     <div class="modal-header">
         <h6 class="modal-title" id="modal-basic-title">{{procedureForEdit.procedureType.name}}</h6>
     </div>
-    <form #procedureForm="ngForm" (ngSubmit)="updateProcedure()" novalidate>
+    <form #procedureForm="ngForm" novalidate>
         <div class="modal-body full-screen" id="print-area">
             <app-dna-fragmentation-test [procedure]="procedureForEdit"
                 *ngIf="procedureForEdit.procedureType.name == 'DNA Fragmentation Test'">
@@ -263,13 +296,12 @@
                 *ngIf="procedureForEdit.procedureType.name == 'Testicular Sperm Retrieval'">
             </app-testicular-sperm-retrieval>
 
-            <app-frozen-embryo-transfer [procedure]="procedureForEdit"
-                *ngIf="procedureForEdit.procedureType.name == 'Frozen Embryo Transfer'">
-            </app-frozen-embryo-transfer>
-
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-secondary" [disabled]="procedureForm.invalid">Save</button>
+            <button type="submit" class="btn btn-outline-secondary" [disabled]="procedureForm.invalid"
+                (click)="updateProcedure('Completed')">Submit</button>
+            <button type="submit" class="btn btn-outline-secondary"
+                (click)="updateProcedure('In Progress')">Save as Draft</button>
             <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">Close</button>
         </div>
     </form>

@@ -1,536 +1,749 @@
 <div class="row mt-3">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 section-card">
-            <div class="card-header blue-header">
-                Patient Information
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="name" class="form-label">Name </label>
-                        <input type="text" class="form-control" id="name" [(ngModel)]="procedure.patient.name"
-                            #name="ngModel" name="name" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="nationalId" class="form-label">National ID</label>
-                        <input type="text" class="form-control" id="nationalId"
-                            [(ngModel)]="procedure.patient.nationalId" #nationalId="ngModel" name="nationalId" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="phoneNumber" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNumber"
-                            [(ngModel)]="procedure.patient.phoneNumber" #phoneNumber="ngModel" name="phoneNumber"
-                            disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="age" class="form-label">Age</label>
-                        <input type="text" class="form-control" id="age" [(ngModel)]="procedure.patient.age"
-                            #age="ngModel" name="age" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="husbandName" class="form-label">Husband's Name</label>
-                        <input type="text" class="form-control" id="husbandName"
-                            [(ngModel)]="procedure.patient.husbandName" #husbandname="ngModel" name="husbandname"
-                            disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="husbandNationalId" class="form-label">Husband's ID</label>
-                        <input type="text" class="form-control" id="husbandId"
-                            [(ngModel)]="procedure.patient.husbandNationalId" #husbandNationalId="ngModel"
-                            name="husbandNationalId" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="husbandPhoneNumber" class="form-label">Husband Phone Number</label>
-                        <input type="text" class="form-control" id="husbandPhoneNumber"
-                            [(ngModel)]="procedure.patient.husbandPhoneNumber" #husbandPhoneNumber="ngModel"
-                            name="husbandPhoneNumber" disabled>
-                    </div>
-                </div>
-            </div>
+  <div class="col-12">
+    <div class="card shadow-sm border-0 section-card">
+      <div class="card-header blue-header">Patient Information</div>
+
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.patient.name" name="name" disabled>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">National ID</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.patient.nationalId" name="nationalId" disabled>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Phone Number</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.patient.phoneNumber" name="phoneNumber" disabled>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Age</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.patient.age" name="age" disabled>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Husband's Name</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.patient.husbandName" name="husbandName" disabled>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Husband's ID</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.patient.husbandNationalId" name="husbandNationalId" disabled>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Husband Phone Number</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.patient.husbandPhoneNumber" name="husbandPhoneNumber" disabled>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+
 <div class="row mt-3">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 section-card">
-            <div class="card-header blue-header">
-                Physician & Embryologist Information
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="physician" class="form-label">Physician</label>
-                        <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.physician.name"
-                            #physician="ngModel" name="physician" disabled>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="embryologist" class="form-label">Embryologist</label>
-                        <input type="text" class="form-control" id="physician" [(ngModel)]="procedure.embryologist.name"
-                            #embryologist="ngModel" name="embryologist" disabled>
-                    </div>
-                </div>
-            </div>
+  <div class="col-12">
+    <div class="card shadow-sm border-0 section-card">
+      <div class="card-header blue-header">Physician & Embryologist Information</div>
+
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Physician</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.physician.name" name="physician" disabled>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Embryologist</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.embryologist.name" name="embryologist" disabled>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+
 <div class="row mt-3">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 section-card">
-            <div class="card-header blue-header">
-                Treatment Information
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label for="treatment" class="form-label">Treatment</label>
-                        <select id="treatment" class="form-select" [(ngModel)]="procedure.values['treatment']"
-                            name="treatment">
-                            <option value="ICSI">ICSI</option>
-                            <option value="IVF">IVF</option>
-                            <option value="ICSI with Freeze-All">ICSI With Freeze-All</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3" *ngIf="procedure.values['treatment'] === 'Other'">
-                        <label for="otherTreatment" class="form-label">Other Treatment</label>
-                        <input id="otherTreatment" type="text" class="form-control"
-                            [(ngModel)]="procedure.values['otherTreatment']" name="otherTreatment"
-                            placeholder="Enter treatment">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="aspirationDate" class="form-label">Aspiration Date</label>
-                        <input id="aspirationDate" type="date" class="form-control"
-                            [(ngModel)]="procedure.values['aspirationDate']" name="aspirationDate">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="startTime" class="form-label">Start Time</label>
-                        <input id="startTime" type="time" class="form-control"
-                            [(ngModel)]="procedure.values['startTime']" name="startTime">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="endTime" class="form-label">End Time</label>
-                        <input id="endTime" type="time" class="form-control" [(ngModel)]="procedure.values['endTime']"
-                            name="endTime">
-                    </div>
-                </div>
-            </div>
+  <div class="col-12">
+    <div class="card shadow-sm border-0 section-card">
+      <div class="card-header blue-header">Treatment Information</div>
+
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label">Treatment</label>
+            <select class="form-select" [(ngModel)]="procedure.values['treatment']" name="treatment">
+              <option value="ICSI">ICSI</option>
+              <option value="IVF">IVF</option>
+              <option value="ICSI with Freeze-All">ICSI With Freeze-All</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="col-md-3" *ngIf="procedure.values['treatment'] === 'Other'">
+            <label class="form-label">Other Treatment</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.values['otherTreatment']" name="otherTreatment">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Aspiration Date</label>
+            <input type="date" class="form-control" [(ngModel)]="procedure.values['aspirationDate']" name="aspirationDate">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Start Time</label>
+            <input type="time" class="form-control" [(ngModel)]="procedure.values['startTime']" name="startTime">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">End Time</label>
+            <input type="time" class="form-control" [(ngModel)]="procedure.values['endTime']" name="endTime">
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+
 <div class="row mt-3">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 section-card">
-            <div class="card-header blue-header">
-                Egg Collection &amp; Culture
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label for="totalOocytesRetrieved" class="form-label">No of Eggs</label>
-                        <input id="totalOocytesRetrieved" type="number" class="form-control"
-                            [(ngModel)]="procedure.values['totalOocytesRetrieved']" name="totalOocytesRetrieved">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="gv" class="form-label">GV</label>
-                        <input id="gv" type="number" class="form-control" [(ngModel)]="procedure.values['gv']"
-                            name="gv">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="mi" class="form-label">MI</label>
-                        <input id="mi" type="number" class="form-control" [(ngModel)]="procedure.values['mi']"
-                            name="mi">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="mii" class="form-label">MII</label>
-                        <input id="mii" type="number" class="form-control" [(ngModel)]="procedure.values['mii']"
-                            name="mii">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="injectedOocytes" class="form-label">Injected</label>
-                        <input id="injectedOocytes" type="number" class="form-control"
-                            [(ngModel)]="procedure.values['injectedOocytes']" name="injectedOocytes">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="emptyOocytes" class="form-label">Empty Egg</label>
-                        <input id="emptyOocytes" type="number" class="form-control"
-                            [(ngModel)]="procedure.values['emptyOocytes']" name="emptyOocytes">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="atreticOocytes" class="form-label">Atretic</label>
-                        <input id="atreticOocytes" type="number" class="form-control"
-                            [(ngModel)]="procedure.values['atreticOocytes']" name="atreticOocytes">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="abnormalOocytes" class="form-label">Abnormal</label>
-                        <input id="abnormalOocytes" type="number" class="form-control"
-                            [(ngModel)]="procedure.values['abnormalOocytes']" name="abnormalOocytes">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="fertilizedOocytes" class="form-label">Fertilized</label>
-                        <input id="fertilizedOocytes" type="number" class="form-control"
-                            [(ngModel)]="procedure.values['fertilizedOocytes']" name="fertilizedOocytes">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="cleavedEmbryos" class="form-label">Cleaved</label>
-                        <input id="cleavedEmbryos" type="number" class="form-control"
-                            [(ngModel)]="procedure.values['cleavedEmbryos']" name="cleavedEmbryos">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="blastocysts" class="form-label">Blastocysts</label>
-                        <input id="blastocysts" type="number" class="form-control"
-                            [(ngModel)]="procedure.values['blastocysts']" name="blastocysts">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="numberOfEmbryosTransferred" class="form-label">Number of ET</label>
-                        <input id="numberOfEmbryosTransferred" type="number" class="form-control"
-                            [(ngModel)]="procedure.values['numberOfEmbryosTransferred']"
-                            name="numberOfEmbryosTransferred">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="eggCollectionRemarks" class="form-label">Remarks</label>
-                        <input id="eggCollectionRemarks" type="text" class="form-control"
-                            [(ngModel)]="procedure.values['eggCollectionRemarks']" name="eggCollectionRemarks">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="eggCollectionEmbryologist" class="form-label">Embryologist</label>
-                        <select id="eggCollectionEmbryologist" class="form-select"
-                            [(ngModel)]="procedure.values['eggCollectionEmbryologist']" name="eggCollectionEmbryologist"
-                            [compareWith]="compareObjects">
+  <div class="col-12">
+    <div class="card shadow-sm border-0 section-card">
+      <div class="card-header blue-header">BHCG / Pregnancy Outcome</div>
 
-                            <option *ngFor="let p of embryologists()" [ngValue]="p">
-                                {{ p.name }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="eggCollectionWitness" class="form-label">Witness</label>
-                        <select id="eggCollectionWitness" class="form-select"
-                            [(ngModel)]="procedure.values['eggCollectionWitness']" name="eggCollectionWitness"
-                            [compareWith]="compareObjects">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label">BHCG Test Date</label>
+            <input type="date" class="form-control" [(ngModel)]="procedure.values['bhcgTestDate']" name="bhcgTestDate">
+          </div>
 
-                            <option *ngFor="let p of embryologists()" [ngValue]="p">
-                                {{ p.name }}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+          <div class="col-md-3">
+            <label class="form-label">BHCG Value</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.values['bhcgValue']" name="bhcgValue">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">BHCG Result</label>
+            <select class="form-select" [(ngModel)]="procedure.values['bhcgResult']" name="bhcgResult">
+              <option value="Pending">Pending</option>
+              <option value="Positive">Positive</option>
+              <option value="Negative">Negative</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Remarks</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.values['bhcgRemarks']" name="bhcgRemarks">
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+
 <div class="row mt-3">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 section-card">
-            <div class="card-header blue-header">
-                Embryo Transfer
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label for="etDate" class="form-label">ET Date</label>
-                        <input id="etDate" type="date" class="form-control" [(ngModel)]="procedure.values['etDate']"
-                            name="etDate">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="etTime" class="form-label">ET Time</label>
-                        <input id="etTime" type="time" class="form-control" [(ngModel)]="procedure.values['etTime']"
-                            name="etTime">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="numberOfEmbryosForEt" class="form-label">No of Embryos for ET</label>
-                        <select id="numberOfEmbryosForEt" class="form-select"
-                            [(ngModel)]="procedure.values['numberOfEmbryosForEt']" name="numberOfEmbryosForEt">
+  <div class="col-12">
+    <div class="card shadow-sm border-0 section-card">
+      <div class="card-header blue-header">Semen Analysis & Preparation</div>
 
-                            <option *ngFor="let n of [].constructor(100); let i = index" [value]="i + 1">
-                                {{ i + 1 }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="etEmbryoQuality" class="form-label">ET Embryo Quality</label>
-                        <select id="etEmbryoQuality" class="form-select"
-                            [(ngModel)]="procedure.values['etEmbryoQuality']" name="etEmbryoQuality">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label">Ejaculation Time</label>
+            <input type="time" class="form-control" [(ngModel)]="procedure.values['ejaculationTime']" name="ejaculationTime">
+          </div>
 
-                            <option value="Excellent">Excellent</option>
-                            <option value="Good">Good</option>
-                            <option value="Fair">Fair</option>
-                            <option value="Poor">Poor</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="catheter" class="form-label">Catheter</label>
-                        <input id="catheter" type="text" class="form-control" [(ngModel)]="procedure.values['catheter']"
-                            name="catheter">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="etRemarks" class="form-label">Remarks</label>
-                        <input id="etRemarks" type="text" class="form-control"
-                            [(ngModel)]="procedure.values['etRemarks']" name="etRemarks">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="etPhysician" class="form-label">Physician</label>
-                        <select id="etPhysician" class="form-select" [(ngModel)]="procedure.values['etPhysician']"
-                            name="etPhysician" [compareWith]="compareObjects">
+          <div class="col-md-3">
+            <label class="form-label">Delivery Time</label>
+            <input type="time" class="form-control" [(ngModel)]="procedure.values['deliveryTime']" name="deliveryTime">
+          </div>
 
-                            <option *ngFor="let p of physicians()" [ngValue]="p">
-                                {{ p.name }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="etEmbryologist" class="form-label">
-                            Embryologist
-                        </label>
+          <div class="col-md-3">
+            <label class="form-label">Analysis Time</label>
+            <input type="time" class="form-control" [(ngModel)]="procedure.values['analysisTime']" name="analysisTime">
+          </div>
 
-                        <select id="etEmbryologist" class="form-select" [(ngModel)]="procedure.values['etEmbryologist']"
-                            name="etEmbryologist" [compareWith]="compareObjects">
+          <div class="col-md-3">
+            <label class="form-label">Preparation</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.values['preparationMethod']" name="preparationMethod">
+          </div>
 
-                            <option *ngFor="let p of embryologists()" [ngValue]="p">
-                                {{ p.name }}
-                            </option>
+          <div class="col-md-3">
+            <label class="form-label">Volume (ml)</label>
+            <input type="text" class="form-control" [(ngModel)]="procedure.values['semenVolume']" name="semenVolume">
+          </div>
 
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="etWitness" class="form-label">
-                            Witness
-                        </label>
-                        <select id="etWitness" class="form-select" [(ngModel)]="procedure.values['etWitness']"
-                            name="etWitness" [compareWith]="compareObjects">
-                            <option *ngFor="let p of embryologists()" [ngValue]="p">
-                                {{ p.name }}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+          <div class="col-md-3">
+            <label class="form-label">Embryologist</label>
+            <select class="form-select" [(ngModel)]="procedure.values['semenEmbryologist']" name="semenEmbryologist" [compareWith]="compareObjects">
+              <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Witness</label>
+            <select class="form-select" [(ngModel)]="procedure.values['semenWitness']" name="semenWitness" [compareWith]="compareObjects">
+              <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Comment</label>
+            <textarea class="form-control" [(ngModel)]="procedure.values['semenComment']" name="semenComment"></textarea>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-<div class="row mt-3">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 section-card">
-            <div class="card-header blue-header">
-                BHCG / Pregnancy Outcome
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label for="bhcgTestDate" class="form-label">BHCG Test Date</label>
-                        <input id="bhcgTestDate" type="date" class="form-control"
-                            [(ngModel)]="procedure.values['bhcgTestDate']" name="bhcgTestDate">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="bhcgValue" class="form-label">BHCG Value</label>
-                        <input id="bhcgValue" type="text" class="form-control"
-                            [(ngModel)]="procedure.values['bhcgValue']" name="bhcgValue">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="bhcgResult" class="form-label">BHCG Result</label>
-                        <select id="bhcgResult" class="form-select" [(ngModel)]="procedure.values['bhcgResult']"
-                            name="bhcgResult">
 
-                            <option value="Pending">Pending</option>
-                            <option value="Positive">Positive</option>
-                            <option value="Negative">Negative</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="bhcgRemarks" class="form-label">Remarks</label>
-                        <input id="bhcgRemarks" type="text" class="form-control"
-                            [(ngModel)]="procedure.values['bhcgRemarks']" name="bhcgRemarks">
-                    </div>
-                </div>
-            </div>
+<div class="row mt-3">
+  <div class="col-12">
+    <div class="card shadow-sm border-0 section-card">
+      <div class="card-header blue-header">Semen Parameters</div>
+
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label">Density Before</label>
+            <input class="form-control" [(ngModel)]="procedure.values['densityBefore']" name="densityBefore">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Density After</label>
+            <input class="form-control" [(ngModel)]="procedure.values['densityAfter']" name="densityAfter">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Motility Before</label>
+            <input class="form-control" [(ngModel)]="procedure.values['motilityBefore']" name="motilityBefore">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Motility After</label>
+            <input class="form-control" [(ngModel)]="procedure.values['motilityAfter']" name="motilityAfter">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Progressive Before</label>
+            <input class="form-control" [(ngModel)]="procedure.values['progressiveBefore']" name="progressiveBefore">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Progressive After</label>
+            <input class="form-control" [(ngModel)]="procedure.values['progressiveAfter']" name="progressiveAfter">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Morphology Before</label>
+            <input class="form-control" [(ngModel)]="procedure.values['morphologyBefore']" name="morphologyBefore">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Morphology After</label>
+            <input class="form-control" [(ngModel)]="procedure.values['morphologyAfter']" name="morphologyAfter">
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+>
 <div class="row mt-3">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 section-card">
-            <div class="card-header blue-header">
-                Embryo Cryopreservation
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label for="freezingDate" class="form-label">Freezing Date</label>
-                        <input id="freezingDate" type="date" class="form-control"
-                            [(ngModel)]="procedure.values['freezingDate']" name="freezingDate">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="dewar" class="form-label">Dewar</label>
-                        <input id="dewar" type="text" class="form-control" [(ngModel)]="procedure.values['dewar']"
-                            name="dewar">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="caneNumber" class="form-label">Cane No</label>
-                        <input id="caneNumber" type="text" class="form-control"
-                            [(ngModel)]="procedure.values['caneNumber']" name="caneNumber">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="numberOfFrozenEmbryos" class="form-label">No of Frozen</label>
-                        <select id="numberOfFrozenEmbryos" class="form-select"
-                            [(ngModel)]="procedure.values['numberOfFrozenEmbryos']" name="numberOfFrozenEmbryos">
-                            <option *ngFor="let n of [].constructor(100); let i = index" [value]="i + 1">
-                                {{ i + 1 }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="cylinder" class="form-label">Cylinder</label>
-                        <input id="cylinder" type="text" class="form-control" [(ngModel)]="procedure.values['cylinder']"
-                            name="cylinder">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="numberOfStraws" class="form-label">No of Straws</label>
-                        <input id="numberOfStraws" type="number" class="form-control"
-                            [(ngModel)]="procedure.values['numberOfStraws']" name="numberOfStraws">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="cryoRemarks" class="form-label">Remarks</label>
-                        <input id="cryoRemarks" type="text" class="form-control"
-                            [(ngModel)]="procedure.values['cryoRemarks']" name="cryoRemarks">
-                    </div>                    
-                    <div class="col-md-3">
-                        <label for="cryoEmbryologist" class="form-label">Embryologist</label>
-                        <select id="cryoEmbryologist" class="form-select"
-                            [(ngModel)]="procedure.values['cryoEmbryologist']" name="cryoEmbryologist"
-                            [compareWith]="compareObjects">
-
-                            <option *ngFor="let p of embryologists()" [ngValue]="p">
-                                {{ p.name }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="cryoWitness" class="form-label">Witness</label>
-                        <select id="cryoWitness" class="form-select" [(ngModel)]="procedure.values['cryoWitness']"
-                            name="cryoWitness" [compareWith]="compareObjects">
-
-                            <option *ngFor="let p of embryologists()" [ngValue]="p">
-                                {{ p.name }}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+  <div class="col-12">
+    <div class="card shadow-sm border-0">
+      <div class="card-header red-backgorund d-flex justify-content-between align-items-center cursor-pointer"
+           (click)="isOocyteSectionOpen = !isOocyteSectionOpen">
+        <div>
+          <i class="fa-solid fa-egg me-2"></i>
+          Oocyte Cryopreservation & Fertilization
         </div>
+
+        <i class="fa-solid" [ngClass]="isOocyteSectionOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+      </div>
+
+      <div class="collapse" [class.show]="isOocyteSectionOpen">
+        <div class="card-body">
+
+          <!-- Oocyte Freezing Details -->
+          <div class="card shadow-sm border-0">
+            <div class="card-header text-white">Oocyte Freezing Details</div>
+
+            <table class="table custom-table">
+              <tbody>
+                <tr>
+                  <td class="pink-label">Total Eggs Frozen:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['totalEggsFrozen']" name="totalEggsFrozen" disabled></td>
+
+                  <td class="pink-label">Dewar:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['eggDewar']" name="eggDewar" placeholder="Dewar ID"></td>
+                </tr>
+
+                <tr>
+                  <td class="pink-label">No of Straws:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['eggNumberOfStraws']" name="eggNumberOfStraws"></td>
+
+                  <td class="pink-label">Straw Colors:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['eggStrawColors']" name="eggStrawColors" placeholder="Colors"></td>
+                </tr>
+
+                <tr>
+                  <td class="pink-label">Cassette/Can No:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['eggCassetteCanNo']" name="eggCassetteCanNo" placeholder="Cassette ID"></td>
+
+                  <td class="pink-label">Canister No:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['eggCanisterNo']" name="eggCanisterNo"></td>
+                </tr>
+
+                <tr>
+                  <td class="pink-label">Freezing Date:</td>
+                  <td><input type="date" class="form-control" [(ngModel)]="procedure.values['eggFreezingDate']" name="freezingDate"></td>
+
+                  <td class="pink-label">Witness:</td>
+                  <td>
+                    <select class="form-select" [(ngModel)]="procedure.values['eggFreezingWitness']" name="eggFreezingWitness" [compareWith]="compareObjects">
+                      <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <hr class="section-divider">
+
+          <!-- Oocyte Details -->
+          <div class="card shadow-sm border-0">
+            <div class="card-header text-white d-flex justify-content-between align-items-center">
+              <span>Oocyte Details</span>
+              <button type="button" class="btn btn-sm btn-light no-print" (click)="addOocyteRow()">+ Add</button>
+            </div>
+
+            <table class="table custom-table">
+              <thead class="table-light">
+                <tr>
+                  <th>Stage</th>
+                  <th>Quality</th>
+                  <th width="60" class="no-print"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let row of procedure.values['oocyteRows']; let i = index">
+                  <td>
+                    <select class="form-select" [(ngModel)]="row.stage" [name]="'oocyteStage' + i">
+                      <option value="GV">GV</option>
+                      <option value="MI">MI</option>
+                      <option value="MII">MII</option>
+                      <option value="Degenerated">Degenerated</option>
+                    </select>
+                  </td>
+
+                  <td>
+                    <select class="form-select" [(ngModel)]="row.quality" [name]="'oocyteQuality' + i">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                    </select>
+                  </td>
+
+                  <td class="text-center no-print">
+                    <button type="button" class="btn delete-btn" (click)="removeOocyteRow(i)">Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <hr class="section-divider">
+
+          <!-- Oocyte Thawing -->
+          <div class="card shadow-sm border-0">
+            <div class="card-header text-white d-flex justify-content-between align-items-center">
+              <span>Oocyte Thawing</span>
+              <button type="button" class="btn btn-sm btn-light no-print" (click)="addThawingRow()">+ Add</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table custom-table">
+                <thead class="pink-thead">
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Straws</th>
+                    <th>Oocytes</th>
+                    <th>Survived Oocytes</th>
+                    <th>Survival%</th>
+                    <th>Remaining Oocytes</th>
+                    <th>Embryologist</th>
+                    <th>Witness</th>
+                    <th>Notes</th>
+                    <th width="60" class="no-print"></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let row of procedure.values['oocyteThawingRows']; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td><input type="date" class="form-control" [(ngModel)]="row.date" [name]="'thawingDate' + i"></td>
+                    <td><input type="time" class="form-control" [(ngModel)]="row.time" [name]="'thawingTime' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.straws" [name]="'thawingStraws' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.oocytes" [name]="'thawingOocytes' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.survivedOocytes" [name]="'survivedOocytes' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.survivalPercentage" [name]="'survivalPercentage' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.remainingOocytes" [name]="'remainingOocytes' + i"></td>
+
+                    <td>
+                      <select class="form-select" [(ngModel)]="row.embryologist" [name]="'thawingEmbryologist' + i" [compareWith]="compareObjects">
+                        <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+                      </select>
+                    </td>
+
+                    <td>
+                      <select class="form-select" [(ngModel)]="row.witness" [name]="'thawingWitness' + i" [compareWith]="compareObjects">
+                        <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+                      </select>
+                    </td>
+
+                    <td><input class="form-control" [(ngModel)]="row.notes" [name]="'thawingNotes' + i"></td>
+
+                    <td class="text-center no-print">
+                      <button type="button" class="btn delete-btn" (click)="removeThawingRow(i)">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <hr class="section-divider">
+
+          <!-- Oocyte Fertilization -->
+          <div class="card shadow-sm border-0">
+            <div class="card-header text-white d-flex justify-content-between align-items-center">
+              <span>Oocyte Fertilization</span>
+              <button type="button" class="btn btn-sm btn-light no-print" (click)="addFertilizationRow()">+ Add</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table custom-table">
+                <thead class="pink-thead">
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Oocytes Used</th>
+                    <th>Fert Method</th>
+                    <th>2PN Formed</th>
+                    <th>Embryos</th>
+                    <th>Embryologist</th>
+                    <th>Witness</th>
+                    <th>Notes</th>
+                    <th width="60" class="no-print"></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let row of procedure.values['oocyteFertilizationRows']; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td><input type="date" class="form-control" [(ngModel)]="row.date" [name]="'fertilizationDate' + i"></td>
+                    <td><input type="time" class="form-control" [(ngModel)]="row.time" [name]="'fertilizationTime' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.oocytesUsed" [name]="'oocytesUsed' + i"></td>
+
+                    <td>
+                      <select class="form-select" [(ngModel)]="row.fertMethod" [name]="'fertilizationMethod' + i">
+                        <option value="ICSI">ICSI</option>
+                        <option value="IVF">IVF</option>
+                      </select>
+                    </td>
+
+                    <td><input class="form-control" [(ngModel)]="row.twoPnFormed" [name]="'twoPnFormed' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.embryos" [name]="'embryos' + i"></td>
+
+                    <td>
+                      <select class="form-select" [(ngModel)]="row.embryologist" [name]="'fertilizationEmbryologist' + i" [compareWith]="compareObjects">
+                        <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+                      </select>
+                    </td>
+
+                    <td>
+                      <select class="form-select" [(ngModel)]="row.witness" [name]="'fertilizationWitness' + i" [compareWith]="compareObjects">
+                        <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+                      </select>
+                    </td>
+
+                    <td><input class="form-control" [(ngModel)]="row.notes" [name]="'fertilizationNotes' + i"></td>
+
+                    <td class="text-center no-print">
+                      <button type="button" class="btn delete-btn" (click)="removeFertilizationRow(i)">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-<div class="row mt-3">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 section-card">
-            <div class="card-header blue-header">
-                Semen Analysis &amp; Preparation
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label for="ejaculationTime" class="form-label">Ejaculation Time</label>
-                        <input id="ejaculationTime" type="time" class="form-control"
-                            [(ngModel)]="procedure.values['ejaculationTime']" name="ejaculationTime">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="deliveryTime" class="form-label">Delivery Time</label>
-                        <input id="deliveryTime" type="time" class="form-control"
-                            [(ngModel)]="procedure.values['deliveryTime']" name="deliveryTime">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="analysisTime" class="form-label">Analysis Time</label>
-                        <input id="analysisTime" type="time" class="form-control"
-                            [(ngModel)]="procedure.values['analysisTime']" name="analysisTime">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="preparationMethod" class="form-label">Preparation</label>
-                        <input id="preparationMethod" type="text" class="form-control"
-                            [(ngModel)]="procedure.values['preparationMethod']" name="preparationMethod">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="semenVolume" class="form-label">Volume (ml)</label>
-                        <input id="semenVolume" type="text" class="form-control"
-                            [(ngModel)]="procedure.values['semenVolume']" name="semenVolume">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="semenEmbryologist" class="form-label">Embryologist</label>
-                        <select id="semenEmbryologist" class="form-select"
-                            [(ngModel)]="procedure.values['semenEmbryologist']" name="semenEmbryologist"
-                            [compareWith]="compareObjects">
-                            <option *ngFor="let p of embryologists()" [ngValue]="p">
-                                {{ p.name }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="semenWitness" class="form-label">Witness</label>
-                        <select id="semenWitness" class="form-select" [(ngModel)]="procedure.values['semenWitness']"
-                            name="semenWitness" [compareWith]="compareObjects">
 
-                            <option *ngFor="let p of embryologists()" [ngValue]="p">
-                                {{ p.name }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="semenComment" class="form-label">Comment</label>
-                        <textarea id="semenComment" type="text" class="form-control"
-                            [(ngModel)]="procedure.values['semenComment']" name="semenComment"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="row mt-3">
-    <div class="col-12">
-        <div class="card shadow-sm border-0 section-card">
-            <div class="card-header blue-header">
-                Semen Parameters
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label for="densityBefore" class="form-label">Density Before</label>
-                        <input id="densityBefore" class="form-control" [(ngModel)]="procedure.values['densityBefore']"
-                            name="densityBefore">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="densityAfter" class="form-label">Density After</label>
-                        <input id="densityAfter" class="form-control" [(ngModel)]="procedure.values['densityAfter']"
-                            name="densityAfter">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="motilityBefore" class="form-label">Motility Before</label>
-                        <input id="motilityBefore" class="form-control" [(ngModel)]="procedure.values['motilityBefore']"
-                            name="motilityBefore">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="motilityAfter" class="form-label">Motility After</label>
-                        <input id="motilityAfter" class="form-control" [(ngModel)]="procedure.values['motilityAfter']"
-                            name="motilityAfter">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="progressiveBefore" class="form-label">Progressive Before</label>
-                        <input id="progressiveBefore" class="form-control"
-                            [(ngModel)]="procedure.values['progressiveBefore']" name="progressiveBefore">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="progressiveAfter" class="form-label">Progressive After</label>
-                        <input id="progressiveAfter" class="form-control"
-                            [(ngModel)]="procedure.values['progressiveAfter']" name="progressiveAfter">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="morphologyBefore" class="form-label">Morphology Before</label>
-                        <input id="morphologyBefore" class="form-control"
-                            [(ngModel)]="procedure.values['morphologyBefore']" name="morphologyBefore">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="morphologyAfter" class="form-label">Morphology After</label>
-                        <input id="morphologyAfter" class="form-control"
-                            [(ngModel)]="procedure.values['morphologyAfter']" name="morphologyAfter">
-                    </div>
-                </div>
-            </div>
+  <div class="col-12">
+    <div class="card shadow-sm border-0">
+      <div class="card-header  green-backgorund d-flex justify-content-between align-items-center cursor-pointer"
+           (click)="isEmbryoSectionOpen = !isEmbryoSectionOpen">
+        <div>
+          <i class="fa-solid fa-dna me-2"></i>
+          Embryo Cryopreservation & Transfer
         </div>
+
+        <i class="fa-solid" [ngClass]="isEmbryoSectionOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+      </div>
+
+      <div class="collapse" [class.show]="isEmbryoSectionOpen">
+        <div class="card-body">
+
+          <!-- Embryo Freezing Details -->
+          <div class="card shadow-sm border-0">
+            <div class="card-header text-white">Embryo Freezing Details</div>
+
+            <table class="table custom-table">
+              <tbody>
+                <tr>
+                  <td class="green-label">No Of Embryos:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['numberOfEmbryos']" name="numberOfEmbryos" disabled></td>
+
+                  <td class="green-label">Dewar:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['embryoDewar']" name="embryoDewar" placeholder="Dewar ID"></td>
+                </tr>
+
+                <tr>
+                  <td class="green-label">No Of Straws:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['numberOfStraws']" name="numberOfStraws"></td>
+
+                  <td class="green-label">Straw Colors:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['strawColors']" name="strawColors"></td>
+                </tr>
+
+                <tr>
+                  <td class="green-label">Cassette/Cane No:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['cassetteCaneNo']" name="cassetteCaneNo"></td>
+
+                  <td class="green-label">Canister No:</td>
+                  <td><input class="form-control" [(ngModel)]="procedure.values['embryoCanisterNo']" name="embryoCanisterNo"></td>
+                </tr>
+
+                <tr>
+                  <td class="green-label">Freezing Date:</td>
+                  <td><input type="date" class="form-control" [(ngModel)]="procedure.values['embryoFreezingDate']" name="embryoFreezingDate"></td>
+
+                  <td class="green-label">Witness:</td>
+                  <td>
+                    <select class="form-select" [(ngModel)]="procedure.values['freezingWitness']" name="freezingWitness" [compareWith]="compareObjects">
+                      <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <hr class="section-divider">
+
+          <!-- Embryo Details -->
+          <div class="card shadow-sm border-0">
+            <div class="card-header text-white d-flex justify-content-between align-items-center">
+              <span>Embryo Details</span>
+              <button type="button" class="btn btn-sm btn-light no-print" (click)="addEmbryoRow()">+ Add</button>
+            </div>
+
+            <table class="table custom-table">
+              <thead class="table-light">
+                <tr>
+                  <th>Stage</th>
+                  <th>Quality 1</th>
+                  <th>Quality 2</th>
+                  <th width="60" class="no-print"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let row of procedure.values['embryoRows']; let i = index">
+                  <td><input class="form-control" [(ngModel)]="row.stage" [name]="'embryoStage' + i"></td>
+
+                  <td>
+                    <select class="form-select" [(ngModel)]="row.quality1" [name]="'embryoQuality1' + i">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                    </select>
+                  </td>
+
+                  <td>
+                    <select class="form-select" [(ngModel)]="row.quality2" [name]="'embryoQuality2' + i">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                    </select>
+                  </td>
+
+                  <td class="text-center no-print">
+                    <button type="button" class="btn delete-btn" (click)="removeEmbryoRow(i)">Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <hr class="section-divider">
+
+          <!-- Embryo Thawing -->
+          <div class="card shadow-sm border-0">
+            <div class="card-header text-white d-flex justify-content-between align-items-center">
+              <span>Embryo Thawing</span>
+              <button type="button" class="btn btn-sm btn-light no-print" (click)="addEmbryoThawingRow()">+ Add</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table custom-table">
+                <thead class="green-thead">
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Straws</th>
+                    <th>Embryos</th>
+                    <th>Survived Embryos</th>
+                    <th>Remaining Embryos</th>
+                    <th>Embryologist</th>
+                    <th>Witness</th>
+                    <th>Notes</th>
+                    <th width="60" class="no-print"></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let row of procedure.values['embryoThawingRows']; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td><input type="date" class="form-control" [(ngModel)]="row.date" [name]="'embryoThawingDate' + i"></td>
+                    <td><input type="time" class="form-control" [(ngModel)]="row.time" [name]="'embryoThawingTime' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.straws" [name]="'embryoThawingStraws' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.embryos" [name]="'embryosThawed' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.survivedEmbryos" [name]="'survivedEmbryos' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.remainingEmbryos" [name]="'remainingEmbryos' + i"></td>
+
+                    <td>
+                      <select class="form-select" [(ngModel)]="row.embryologist" [name]="'embryoThawingEmbryologist' + i" [compareWith]="compareObjects">
+                        <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+                      </select>
+                    </td>
+
+                    <td>
+                      <select class="form-select" [(ngModel)]="row.witness" [name]="'embryoThawingWitness' + i" [compareWith]="compareObjects">
+                        <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+                      </select>
+                    </td>
+
+                    <td><input class="form-control" [(ngModel)]="row.notes" [name]="'embryoThawingNotes' + i"></td>
+
+                    <td class="text-center no-print">
+                      <button type="button" class="btn delete-btn" (click)="removeEmbryoThawingRow(i)">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <hr class="section-divider">
+
+          <!-- Embryo Transfer -->
+          <div class="card shadow-sm border-0">
+            <div class="card-header text-white d-flex justify-content-between align-items-center">
+              <span>Embryo Transfer</span>
+              <button type="button" class="btn btn-sm btn-light no-print" (click)="addEmbryoTransferRow()">+ Add</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table custom-table">
+                <thead class="green-thead">
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Catheter</th>
+                    <th>Embryos</th>
+                    <th>Status</th>
+                    <th>Difficulties</th>
+                    <th>Embryologist</th>
+                    <th>Witness</th>
+                    <th>Notes</th>
+                    <th width="60" class="no-print"></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let row of procedure.values['embryoTransferRows']; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td><input type="date" class="form-control" [(ngModel)]="row.date" [name]="'embryoTransferDate' + i"></td>
+                    <td><input type="time" class="form-control" [(ngModel)]="row.time" [name]="'embryoTransferTime' + i"></td>
+
+                    <td>
+                      <select class="form-select" [(ngModel)]="row.catheter" [name]="'embryoTransferCatheter' + i">
+                        <option value="COOK">COOK</option>
+                        <option value="WALLACE">WALLACE</option>
+                        <option value="OTHER">OTHER</option>
+                      </select>
+                    </td>
+
+                    <td><input class="form-control" [(ngModel)]="row.embryos" [name]="'transferEmbryos' + i"></td>
+                    <td><input class="form-control" [(ngModel)]="row.status" [name]="'embryoTransferStatus' + i"></td>
+                    <td><textarea class="form-control" rows="2" [(ngModel)]="row.difficulties" [name]="'embryoTransferDifficulties' + i"></textarea></td>
+
+                    <td>
+                      <select class="form-select" [(ngModel)]="row.embryologist" [name]="'embryoTransferEmbryologist' + i" [compareWith]="compareObjects">
+                        <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+                      </select>
+                    </td>
+
+                    <td>
+                      <select class="form-select" [(ngModel)]="row.witness" [name]="'embryoTransferWitness' + i" [compareWith]="compareObjects">
+                        <option *ngFor="let p of embryologists()" [ngValue]="p">{{ p.name }}</option>
+                      </select>
+                    </td>
+
+                    <td><input class="form-control" [(ngModel)]="row.notes" [name]="'embryoTransferNotes' + i"></td>
+
+                    <td class="text-center no-print">
+                      <button type="button" class="btn delete-btn" (click)="removeEmbryoTransferRow(i)">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
+  </div>
 </div>

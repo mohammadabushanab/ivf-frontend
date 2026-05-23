@@ -157,7 +157,7 @@
         Freezing Details
       </div>
 
-      <table class="table table-bordered align-middle mb-2">
+      <table class="table custom-table">
         <tbody>
 
           <tr>
@@ -178,10 +178,10 @@
             <td>
               <input
                 class="form-control"
-                id="dewar"
-                [(ngModel)]="procedure.values['dewar']"
+                id="ovarianTissueCryopreservationDewar"
+                [(ngModel)]="procedure.values['ovarianTissueCryopreservationDewar']"
                 #dewar="ngModel"
-                name="dewar"
+                name="ovarianTissueCryopreservationDewar"
                 placeholder="Dewar ID">
             </td>
           </tr>
@@ -230,9 +230,9 @@
               <input
                 class="form-control"
                 id="canisterNo"
-                [(ngModel)]="procedure.values['canisterNo']"
-                #canisterNo="ngModel"
-                name="canisterNo"
+                [(ngModel)]="procedure.values['ovarianTissueCryopreservationCanisterNo']"
+                #ovarianTissueCryopreservationCanisterNo="ngModel"
+                name="ovarianTissueCryopreservationCanisterNo"
                 placeholder="Canister Number">
             </td>
           </tr>
@@ -244,10 +244,10 @@
               <input
                 type="date"
                 class="form-control"
-                id="freezingDate"
-                [(ngModel)]="procedure.values['freezingDate']"
-                #freezingDate="ngModel"
-                name="freezingDate">
+                id="ovarianTissueCryopreservationFreezingDate"
+                [(ngModel)]="procedure.values['ovarianTissueCryopreservationFreezingDate']"
+                #ovarianTissueCryopreservationFreezingDate="ngModel"
+                name="ovarianTissueCryopreservationFreezingDate">
             </td>
 
             <td class="green-label">Witness:</td>
@@ -293,7 +293,7 @@
         </div>
       </div>
 
-      <table class="table table-bordered mb-0 align-middle">
+      <table class="table custom-table">
         <thead class="table-light">
           <tr>
             <th>Tissue Type</th>
@@ -407,7 +407,7 @@
       </div>
 
       <div class="table-responsive">
-        <table class="table table-bordered mb-0 align-middle text-center">
+        <table class="table custom-table">
 
           <thead class="tissue-thead">
             <tr>

@@ -13,12 +13,11 @@ export interface Procedure {
     qrCode: string;
     createdDate: string;
     modifiedDate: string;
-    isPaid: boolean;
-    isReport: boolean;
     dateSearchType: string;
     fromDate: string;
     toDate: string;
     scheduledDate: string;
     notes:string;
+    status:string;
 
 }

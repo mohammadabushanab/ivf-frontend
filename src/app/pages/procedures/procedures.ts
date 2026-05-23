@@ -15,18 +15,17 @@ import { SemenAnalysis } from './semen-analysis/semen-analysis';
 import { PrintConfigurations } from '../../models/print-configurations';
 import { SpermFreezing } from './sperm-freezing/sperm-freezing';
 import { DNAFragmentationTest } from './dna-fragmentation-test/dna-fragmentation-test';
-import { OocytePickUp } from './oocyte-pick-up/oocyte-pick-up';
 import { TesticularSpermRetrieval } from './testicular-sperm-retrieval/testicular-sperm-retrieval';
 import { SemenPreparationForIui } from './semen-preparation-for-iui/semen-preparation-for-iui';
 import { RetrogradeEjaculateAnalysis } from './retrograde-ejaculate-analysis/retrograde-ejaculate-analysis';
 import { OvarianTissueCryopreservation } from './ovarian-tissue-cryopreservation/ovarian-tissue-cryopreservation';
 import { EmbryoFreezing } from './embryo-freezing/embryo-freezing';
 import { EggFreezing } from './egg-freezing/egg-freezing';
-import { FrozenEmbryoTransfer } from './frozen-embryo-transfer/frozen-embryo-transfer';
+import { OocytePickUp } from './oocyte-pick-up/oocyte-pick-up';
 
 @Component({
   selector: 'app-procedures',
-  imports: [CommonModule, FormsModule, NgbNav, NgbNavItem, NgbNavContent, NgbNavOutlet, NgbNavLinkButton, DNAFragmentationTest, EggFreezing, EmbryoFreezing, OocytePickUp, OvarianTissueCryopreservation, RetrogradeEjaculateAnalysis, SemenAnalysis, SemenPreparationForIui, SpermFreezing, TesticularSpermRetrieval,FrozenEmbryoTransfer],
+  imports: [CommonModule, FormsModule, NgbNav, NgbNavItem, NgbNavContent, NgbNavOutlet, NgbNavLinkButton, DNAFragmentationTest, EggFreezing, EmbryoFreezing, OocytePickUp, OvarianTissueCryopreservation, RetrogradeEjaculateAnalysis, SemenAnalysis, SemenPreparationForIui, SpermFreezing, TesticularSpermRetrieval],
   templateUrl: './procedures.html',
   styleUrl: './procedures.css',
 })
@@ -98,7 +97,7 @@ export class Procedures {
 
   async searchForProcedures() {
     if (this.role == "Embryologist") {
-      this.procedureForSearch.isPaid = true;
+      this.procedureForSearch.paymentStatus = 'Paid';
     }
 
     const data = await this.procedureService.get(this.procedureForSearch);
@@ -107,21 +106,35 @@ export class Procedures {
 
   openEditModal(procedure: Procedure) {
 
-    this.procedureForEdit = { ...procedure };
-
-    if (this.role == "Embryologist" && this.currentUser != null) {
-      this.procedureForEdit.embryologist = this.currentUser;
+    if (this.role == "Coordinator" && procedure.status != "Created") {
+      this.messageText = "This procedure In Prgress and can no longer be modified";
+      this.open(this.messageModal, 'lg');
     }
-
-    if (this.role == "Coordinator") {
-      this.open(this.editForCoordinatorModal, 'xl')
+    else if (this.role == "Embryologist" && procedure.status == "Completed") {
+      this.messageText = "This procedure has been completed and can no longer be modified";
+      this.open(this.messageModal, 'lg');
     }
     else {
-      this.open(this.editForEmbryologistModal, 'Fullscreen')
+      this.procedureForEdit = { ...procedure };
+
+      if (this.role == "Embryologist") {
+        if (this.currentUser != null) {
+          this.procedureForEdit.embryologist = this.currentUser;
+        }
+        this.open(this.editForEmbryologistModal, 'Fullscreen')
+      }
+      else {
+        this.open(this.editForCoordinatorModal, 'xl')
+      }
     }
   }
 
-  async updateProcedure() {
+  async updateProcedure(status: string) {
+
+    if (this.role == "Embryologist" || (this.role == "Coordinator" && this.procedureForEdit.paymentStatus == 'Paid')) {
+      this.procedureForEdit.status = status;
+    }
+
 
     const data = await this.procedureService.update(this.procedureForEdit);
 
@@ -153,27 +166,35 @@ export class Procedures {
   }
 
   async deleteProcedure(procedure: Procedure) {
-    const data = await this.procedureService.delete(procedure);
 
-    if (data) {
-      let tempPatients: Procedure[] = this.procedures();
-
-      for (let i = 0; i < tempPatients.length; i++) {
-        if (tempPatients[i].id == procedure.id) {
-          tempPatients.splice(i, 1);
-          break;
-        }
-      }
-
-      this.procedures.set(tempPatients);
-
-      this.messageText = "Request has been submitted successfully";
+    if (procedure.status != "Created") {
+      this.messageText = "This procedure In Progress and can no longer be deleted";
+      this.open(this.messageModal, 'lg');
     }
     else {
-      this.messageText = "Something went wrong while submitting the Request";
+      const data = await this.procedureService.delete(procedure);
 
+      if (data) {
+        let tempPatients: Procedure[] = this.procedures();
+
+        for (let i = 0; i < tempPatients.length; i++) {
+          if (tempPatients[i].id == procedure.id) {
+            tempPatients.splice(i, 1);
+            break;
+          }
+        }
+
+        this.procedures.set(tempPatients);
+
+        this.messageText = "Request has been submitted successfully";
+      }
+      else {
+        this.messageText = "Something went wrong while submitting the Request";
+
+      }
+      this.open(this.messageModal, 'lg')
     }
-    this.open(this.messageModal, 'lg')
+
   }
 
   reset() {
@@ -238,12 +259,11 @@ export class Procedures {
       createdDate: '',
       modifiedDate: '',
       scheduledDate: '',
-      isPaid: false,
-      isReport: false,
       dateSearchType: '',
       fromDate: '',
       toDate: '',
-      notes:'',
+      notes: '',
+      status: '',
       procedureType: {
         id: '',
         name: '',
@@ -259,7 +279,7 @@ export class Procedures {
         husbandNationalId: '',
         husbandName: '',
         husbandPhoneNumber: '',
-        selectedTreatmentType:'',
+        selectedTreatmentType: '',
         createdDate: '',
         modifiedDate: '',
         fromDate: '',
@@ -298,7 +318,7 @@ export class Procedures {
   }
 
   isUpdateProceDureDisabled() {
-    if (this.procedureForEdit.physician != null && this.procedureForEdit.scheduledDate != null && this.procedureForEdit.scheduledDate != '') {
+    if (this.procedureForEdit.scheduledDate != null && this.procedureForEdit.scheduledDate != '') {
       return false;
     }
     return true;
