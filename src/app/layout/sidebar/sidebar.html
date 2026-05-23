@@ -6,99 +6,129 @@
     </button>
   </div>
 
+  <!-- Dashboard -->
   <div class="list-group list-group-flush">
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/dashboard"
-      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-solid fa-chart-pie me-2"></i>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3"
+      routerLink="/dashboard"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+
+      <i class="fa-solid fa-chart-line me-2"></i>
       Dashboard
+
     </a>
   </div>
 
-  <div class="list-group list-group-flush" *ngIf="role == 'Coordinator' || role == 'Physician'">
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/patients"
-      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-solid fa-hospital-user me-2"></i>
+  <!-- Patients -->
+  <div class="list-group list-group-flush"
+    *ngIf="role == 'Coordinator' || role == 'Physician'">
+
+    <a class="list-group-item list-group-item-action list-group-item-light p-3"
+      routerLink="/patients"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+
+      <i class="fa-solid fa-user-group me-2"></i>
       Patients
+
     </a>
+
   </div>
 
+  <!-- Procedures -->
   <div class="list-group list-group-flush"
     *ngIf="role == 'Coordinator' || role == 'Embryologist' || role == 'Physician'">
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/procedures"
-      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-solid fa-vials me-2"></i>
+
+    <a class="list-group-item list-group-item-action list-group-item-light p-3"
+      routerLink="/procedures"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+
+      <i class="fa-solid fa-microscope me-2"></i>
       Procedures
+
     </a>
+
   </div>
 
+  <!-- Reports -->
   <div class="list-group list-group-flush"
     *ngIf="role == 'Coordinator' || role == 'Embryologist' || role == 'Physician'">
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/reports"
-      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-solid fa-file-medical me-2"></i>
+
+    <a class="list-group-item list-group-item-action list-group-item-light p-3"
+      routerLink="/reports"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+
+      <i class="fa-solid fa-file-waveform me-2"></i>
       Reports
+
     </a>
+
   </div>
 
+  <!-- Treatment Tracker -->
   <div class="list-group list-group-flush">
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/treatmentWorkflowTracker"
-      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <i class="fa-solid fa-file-medical me-2"></i>
+
+    <a class="list-group-item list-group-item-action list-group-item-light p-3"
+      routerLink="/treatmentWorkflowTracker"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+
+      <i class="fa-solid fa-route me-2"></i>
       Treatment Tracker
-    </a>
-  </div>
-
-  <div class="list-group list-group-flush" *ngIf="role == 'Embryologist' || role == 'Physician'">
-
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" role="button"
-      (click)="isTrackerMenuOpen = !isTrackerMenuOpen">
-
-      <i class="fa-solid fa-wave-square me-2"></i>
-      Live Trackers
-
-      <i class="fa-solid float-end mt-1" [ngClass]="isTrackerMenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'">
-      </i>
 
     </a>
 
-    <div *ngIf="isTrackerMenuOpen" class="ps-3 mt-2">
+  </div>
 
-      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2" routerLink="/opuLiveTracker"
-        routerLinkActive="active">
+  <!-- OPU Live Tracker -->
+  <div class="list-group list-group-flush">
 
-        <i class="fa-solid fa-syringe me-2"></i>
-        OPU Live Tracker
+    <a class="list-group-item list-group-item-action list-group-item-light p-3"
+      routerLink="/opuLiveTracker"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
 
-      </a>
+      <i class="fa-solid fa-heart-pulse me-2"></i>
+      OPU Live Tracker
 
-    </div>
+    </a>
 
   </div>
 
-  <div class="list-group list-group-flush" *ngIf="role == 'Embryologist' || role == 'Physician'">
+  <!-- Freezing -->
+  <div class="list-group list-group-flush"
+    *ngIf="role == 'Embryologist' || role == 'Physician'">
 
-    <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2" role="button"
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2"
+      role="button"
       (click)="isFreezingMenuOpen = !isFreezingMenuOpen">
 
       <i class="fa-solid fa-snowflake me-2"></i>
       Freezing
 
-      <i class="fa-solid float-end mt-1" [ngClass]="isFreezingMenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'">
+      <i class="fa-solid float-end mt-1"
+        [ngClass]="isFreezingMenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'">
       </i>
 
     </a>
 
     <div *ngIf="isFreezingMenuOpen" class="ps-3 mt-2">
 
-      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2" routerLink="/embryoFreezing"
+      <!-- Embryo Freezing -->
+      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2"
+        routerLink="/embryoFreezing"
         routerLinkActive="active">
 
-        <i class="fa-solid fa-baby me-2"></i>
+        <i class="fa-solid fa-dna me-2"></i>
         Embryo Freezing
 
       </a>
 
-      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2" routerLink="/oocyteFreezing"
+      <!-- Oocyte Freezing -->
+      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2"
+        routerLink="/oocyteFreezing"
         routerLinkActive="active">
 
         <i class="fa-solid fa-egg me-2"></i>
@@ -106,19 +136,23 @@
 
       </a>
 
-      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2" routerLink="/spermFreezing"
+      <!-- Sperm Freezing -->
+      <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2"
+        routerLink="/spermFreezing"
         routerLinkActive="active">
 
-        <i class="fa-solid fa-vial me-2"></i>
+        <i class="fa-solid fa-vial-virus me-2"></i>
         Sperm Freezing
 
       </a>
 
+      <!-- Ovarian Tissue Cryopreservation -->
       <a class="list-group-item list-group-item-action list-group-item-light p-3 mt-2"
-        routerLink="/ovarianTissueCryopreservationFreezing" routerLinkActive="active">
+        routerLink="/ovarianTissueCryopreservationFreezing"
+        routerLinkActive="active">
 
-        <i class="fa-solid fa-snowflake me-2"></i>
-        Ovarian Tissue Cryopreservation Freezing
+        <i class="fa-solid fa-prescription-bottle me-2"></i>
+        Ovarian Tissue Cryopreservation
 
       </a>
 
@@ -126,30 +160,37 @@
 
   </div>
 
+  <!-- Users -->
   <div class="list-group list-group-flush" *ngIf="role == 'Admin'">
 
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/users"
-      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3"
+      routerLink="/users"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
 
-      <i class="fa-solid fa-users me-2"></i>
+      <i class="fa-solid fa-user-doctor me-2"></i>
       Users
 
     </a>
 
   </div>
 
+  <!-- Procedure Types -->
   <div class="list-group list-group-flush" *ngIf="role == 'Admin'">
 
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/procedureTypes"
-      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3"
+      routerLink="/procedureTypes"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
 
-      <i class="fa-solid fa-clipboard-list me-2"></i>
+      <i class="fa-solid fa-notes-medical me-2"></i>
       Procedure Types
 
     </a>
 
   </div>
 
+  <!-- Footer -->
   <div class="mt-auto sidebar-heading">
 
     <div class="sidebar-logo">

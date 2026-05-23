@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Patient } from '../../../models/patient';
@@ -7,6 +7,7 @@ import { OPU } from '../../../models/opu';
 import { PatientService } from '../../../core/services/patient-service';
 import { SocketService } from '../../../core/services/socket-service';
 import { OPUService } from '../../../core/services/opu-service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-opu-live-tracker',
@@ -17,9 +18,15 @@ import { OPUService } from '../../../core/services/opu-service';
 })
 export class OPULiveTracker implements OnInit, OnDestroy {
 
+  @ViewChild('createTemplate')
+  createModal!: TemplateRef<any>;
+
   private patientService = inject(PatientService);
   private opuService = inject(OPUService);
   private socketService = inject(SocketService);
+  private modalService = inject(NgbModal);
+
+  currentModalRef!: NgbModalRef;
 
   patientForSearch: Patient = this.newPatient();
 
@@ -61,6 +68,10 @@ export class OPULiveTracker implements OnInit, OnDestroy {
     const data = await this.patientService.get(this.patientForSearch);
 
     this.patients.set(data);
+  }
+
+  openCreateModal() {
+    this.open(this.createModal, 'xl');
   }
 
   reset() {
@@ -141,7 +152,7 @@ export class OPULiveTracker implements OnInit, OnDestroy {
   }
 
   async deleteOPU(opu: OPU) {
-   const deleted =  await this.opuService.delete(opu);
+    const deleted = await this.opuService.delete(opu);
 
     if (deleted) {
       this.removeOPUFromArray(opu.id);
@@ -237,6 +248,17 @@ export class OPULiveTracker implements OnInit, OnDestroy {
   getCurrentTime(): string {
     const now = new Date();
     return now.toLocaleTimeString();
+  }
+
+  open(content: TemplateRef<any>, size: string) {
+    this.currentModalRef = this.modalService.open(content, {
+      size: size,
+      ariaLabelledBy: 'modal-basic-title'
+    });
+  }
+
+  closeModal() {
+    this.currentModalRef.close();
   }
 
   newOPU(): OPU {

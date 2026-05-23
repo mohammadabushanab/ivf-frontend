@@ -1,3 +1,98 @@
+<!-- Create Button -->
+<div class="row">
+    <div class="col text-end">
+        <button class="btn" (click)="openCreateModal()">
+            <i class="fa-solid fa-circle-plus me-2"></i>
+            Create
+        </button>
+    </div>
+</div>
+
+<!-- Summary -->
+<div class="row g-4 mt-3" *ngIf="opuSessions().length > 0">
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+
+            <div>
+                <p>Active OPU Sessions</p>
+
+                <h3>
+                    {{ opuSessions().length }}
+                </h3>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-vials"></i>
+            </div>
+
+            <div>
+                <p>Total Tubes</p>
+
+                <h3>
+                    {{ getTotalTubes() }}
+                </h3>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-egg"></i>
+            </div>
+
+            <div>
+                <p>Total Oocytes</p>
+
+                <h3>
+                    {{ getTotalOocytes() }}
+                </h3>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-ban"></i>
+            </div>
+
+            <div>
+                <p>No Oocyte Tubes</p>
+
+                <h3>
+                    {{ getNoOocyteTubes() }}
+                </h3>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 <div class="row mt-5" *ngIf="opuSessions().length > 0">
 
   <div class="col-12 mb-4" *ngFor="let opu of opuSessions()">
@@ -19,7 +114,7 @@
           {{ opu.values['opuStartTime'] ? 'Running' : 'Not Started' }}
         </span>
 
-        <button class="delete-btn" (click)="deleteOPU(opu)">
+        <button class="btn delete-btn" (click)="deleteOPU(opu)">
           <i class="fa-solid fa-trash"></i>
           Delete
         </button>
@@ -139,3 +234,111 @@
   </div>
 
 </div>
+
+<ng-template #createTemplate let-modal>
+
+    <div class="modal-header">
+        <h6 class="modal-title">
+            Create Treatment Lifecycle
+        </h6>
+
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="row g-3 mt-3">
+
+            <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.name">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">National ID</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.nationalId">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Phone Number</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.phoneNumber">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Husband's Name</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.husbandName">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Husband's ID</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.husbandNationalId">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Husband's Phone Number</label>
+                <input type="text" class="form-control" [(ngModel)]="patientForSearch.husbandPhoneNumber">
+            </div>
+
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <button class="btn me-1" (click)="searchForPatients()">
+                    Search
+                </button>
+
+                <button class="btn" (click)="reset()">
+                    Reset
+                </button>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <table class="table custom-table">
+
+                <thead>
+                    <tr>
+                        <th>File Number</th>
+                        <th>Name</th>
+                        <th>National ID</th>
+                        <th>Phone Number</th>
+                        <th>Husband's Name</th>
+                        <th>Create</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let p of patients()">
+                        <td data-label="File Number">IVF-{{ p.id }}</td>
+                        <td data-label="Name">{{ p.name }}</td>
+                        <td data-label="National ID">{{ p.nationalId }}</td>
+                        <td data-label="Phone Number">{{ p.phoneNumber }}</td>
+                        <td data-label="Husband">{{ p.husbandName }}</td>
+
+                        <td class="text-center">
+                            <a (click)="createOPUFromPatient(p)">
+                                <i class="fa-solid fa-plus"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="patients().length === 0">
+                        <td colspan="7" class="text-center">
+                            No patients found
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">
+            Close
+        </button>
+    </div>
+
+</ng-template>

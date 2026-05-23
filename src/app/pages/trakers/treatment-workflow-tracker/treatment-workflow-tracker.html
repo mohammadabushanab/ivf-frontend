@@ -3,7 +3,7 @@
     <div class="col text-end">
         <button class="btn" (click)="openCreateModal()">
             <i class="fa-solid fa-circle-plus me-2"></i>
-            Create Lifecycle
+            Create
         </button>
     </div>
 </div>
@@ -95,7 +95,7 @@
                         {{ cycle.type }}
                     </div>
 
-                    <button class="btn btn-sm btn-light w-auto" (click)="deleteCycle(cycle)">
+                    <button class="btn delete-btn" (click)="deleteCycle(cycle)">
                         Delete
                     </button>
 
