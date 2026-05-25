@@ -8,4 +8,5 @@ export interface Treatment {
     createdDate: string;
     modifiedDate: string;
     isDeleted: boolean;
+    status: string;
 }

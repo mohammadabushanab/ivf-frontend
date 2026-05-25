@@ -15,7 +15,6 @@ import { ProceduresCount } from '../../models/procedures-count';
 })
 export class Dashboard {
 
-
   proceduresCount = signal<ProceduresCount[] | null>(null);
   totalProcedures = signal<number>(0);
   totalPatients = signal<number>(0);
@@ -34,20 +33,16 @@ export class Dashboard {
   async ngOnInit(): Promise<void> {
     let freezing: Freezing = this.newFreezing();
     freezing.type = 'EMBRYO';
-
-
     const data1 = await this.freezingService.getTotalByType(freezing);
     this.frozenEmbryos.set(data1);
 
     freezing = this.newFreezing();
     freezing.type = 'EGG';
-
     const data2 = await this.freezingService.getTotalByType(freezing);
     this.frozenEggs.set(data2);
 
     freezing = this.newFreezing();
     freezing.type = 'SPERM';
-
     const data3 = await this.freezingService.getTotalByType(freezing);
     this.frozenSpermAmpoules.set(data3);
 
@@ -61,7 +56,6 @@ export class Dashboard {
     this.totalPatients.set(data6);
 
     let total = this.frozenEmbryos() + this.frozenEggs() + this.frozenSpermAmpoules();
-
     this.totalFreezingItems.set(total);
   }
 

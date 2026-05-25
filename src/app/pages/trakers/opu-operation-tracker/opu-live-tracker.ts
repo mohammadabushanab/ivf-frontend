@@ -55,19 +55,15 @@ export class OPULiveTracker implements OnInit, OnDestroy {
   }
 
   async loadOPUSessions() {
-    const data = await this.opuService.get(this.newOPU());
+    let opu: OPU = this.newOPU();
+    opu.status = 'Done'
+    const data = await this.opuService.get(opu);
 
     this.opuSessions.set([]);
 
     for (let opu of data) {
       this.addOPUToArray(opu);
     }
-  }
-
-  async searchForPatients() {
-    const data = await this.patientService.get(this.patientForSearch);
-
-    this.patients.set(data);
   }
 
   openCreateModal() {
@@ -79,42 +75,64 @@ export class OPULiveTracker implements OnInit, OnDestroy {
     this.patients.set([]);
   }
 
-  async createOPUFromPatient(patient: Patient) {
-    const opu: OPU = {
-      id: '',
-      values: this.buildInitialValues(),
-      patient: patient,
-      createdDate: '',
-      modifiedDate: '',
-      isDeleted: false
-    };
+  async searchForPatients() {
+    const data = await this.patientService.get(this.patientForSearch);
+    this.patients.set(data);
+  }
+
+  async createOPU(patient: Patient) {
+    let opu: OPU = this.newOPU();
+    opu.values = this.buildInitialValues();
+    opu.patient = { ...patient };
+    opu.status = 'Created';
 
     await this.opuService.add(opu);
+
+    this.closeModal();
+  }
+
+  async saveOPU(opu: OPU) {
+    opu.status = 'Done';
+    await this.opuService.update(opu);
+
+    this.removeOPUFromArray(opu.id);
+  }
+
+  async deleteOPU(opu: OPU) {
+    const deleted = await this.opuService.delete(opu);
+
+    if (deleted) {
+      this.removeOPUFromArray(opu.id);
+    }
   }
 
   async startOPU(opu: OPU) {
-    opu.values['opuStarted'] = true;
-    opu.values['opuFinished'] = false;
     opu.values['opuStartTime'] = this.getCurrentTime();
+    opu.status = 'In Progress';
 
     await this.opuService.update(opu);
   }
 
   async finishOPU(opu: OPU) {
-    opu.values['opuFinished'] = true;
     opu.values['opuFinishTime'] = this.getCurrentTime();
+    opu.status = 'Completed';
 
     await this.opuService.update(opu);
   }
 
   async resetOPU(opu: OPU) {
     opu.values = this.buildInitialValues();
+    opu.status = 'Created';
 
     await this.opuService.update(opu);
   }
 
   async addTube(opu: OPU) {
-    let tubes = opu.values['tubes'] || [];
+    let tubes = [];
+
+    if (opu.values['tubes'] != null) {
+      tubes = opu.values['tubes'];
+    }
 
     tubes.push({
       tubeNumber: tubes.length + 1,
@@ -151,13 +169,7 @@ export class OPULiveTracker implements OnInit, OnDestroy {
     await this.opuService.update(opu);
   }
 
-  async deleteOPU(opu: OPU) {
-    const deleted = await this.opuService.delete(opu);
 
-    if (deleted) {
-      this.removeOPUFromArray(opu.id);
-    }
-  }
 
   addOPUToArray(opu: OPU) {
     let temp: OPU[] = [];
@@ -171,17 +183,16 @@ export class OPULiveTracker implements OnInit, OnDestroy {
 
   removeOPUFromArray(id: any) {
     let temp: OPU[] = [];
-    let filtered: OPU[] = [];
 
     temp = [...this.opuSessions()];
 
     for (let i = 0; i < temp.length; i++) {
-      if (temp[i].id !== id) {
-        filtered.push(temp[i]);
+      if (temp[i].id == id) {
+        temp.splice(i, 1);
       }
     }
 
-    this.opuSessions.set(filtered);
+    this.opuSessions.set(temp);
   }
 
   getTotalTubes(): number {
@@ -237,8 +248,6 @@ export class OPULiveTracker implements OnInit, OnDestroy {
 
   buildInitialValues(): any {
     return {
-      opuStarted: false,
-      opuFinished: false,
       opuStartTime: '',
       opuFinishTime: '',
       tubes: []
@@ -265,6 +274,7 @@ export class OPULiveTracker implements OnInit, OnDestroy {
     return {
       id: '',
       values: this.buildInitialValues(),
+      status: '',
       patient: this.newPatient(),
       createdDate: '',
       modifiedDate: '',

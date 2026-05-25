@@ -14,10 +14,6 @@ import { FreezingService } from '../../../core/services/freezing-service';
 })
 export class OvarianTissueCryopreservationFreezing {
 
-  private freezingService = inject(FreezingService);
-
-  patientForSearch: Patient = this.newPatient();
-  freezingForSearch: Freezing = this.newFreezing();
   patients = signal<Patient[]>([]);
   tissues = signal<Freezing[]>([]);
   totalRecords = signal<number>(0);
@@ -25,19 +21,23 @@ export class OvarianTissueCryopreservationFreezing {
   zeroRemaining = signal<number>(0);
   withMobile = signal<number>(0);
 
+  patientForSearch: Patient = this.newPatient();
+  freezingForSearch: Freezing = this.newFreezing();
+
+  private freezingService = inject(FreezingService);
+
   async ngOnInit(): Promise<void> {
     let freezing: Freezing = this.newFreezing();
     freezing.type = 'OVARIAN_TISSUE';
-
     const data = await this.freezingService.getBySearchCriteria(freezing);
 
     if (data != null) {
       this.tissues.set(data);
 
-     let remaining = 0;
+      let remaining = 0;
       for (let items of data) {
         if (items.remaining != null) {
-          remaining += Number(items.remaining);
+          remaining = remaining + Number(items.remaining);
         }
       }
       this.remaining.set(remaining);
@@ -45,7 +45,7 @@ export class OvarianTissueCryopreservationFreezing {
       let zeroRemainingCount = 0;
       for (let items of data) {
         if (items.remaining != null && items.remaining === 0) {
-          zeroRemainingCount++;
+          zeroRemainingCount = zeroRemainingCount + 1;
         }
       }
       this.zeroRemaining.set(zeroRemainingCount);
@@ -55,7 +55,7 @@ export class OvarianTissueCryopreservationFreezing {
         if (items.patient != null) {
           if (items.patient.phoneNumber != null) {
             if (items.patient.phoneNumber.trim() !== '') {
-              withMobileCount++;
+              withMobileCount = withMobileCount + 1;
             }
           }
         }
@@ -74,7 +74,7 @@ export class OvarianTissueCryopreservationFreezing {
     }
   }
 
-    reset(){
+  reset() {
     this.patientForSearch = this.newPatient();
     this.freezingForSearch = this.newFreezing();
     this.tissues.set([]);

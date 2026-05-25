@@ -14,21 +14,21 @@ import { FreezingService } from '../../../core/services/freezing-service';
 })
 export class EmbryoFreezing {
 
-  private freezingService = inject(FreezingService);
-
-  patientForSearch: Patient = this.newPatient();
-  freezingForSearch: Freezing = this.newFreezing();
-  patients = signal<Patient[]>([]);
+   patients = signal<Patient[]>([]);
   embryos = signal<Freezing[]>([]);
   totalRecords = signal<number>(0);
   remaining = signal<number>(0);
   zeroRemaining = signal<number>(0);
   withMobile = signal<number>(0);
 
+  patientForSearch: Patient = this.newPatient();
+  freezingForSearch: Freezing = this.newFreezing();
+
+  private freezingService = inject(FreezingService);
+
   async ngOnInit(): Promise<void> {
     let freezing: Freezing = this.newFreezing();
     freezing.type = 'EMBRYO';
-
     const data = await this.freezingService.getBySearchCriteria(freezing);
 
     if (data != null) {
@@ -37,7 +37,7 @@ export class EmbryoFreezing {
       let remaining = 0;
       for (let items of data) {
         if (items.remaining != null) {
-          remaining += Number(items.remaining);
+          remaining = remaining + Number(items.remaining);
         }
       }
       this.remaining.set(remaining);
@@ -45,7 +45,7 @@ export class EmbryoFreezing {
       let zeroRemainingCount = 0;
       for (let items of data) {
         if (items.remaining != null && items.remaining === 0) {
-          zeroRemainingCount++;
+          zeroRemainingCount= zeroRemainingCount + 1;
         }
       }
       this.zeroRemaining.set(zeroRemainingCount);
@@ -55,7 +55,7 @@ export class EmbryoFreezing {
         if (items.patient != null) {
           if (items.patient.phoneNumber != null) {
             if (items.patient.phoneNumber.trim() !== '') {
-              withMobileCount++;
+              withMobileCount = withMobileCount + 1;
             }
           }
         }

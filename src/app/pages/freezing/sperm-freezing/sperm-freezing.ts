@@ -14,16 +14,17 @@ import { FreezingService } from '../../../core/services/freezing-service';
 })
 export class SpermFreezing {
 
-  private freezingService = inject(FreezingService);
-
-  patientForSearch: Patient = this.newPatient();
-  freezingForSearch: Freezing = this.newFreezing();
   patients = signal<Patient[]>([]);
   sperms = signal<Freezing[]>([]);
   totalRecords = signal<number>(0);
   remaining = signal<number>(0);
   zeroRemaining = signal<number>(0);
   withMobile = signal<number>(0);
+
+  patientForSearch: Patient = this.newPatient();
+  freezingForSearch: Freezing = this.newFreezing();
+
+  private freezingService = inject(FreezingService);
 
   async ngOnInit(): Promise<void> {
     let freezing: Freezing = this.newFreezing();
@@ -37,7 +38,7 @@ export class SpermFreezing {
       let remaining = 0;
       for (let items of data) {
         if (items.remaining != null) {
-          remaining += Number(items.remaining);
+          remaining = remaining + Number(items.remaining);
         }
       }
       this.remaining.set(remaining);
@@ -45,7 +46,7 @@ export class SpermFreezing {
       let zeroRemainingCount = 0;
       for (let items of data) {
         if (items.remaining != null && items.remaining === 0) {
-          zeroRemainingCount++;
+          zeroRemainingCount = zeroRemainingCount + 1;
         }
       }
       this.zeroRemaining.set(zeroRemainingCount);
@@ -55,7 +56,7 @@ export class SpermFreezing {
         if (items.patient != null) {
           if (items.patient.phoneNumber != null) {
             if (items.patient.phoneNumber.trim() !== '') {
-              withMobileCount++;
+              withMobileCount = withMobileCount + 1;
             }
           }
         }

@@ -1,4 +1,3 @@
-<!-- Create Button -->
 <div class="row">
     <div class="col text-end">
         <button class="btn" (click)="openCreateModal()">
@@ -8,23 +7,21 @@
     </div>
 </div>
 
-<!-- Stats -->
 <div class="row g-4 mt-3">
-
     <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
+        <div class="stat-card d-flex">
             <div class="stat-icon">
                 <i class="fa-solid fa-spinner"></i>
             </div>
             <div>
-                <p>Active Cycles</p>
-                <h3>{{ freshETCycles().length + frozenETCycles().length + opuOnlyCycles().length }}</h3>
+                <p>Active Treatments</p>
+                <h3>{{ freshETTreatments().length + frozenETTreatments().length + opuOnlyTreatments().length }}</h3>
             </div>
         </div>
     </div>
 
     <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
+        <div class="stat-card d-flex">
             <div class="stat-icon">
                 <i class="fa-solid fa-house-medical-circle-check"></i>
             </div>
@@ -32,9 +29,9 @@
                 <p>Discharged</p>
                 <h3>
                     {{
-                    freshETCycles().filter(c => c.values['dischargedDone']).length +
-                    frozenETCycles().filter(c => c.values['dischargedDone']).length +
-                    opuOnlyCycles().filter(c => c.values['dischargedDone']).length
+                    freshETTreatments().filter(t => t.values['dischargedDone']).length +
+                    frozenETTreatments().filter(t => t.values['dischargedDone']).length +
+                    opuOnlyTreatments().filter(t => t.values['dischargedDone']).length
                     }}
                 </h3>
             </div>
@@ -42,19 +39,19 @@
     </div>
 
     <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
+        <div class="stat-card d-flex">
             <div class="stat-icon">
                 <i class="fa-solid fa-baby"></i>
             </div>
             <div>
-                <p>ET / FET Cycles</p>
-                <h3>{{ freshETCycles().length + frozenETCycles().length }}</h3>
+                <p>ET / FET Treatments</p>
+                <h3>{{ freshETTreatments().length + frozenETTreatments().length }}</h3>
             </div>
         </div>
     </div>
 
     <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
+        <div class="stat-card d-flex">
             <div class="stat-icon">
                 <i class="fa-solid fa-flask"></i>
             </div>
@@ -62,19 +59,16 @@
                 <p>Lab Ready</p>
                 <h3>
                     {{
-                    freshETCycles().filter(c => c.values['labReadyDone']).length +
-                    frozenETCycles().filter(c => c.values['readyForEtDone']).length
+                    freshETTreatments().filter(t => t.values['labReadyDone']).length +
+                    frozenETTreatments().filter(t => t.values['readyForEtDone']).length
                     }}
                 </h3>
             </div>
         </div>
     </div>
-
 </div>
 
-<!-- Fresh ET -->
-<div class="row mt-5" *ngIf="freshETCycles().length > 0">
-
+<div class="row mt-5" *ngIf="freshETTreatments().length > 0">
     <div class="col-12">
         <h6 class="mb-3">
             <i class="fa-solid fa-baby me-2"></i>
@@ -82,100 +76,121 @@
         </h6>
     </div>
 
-    <div class="col-12 mb-4" *ngFor="let cycle of freshETCycles()">
-
-        <div class="card shadow-sm border-0 section-card">
-
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-
-                    <div>
-                        TT-{{ cycle.id }} |
-                        {{ cycle.patient.name }} + {{ cycle.patient.husbandName }} |
-                        {{ cycle.type }}
-                    </div>
-
-                    <button class="btn delete-btn" (click)="deleteCycle(cycle)">
-                        Delete
-                    </button>
-
+    <div class="col-12 mb-4" *ngFor="let treatment of freshETTreatments()">
+        <div class="custom-card">
+            <div class="custom-card-header">
+                <div class="custom-card-icon">
+                    <i class="fa-solid fa-baby"></i>
                 </div>
+
+                <div class="custom-card-title">
+                    <h4>TT-{{ treatment.id }}</h4>
+                    <p>
+                        File: IVF-{{ treatment.patient.id }} | {{ treatment.patient.name }} | {{ treatment.type }}
+                    </p>
+
+                    <span class="status-badge" [ngClass]="{
+                        'status1': !treatment.values['receptionDone'],
+                        'status2': treatment.values['receptionDone'] && !treatment.values['dischargedDone'],
+                        'status3': treatment.values['dischargedDone']
+                    }">
+                        {{
+                        treatment.values['dischargedDone']
+                        ? 'Completed'
+                        : treatment.values['receptionDone']
+                        ? 'In Progress'
+                        : 'Created'
+                        }}
+                    </span>
+                </div>
+
+                <button class="btn delete-btn" (click)="deleteTreatment(treatment)">
+                    <i class="fa-solid fa-trash"></i>
+                    Delete
+                </button>
+
+                <button class="btn" (click)="saveTreatment(treatment)">
+                    <i class="fa-solid fa-floppy-disk" ></i>
+                    Save And Close
+                </button>
             </div>
 
-            <div class="card-body">
-
+            <div class="custom-card-body">
                 <h6 class="mb-4">
                     <i class="fa-solid fa-person-dress me-2"></i>
                     WIFE TRACK
                 </h6>
 
                 <div class="row g-4 mb-5">
-
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'receptionDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['receptionDone']"
+                            (click)="toggleStep(treatment, 'receptionDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-user-check"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['receptionDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['receptionDone']"></i>
                             </div>
                             <div>
                                 <p>Reception</p>
-                                <h6>{{ cycle.values['receptionDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['receptionDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'preOpDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['preOpDone']"
+                            (click)="toggleStep(treatment, 'preOpDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-bed-pulse"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['preOpDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['preOpDone']"></i>
                             </div>
                             <div>
                                 <p>Pre-Op</p>
-                                <h6>{{ cycle.values['preOpDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['preOpDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'orEtDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['orEtDone']"
+                            (click)="toggleStep(treatment, 'orEtDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-syringe"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['orEtDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['orEtDone']"></i>
                             </div>
                             <div>
                                 <p>OR / ET</p>
-                                <h6>{{ cycle.values['orEtDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['orEtDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'recoveryDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['recoveryDone']"
+                            (click)="toggleStep(treatment, 'recoveryDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-bed"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['recoveryDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['recoveryDone']"></i>
                             </div>
                             <div>
                                 <p>Recovery</p>
-                                <h6>{{ cycle.values['recoveryDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['recoveryDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'dischargedDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['dischargedDone']"
+                            (click)="toggleStep(treatment, 'dischargedDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-house-medical-circle-check"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['dischargedDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['dischargedDone']"></i>
                             </div>
                             <div>
                                 <p>Discharged</p>
-                                <h6>{{ cycle.values['dischargedDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['dischargedDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <h6 class="mb-4">
@@ -184,33 +199,26 @@
                 </h6>
 
                 <div class="row g-4">
-
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'labReadyDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['labReadyDone']"
+                            (click)="toggleStep(treatment, 'labReadyDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-dna"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['labReadyDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['labReadyDone']"></i>
                             </div>
                             <div>
                                 <p>Lab Ready for ET</p>
-                                <h6>{{ cycle.values['labReadyDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['labReadyDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
-<!-- Frozen ET -->
-<div class="row mt-5" *ngIf="frozenETCycles().length > 0">
-
+<div class="row mt-5" *ngIf="frozenETTreatments().length > 0">
     <div class="col-12">
         <h6 class="mb-3">
             <i class="fa-solid fa-temperature-low me-2"></i>
@@ -218,100 +226,121 @@
         </h6>
     </div>
 
-    <div class="col-12 mb-4" *ngFor="let cycle of frozenETCycles()">
-
-        <div class="card shadow-sm border-0 section-card">
-
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-
-                    <div>
-                        TT-{{ cycle.id }} |
-                        {{ cycle.patient.name }} + {{ cycle.patient.husbandName }} |
-                        {{ cycle.type }}
-                    </div>
-
-                    <button class="btn btn-sm btn-light w-auto" (click)="deleteCycle(cycle)">
-                        Delete
-                    </button>
-
+    <div class="col-12 mb-4" *ngFor="let treatment of frozenETTreatments()">
+        <div class="custom-card">
+            <div class="custom-card-header">
+                <div class="custom-card-icon">
+                    <i class="fa-solid fa-temperature-low"></i>
                 </div>
+
+                <div class="custom-card-title">
+                    <h4>TT-{{ treatment.id }}</h4>
+                    <p>
+                        File: IVF-{{ treatment.patient.id }} | {{ treatment.patient.name }} | {{ treatment.type }}
+                    </p>
+
+                    <span class="status-badge" [ngClass]="{
+                        'status1': !treatment.values['receptionDone'],
+                        'status2': treatment.values['receptionDone'] && !treatment.values['dischargedDone'],
+                        'status3': treatment.values['dischargedDone']
+                    }">
+                        {{
+                        treatment.values['dischargedDone']
+                        ? 'Completed'
+                        : treatment.values['receptionDone']
+                        ? 'In Progress'
+                        : 'Created'
+                        }}
+                    </span>
+                </div>
+
+                <button class="btn delete-btn" (click)="deleteTreatment(treatment)">
+                    <i class="fa-solid fa-trash"></i>
+                    Delete
+                </button>
+
+                <button class="btn">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Save And Close
+                </button>
             </div>
 
-            <div class="card-body">
-
+            <div class="custom-card-body">
                 <h6 class="mb-4">
                     <i class="fa-solid fa-person-dress me-2"></i>
                     WIFE TRACK
                 </h6>
 
                 <div class="row g-4 mb-5">
-
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'receptionDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['receptionDone']"
+                            (click)="toggleStep(treatment, 'receptionDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-user-check"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['receptionDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['receptionDone']"></i>
                             </div>
                             <div>
                                 <p>Reception</p>
-                                <h6>{{ cycle.values['receptionDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['receptionDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'preOpDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['preOpDone']"
+                            (click)="toggleStep(treatment, 'preOpDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-bed-pulse"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['preOpDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['preOpDone']"></i>
                             </div>
                             <div>
                                 <p>Pre-Op</p>
-                                <h6>{{ cycle.values['preOpDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['preOpDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'orEtDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['orEtDone']"
+                            (click)="toggleStep(treatment, 'orEtDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-syringe"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['orEtDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['orEtDone']"></i>
                             </div>
                             <div>
                                 <p>OR / ET</p>
-                                <h6>{{ cycle.values['orEtDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['orEtDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'recoveryDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['recoveryDone']"
+                            (click)="toggleStep(treatment, 'recoveryDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-bed"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['recoveryDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['recoveryDone']"></i>
                             </div>
                             <div>
                                 <p>Recovery</p>
-                                <h6>{{ cycle.values['recoveryDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['recoveryDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'dischargedDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['dischargedDone']"
+                            (click)="toggleStep(treatment, 'dischargedDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-house-medical-circle-check"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['dischargedDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['dischargedDone']"></i>
                             </div>
                             <div>
                                 <p>Discharged</p>
-                                <h6>{{ cycle.values['dischargedDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['dischargedDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <h6 class="mb-4">
@@ -320,46 +349,40 @@
                 </h6>
 
                 <div class="row g-4">
-
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'embryoThawedDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['embryoThawedDone']"
+                            (click)="toggleStep(treatment, 'embryoThawedDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-temperature-low"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['embryoThawedDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['embryoThawedDone']"></i>
                             </div>
                             <div>
                                 <p>Embryo Thawed</p>
-                                <h6>{{ cycle.values['embryoThawedDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['embryoThawedDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'readyForEtDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['readyForEtDone']"
+                            (click)="toggleStep(treatment, 'readyForEtDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-circle-check"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['readyForEtDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['readyForEtDone']"></i>
                             </div>
                             <div>
                                 <p>Ready for ET</p>
-                                <h6>{{ cycle.values['readyForEtDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['readyForEtDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
-<!-- OPU Only -->
-<div class="row mt-5" *ngIf="opuOnlyCycles().length > 0">
-
+<div class="row mt-5" *ngIf="opuOnlyTreatments().length > 0">
     <div class="col-12">
         <h6 class="mb-3">
             <i class="fa-solid fa-syringe me-2"></i>
@@ -367,100 +390,121 @@
         </h6>
     </div>
 
-    <div class="col-12 mb-4" *ngFor="let cycle of opuOnlyCycles()">
-
-        <div class="card shadow-sm border-0 section-card">
-
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-
-                    <div>
-                        TT-{{ cycle.id }} |
-                        {{ cycle.patient.name }} + {{ cycle.patient.husbandName }} |
-                        {{ cycle.type }}
-                    </div>
-
-                    <button class="btn btn-sm btn-light w-auto" (click)="deleteCycle(cycle)">
-                        Delete
-                    </button>
-
+    <div class="col-12 mb-4" *ngFor="let treatment of opuOnlyTreatments()">
+        <div class="custom-card">
+            <div class="custom-card-header">
+                <div class="custom-card-icon">
+                    <i class="fa-solid fa-syringe"></i>
                 </div>
+
+                <div class="custom-card-title">
+                    <h4>TT-{{ treatment.id }}</h4>
+                    <p>
+                        File: IVF-{{ treatment.patient.id }} | {{ treatment.patient.name }} | {{ treatment.type }}
+                    </p>
+
+                    <span class="status-badge" [ngClass]="{
+                        'status1': !treatment.values['receptionDone'],
+                        'status2': treatment.values['receptionDone'] && !treatment.values['dischargedDone'],
+                        'status3': treatment.values['dischargedDone']
+                    }">
+                        {{
+                        treatment.values['dischargedDone']
+                        ? 'Completed'
+                        : treatment.values['receptionDone']
+                        ? 'In Progress'
+                        : 'Created'
+                        }}
+                    </span>
+                </div>
+
+                <button class="btn delete-btn" (click)="deleteTreatment(treatment)">
+                    <i class="fa-solid fa-trash"></i>
+                    Delete
+                </button>
+
+                <button class="btn">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Save And Close
+                </button>
             </div>
 
-            <div class="card-body">
-
+            <div class="custom-card-body">
                 <h6 class="mb-4">
                     <i class="fa-solid fa-person-dress me-2"></i>
                     WIFE TRACK
                 </h6>
 
                 <div class="row g-4 mb-5">
-
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'receptionDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['receptionDone']"
+                            (click)="toggleStep(treatment, 'receptionDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-user-check"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['receptionDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['receptionDone']"></i>
                             </div>
                             <div>
                                 <p>Reception</p>
-                                <h6>{{ cycle.values['receptionDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['receptionDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'preOpDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['preOpDone']"
+                            (click)="toggleStep(treatment, 'preOpDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-bed-pulse"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['preOpDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['preOpDone']"></i>
                             </div>
                             <div>
                                 <p>Pre-Op</p>
-                                <h6>{{ cycle.values['preOpDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['preOpDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'opuDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['opuDone']"
+                            (click)="toggleStep(treatment, 'opuDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-syringe"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['opuDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['opuDone']"></i>
                             </div>
                             <div>
                                 <p>OPU</p>
-                                <h6>{{ cycle.values['opuDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['opuDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'recoveryDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['recoveryDone']"
+                            (click)="toggleStep(treatment, 'recoveryDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-bed"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['recoveryDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['recoveryDone']"></i>
                             </div>
                             <div>
                                 <p>Recovery</p>
-                                <h6>{{ cycle.values['recoveryDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['recoveryDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'dischargedDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['dischargedDone']"
+                            (click)="toggleStep(treatment, 'dischargedDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-house-medical-circle-check"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['dischargedDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['dischargedDone']"></i>
                             </div>
                             <div>
                                 <p>Discharged</p>
-                                <h6>{{ cycle.values['dischargedDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['dischargedDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <h6 class="mb-4">
@@ -469,108 +513,96 @@
                 </h6>
 
                 <div class="row g-4">
-
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'semenReceptionDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['semenReceptionDone']"
+                            (click)="toggleStep(treatment, 'semenReceptionDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-vial"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['semenReceptionDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['semenReceptionDone']"></i>
                             </div>
                             <div>
                                 <p>Semen Reception</p>
-                                <h6>{{ cycle.values['semenReceptionDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['semenReceptionDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'collectionRoomDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['collectionRoomDone']"
+                            (click)="toggleStep(treatment, 'collectionRoomDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-flask"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['collectionRoomDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['collectionRoomDone']"></i>
                             </div>
                             <div>
                                 <p>Collection Room</p>
-                                <h6>{{ cycle.values['collectionRoomDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['collectionRoomDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'labPreparationDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['labPreparationDone']"
+                            (click)="toggleStep(treatment, 'labPreparationDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-microscope"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['labPreparationDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['labPreparationDone']"></i>
                             </div>
                             <div>
                                 <p>Lab Preparation</p>
-                                <h6>{{ cycle.values['labPreparationDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['labPreparationDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'readyDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['readyDone']"
+                            (click)="toggleStep(treatment, 'readyDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-check-double"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['readyDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['readyDone']"></i>
                             </div>
                             <div>
                                 <p>READY</p>
-                                <h6>{{ cycle.values['readyDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['readyDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-2">
-                        <div class="stat-card cursor-pointer" (click)="toggleStep(cycle, 'usedCryoDone')">
+                        <div class="stat-card cursor-pointer" [class.step-done]="treatment.values['usedCryoDone']"
+                            (click)="toggleStep(treatment, 'usedCryoDone')">
                             <div class="stat-icon">
                                 <i class="fa-solid fa-snowflake"></i>
-                                <i class="fa-solid fa-circle-check ms-2" *ngIf="cycle.values['usedCryoDone']"></i>
+                                <i class="fa-solid fa-circle-check ms-2" *ngIf="treatment.values['usedCryoDone']"></i>
                             </div>
                             <div>
                                 <p>Used / Cryo</p>
-                                <h6>{{ cycle.values['usedCryoDone'] ? 'Done' : 'Mark' }}</h6>
+                                <h6>{{ treatment.values['usedCryoDone'] ? 'Done' : 'Mark' }}</h6>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
-<div class="row mt-5" *ngIf="freshETCycles().length === 0 && frozenETCycles().length === 0 && opuOnlyCycles().length === 0">
-
+<div class="row mt-5"
+    *ngIf="freshETTreatments().length === 0 && frozenETTreatments().length === 0 && opuOnlyTreatments().length === 0">
     <div class="col-12">
-
-        <div class="card shadow-sm border-0">
-
-            <div class="card-body text-center p-5">
-
-                <h5>
-                    No Cycles Found
-                </h5>
-
+        <div class="custom-card">
+            <div class="custom-card-body text-center p-5">
+                <h5>No treatment found</h5>
                 <p class="text-muted mb-0">
-                    Create a new Cycle.
+                    Create a new treatment
                 </p>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
-<!-- Create Modal -->
-<ng-template #createTemplate let-modal>
 
+<ng-template #createTemplate let-modal>
     <div class="modal-header">
         <h6 class="modal-title">
             Create Treatment Lifecycle
@@ -581,9 +613,7 @@
     </div>
 
     <div class="modal-body">
-
         <div class="row g-3 mt-3">
-
             <div class="col-md-6">
                 <label class="form-label">Name</label>
                 <input type="text" class="form-control" [(ngModel)]="patientForSearch.name">
@@ -613,16 +643,16 @@
                 <label class="form-label">Husband's Phone Number</label>
                 <input type="text" class="form-control" [(ngModel)]="patientForSearch.husbandPhoneNumber">
             </div>
-
         </div>
 
         <div class="row mt-3">
             <div class="col">
                 <button class="btn me-1" (click)="searchForPatients()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
                     Search
                 </button>
-
                 <button class="btn" (click)="reset()">
+                    <i class="fa-solid fa-rotate-left"></i>
                     Reset
                 </button>
             </div>
@@ -630,7 +660,6 @@
 
         <div class="row mt-3">
             <table class="table custom-table">
-
                 <thead>
                     <tr>
                         <th>File Number</th>
@@ -660,7 +689,7 @@
                         </td>
 
                         <td class="text-center">
-                            <a (click)="p.selectedTreatmentType && createCycleFromPatient(p)"
+                            <a (click)="p.selectedTreatmentType && createTreatment(p)"
                                 [style.pointer-events]="!p.selectedTreatmentType ? 'none' : 'auto'"
                                 [style.opacity]="!p.selectedTreatmentType ? '0.5' : '1'">
                                 <i class="fa-solid fa-plus"></i>
@@ -674,16 +703,14 @@
                         </td>
                     </tr>
                 </tbody>
-
             </table>
         </div>
-
     </div>
 
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">
+            <i class="fa-solid fa-xmark"></i>
             Close
         </button>
     </div>
-
 </ng-template>

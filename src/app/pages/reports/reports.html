@@ -108,9 +108,11 @@
             <div class="row mt-5">
                 <div class="col">
                     <button class="btn me-1" (click)="searchForReports()">
+                        <i class="fa-solid fa-magnifying-glass"></i>
                         Search
                     </button>
                     <button class="btn" (click)="reset()">
+                        <i class="fa-solid fa-rotate-left"></i>
                         Reset
                     </button>
                 </div>
@@ -207,8 +209,14 @@
             </app-testicular-sperm-retrieval>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" (click)="printPage()">Print</button>
-            <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">Close</button>
+            <button type="button" class="btn btn-outline-secondary" (click)="printPage()">
+                <i class="fa-solid fa-print"></i>
+                Print
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">
+                <i class="fa-solid fa-xmark"></i>
+                Close
+            </button>
         </div>
     </form>
 </ng-template>

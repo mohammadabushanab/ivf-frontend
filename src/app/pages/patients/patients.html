@@ -46,9 +46,11 @@
             <div class="row mt-5">
                 <div class="col">
                     <button class="btn me-1" (click)="searchForPatients()">
+                        <i class="fa-solid fa-magnifying-glass"></i>
                         Search
                     </button>
                     <button class="btn" (click)="reset()">
+                        <i class="fa-solid fa-rotate-left"></i>
                         Reset
                     </button>
                 </div>
@@ -180,9 +182,11 @@
                 <div class="row mt-3">
                     <div class="col">
                         <button type="submit" class="btn me-1" [disabled]="addForm.invalid">
+                            <i class="fa-solid fa-plus"></i>
                             Add
                         </button>
                         <button type="button" class="btn" (click)="reset()">
+                            <i class="fa-solid fa-rotate-left"></i>
                             Reset
                         </button>
                     </div>
@@ -199,7 +203,6 @@
 <ng-template #editTemplate let-modal>
     <div class="modal-header">
         <h6 class="modal-title" id="modal-basic-title">Edit</h6>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <form #editForm="ngForm" (ngSubmit)="updatePatient()" novalidate>
         <div class="modal-body">
@@ -265,7 +268,14 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-secondary" [disabled]="editForm.invalid">Update</button>
+            <button type="submit" class="btn" [disabled]="editForm.invalid">
+                <i class="fa-solid fa-rotate"></i>
+                Update
+            </button>
+            <button type="button" class="btn" (click)="modal.close('close click')">
+                <i class="fa-solid fa-xmark"></i>
+                Close
+            </button>
         </div>
     </form>
 </ng-template>
@@ -273,7 +283,6 @@
 <ng-template #procedureTemplate let-modal>
     <div class="modal-header">
         <h6 class="modal-title" id="modal-basic-title">Procedure</h6>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <form #procedureForm="ngForm" (ngSubmit)="addProcedure()" novalidate>
         <div class="modal-body">
@@ -302,8 +311,14 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-secondary"
-                [disabled]="isAddProceDureDisabled()">Submit</button>
+            <button type="submit" class="btn" [disabled]="isAddProceDureDisabled()">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Submit
+            </button>
+            <button type="button" class="btn" (click)="modal.close('close click')">
+                <i class="fa-solid fa-xmark"></i>
+                Close
+            </button>
         </div>
     </form>
 </ng-template>
@@ -315,7 +330,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">Close</button>
+        <button type="button" class="btn " (click)="modal.close('close click')">Close</button>
     </div>
 </ng-template>
 
@@ -326,8 +341,17 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="printWorkSheet()">Print Workheet</button>
-        <button type="button" class="btn btn-outline-secondary" (click)="printLabels()">Print labels</button>
-        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">Close</button>
+        <button type="button" class="btn " (click)="printWorkSheet()">
+            <i class="fa-solid fa-print"></i>
+            Print Workheet
+        </button>
+        <button type="button" class="btn " (click)="printLabels()">
+             <i class="fa-solid fa-print"></i>
+             Print labels
+        </button>
+        <button type="button" class="btn " (click)="modal.close('close click')">
+            <i class="fa-solid fa-xmark"></i>
+            Close
+        </button>
     </div>
 </ng-template>

@@ -26,29 +26,23 @@ export class TreatmentWorkflowTracker implements OnInit, OnDestroy {
   private socketService = inject(SocketService);
   private modalService = inject(NgbModal);
 
-  currentModalRef!: NgbModalRef;
-
-  patientForSearch: Patient = this.newPatient();
+  freshETTreatments = signal<Treatment[]>([]);
+  frozenETTreatments = signal<Treatment[]>([]);
+  opuOnlyTreatments = signal<Treatment[]>([]);
   patients = signal<any[]>([]);
 
-  freshETCycles = signal<Treatment[]>([]);
-  frozenETCycles = signal<Treatment[]>([]);
-  opuOnlyCycles = signal<Treatment[]>([]);
+  currentModalRef!: NgbModalRef;
+  patientForSearch: Patient = this.newPatient();
 
   async ngOnInit() {
-    await this.loadCycles();
+    await this.loadTreatments();
 
     this.socketService.connect((treatment: Treatment) => {
       if (treatment.isDeleted) {
-
-        this.removeCycleFromAllArrays(treatment.id);
-      }
-
-      else {
-
-        this.removeCycleFromAllArrays(treatment.id);
-
-        this.addCycleToCorrectArray(treatment);
+        this.removeTreatmentFromAllArrays(treatment.id);
+      } else {
+        this.removeTreatmentFromAllArrays(treatment.id);
+        this.addTreatmentToCorrectArray(treatment);
       }
     });
   }
@@ -57,16 +51,18 @@ export class TreatmentWorkflowTracker implements OnInit, OnDestroy {
     this.socketService.disconnect();
   }
 
-  async loadCycles() {
-    const data = await this.treatmentService.get(this.newTreatment());
+  async loadTreatments() {
+    let treatment: Treatment = this.newTreatment();
+    treatment.status = 'Done'
+    const data = await this.treatmentService.get(treatment);
 
-    this.freshETCycles.set([]);
-    this.frozenETCycles.set([]);
-    this.opuOnlyCycles.set([]);
+    this.freshETTreatments.set([]);
+    this.frozenETTreatments.set([]);
+    this.opuOnlyTreatments.set([]);
 
-    data.forEach(treatment => {
-      this.addCycleToCorrectArray(treatment);
-    });
+    for (let treatment of data) {
+      this.addTreatmentToCorrectArray(treatment);
+    }
   }
 
   async searchForPatients() {
@@ -76,120 +72,110 @@ export class TreatmentWorkflowTracker implements OnInit, OnDestroy {
 
   reset() {
     this.patientForSearch = this.newPatient();
-    this.patients.set([])
+    this.patients.set([]);
   }
 
   openCreateModal() {
     this.open(this.createModal, 'xl');
   }
 
-  async createCycleFromPatient(patient: any) {
-    const treatment: Treatment = {
-      id: '',
-      type: patient.selectedTreatmentType,
-      values: this.buildInitialValues(patient.selectedTreatmentType),
-      patient: patient,
-      createdDate: '',
-      modifiedDate: '',
-      isDeleted: false
-    };
+  async createTreatment(patient: Patient) {
+    console.log(patient)
+    let treatment: Treatment = this.newTreatment();
 
-    const saved = await this.treatmentService.add(treatment);
+    treatment.patient = { ...patient };
+    treatment.type = treatment.patient.selectedTreatmentType;
+    treatment.values = this.buildInitialValues(treatment.type);
+    treatment.status = 'Created';
 
-    if (saved) {
-      this.closeModal();
-    }
+    await this.treatmentService.add(treatment);
+
+    this.closeModal();
   }
 
-  async toggleStep(cycle: Treatment, key: string) {
-    cycle.values[key] = !cycle.values[key];
+  async saveTreatment(treatment: Treatment) {
+    treatment.status = 'Done';
+    await this.treatmentService.update(treatment);
 
-    await this.treatmentService.update(cycle);
+    this.removeTreatmentFromAllArrays(treatment.id);
   }
 
-  async deleteCycle(cycle: Treatment) {
-    const deleted = await this.treatmentService.delete(cycle);
+  async toggleStep(treatment: Treatment, key: string) {
+    treatment.values[key] = !treatment.values[key];
+
+    treatment.status = 'In Progresss';
+
+    await this.treatmentService.update(treatment);
+  }
+
+  async deleteTreatment(treatment: Treatment) {
+    const deleted = await this.treatmentService.delete(treatment);
 
     if (deleted) {
-      this.removeCycleFromAllArrays(cycle.id);
+      this.removeTreatmentFromAllArrays(treatment.id);
     }
   }
 
-  addCycleToCorrectArray(cycle: Treatment) {
+  addTreatmentToCorrectArray(treatment: Treatment) {
 
     let temp: Treatment[] = [];
 
-    if (cycle.type === 'Fresh ET') {
+    if (treatment.type === 'Fresh ET') {
 
-      temp = [...this.freshETCycles()];
+      temp = [...this.freshETTreatments()];
+      temp.push({ ...treatment });
+      this.freshETTreatments.set(temp);
 
-      temp.push({ ...cycle });
+    } else if (treatment.type === 'Frozen ET') {
 
-      this.freshETCycles.set(temp);
-    }
+      temp = [...this.frozenETTreatments()];
+      temp.push({ ...treatment });
+      this.frozenETTreatments.set(temp);
 
-    else if (cycle.type === 'Frozen ET') {
+    } else if (treatment.type === 'OPU Only') {
 
-      temp = [...this.frozenETCycles()];
+      temp = [...this.opuOnlyTreatments()];
+      temp.push({ ...treatment });
+      this.opuOnlyTreatments.set(temp);
 
-      temp.push({ ...cycle });
-
-      this.frozenETCycles.set(temp);
-    }
-
-    else if (cycle.type === 'OPU Only') {
-
-      temp = [...this.opuOnlyCycles()];
-
-      temp.push({ ...cycle });
-
-      this.opuOnlyCycles.set(temp);
     }
   }
 
-  removeCycleFromAllArrays(id: any) {
+  removeTreatmentFromAllArrays(id: any) {
 
-    let temp: Treatment[] = [];
-    let filtered: Treatment[] = [];
+  let temp: Treatment[] = [...this.freshETTreatments()];
 
-    temp = [...this.freshETCycles()];
-
-    for (let i = 0; i < temp.length; i++) {
-
-      if (temp[i].id !== id) {
-
-        filtered.push(temp[i]);
-      }
+  for (let i = 0; i < temp.length; i++) {
+    if (temp[i].id === id) {
+      temp.splice(i, 1);
+      break;
     }
-
-    this.freshETCycles.set(filtered);
-
-    temp = [...this.frozenETCycles()];
-    filtered = [];
-
-    for (let i = 0; i < temp.length; i++) {
-
-      if (temp[i].id !== id) {
-
-        filtered.push(temp[i]);
-      }
-    }
-
-    this.frozenETCycles.set(filtered);
-
-    temp = [...this.opuOnlyCycles()];
-    filtered = [];
-
-    for (let i = 0; i < temp.length; i++) {
-
-      if (temp[i].id !== id) {
-
-        filtered.push(temp[i]);
-      }
-    }
-
-    this.opuOnlyCycles.set(filtered);
   }
+
+  this.freshETTreatments.set(temp);
+
+  temp = [...this.frozenETTreatments()];
+
+  for (let i = 0; i < temp.length; i++) {
+    if (temp[i].id === id) {
+      temp.splice(i, 1);
+      break;
+    }
+  }
+
+  this.frozenETTreatments.set(temp);
+
+  temp = [...this.opuOnlyTreatments()];
+
+  for (let i = 0; i < temp.length; i++) {
+    if (temp[i].id === id) {
+      temp.splice(i, 1);
+      break;
+    }
+  }
+
+  this.opuOnlyTreatments.set(temp);
+}
 
   buildInitialValues(type: string): any {
     const values: any = {
@@ -259,7 +245,8 @@ export class TreatmentWorkflowTracker implements OnInit, OnDestroy {
       patient: this.newPatient(),
       createdDate: '',
       modifiedDate: '',
-      isDeleted: false
+      isDeleted: false,
+      status: ''
     };
   }
 }

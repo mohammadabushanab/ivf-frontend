@@ -111,9 +111,11 @@
             <div class="row mt-5">
                 <div class="col">
                     <button class="btn me-1" (click)="searchForProcedures()">
+                        <i class="fa-solid fa-magnifying-glass"></i>
                         Search
                     </button>
                     <button class="btn" (click)="reset()">
+                        <i class="fa-solid fa-rotate-left"></i>
                         Reset
                     </button>
                 </div>
@@ -203,7 +205,6 @@
 <ng-template #editForCoordinatorTemplate let-modal>
     <div class="modal-header">
         <h6 class="modal-title" id="modal-basic-title">Procedure</h6>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <form #procedureForm="ngForm" novalidate>
         <div class="modal-body">
@@ -245,7 +246,14 @@
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-outline-secondary" [disabled]="isUpdateProceDureDisabled()"
-                (click)="updateProcedure('In Progress')">Submit</button>
+                (click)="updateProcedure('In Progress')">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Submit
+            </button>
+            <button type="button" class="btn" (click)="modal.close('close click')">
+                <i class="fa-solid fa-xmark"></i>
+                Close
+            </button>
         </div>
     </form>
 </ng-template>
@@ -299,10 +307,18 @@
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-outline-secondary" [disabled]="procedureForm.invalid"
-                (click)="updateProcedure('Completed')">Submit</button>
-            <button type="submit" class="btn btn-outline-secondary"
-                (click)="updateProcedure('In Progress')">Save as Draft</button>
-            <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">Close</button>
+                (click)="updateProcedure('Completed')">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Submit
+            </button>
+            <button type="submit" class="btn btn-outline-secondary" (click)="updateProcedure('In Progress')">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Save as Draft
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">
+                <i class="fa-solid fa-xmark"></i>
+                Close
+            </button>
         </div>
     </form>
 </ng-template>
@@ -314,7 +330,10 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">Close</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('close click')">
+            <i class="fa-solid fa-xmark"></i>
+            Close
+    </button>
     </div>
 </ng-template>
 

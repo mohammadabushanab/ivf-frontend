@@ -14,10 +14,6 @@ import { FreezingService } from '../../../core/services/freezing-service';
 })
 export class OocyteFreezing {
 
-  private freezingService = inject(FreezingService);
-
-  patientForSearch: Patient = this.newPatient();
-  freezingForSearch: Freezing = this.newFreezing();
   patients = signal<Patient[]>([]);
   eggs = signal<Freezing[]>([]);
   totalRecords = signal<number>(0);
@@ -25,19 +21,24 @@ export class OocyteFreezing {
   zeroRemaining = signal<number>(0);
   withMobile = signal<number>(0);
 
+  patientForSearch: Patient = this.newPatient();
+  freezingForSearch: Freezing = this.newFreezing();
+
+  private freezingService = inject(FreezingService);
+
+
   async ngOnInit(): Promise<void> {
     let freezing: Freezing = this.newFreezing();
     freezing.type = 'EGG';
-
     const data = await this.freezingService.getBySearchCriteria(freezing);
 
     if (data != null) {
       this.eggs.set(data);
 
-     let remaining = 0;
+      let remaining = 0;
       for (let items of data) {
         if (items.remaining != null) {
-          remaining += Number(items.remaining);
+          remaining = remaining + Number(items.remaining);
         }
       }
       this.remaining.set(remaining);
@@ -45,7 +46,7 @@ export class OocyteFreezing {
       let zeroRemainingCount = 0;
       for (let items of data) {
         if (items.remaining != null && items.remaining === 0) {
-          zeroRemainingCount++;
+          zeroRemainingCount = zeroRemainingCount + 1;
         }
       }
       this.zeroRemaining.set(zeroRemainingCount);
@@ -55,7 +56,7 @@ export class OocyteFreezing {
         if (items.patient != null) {
           if (items.patient.phoneNumber != null) {
             if (items.patient.phoneNumber.trim() !== '') {
-              withMobileCount++;
+              withMobileCount = withMobileCount + 1
             }
           }
         }
@@ -74,7 +75,7 @@ export class OocyteFreezing {
     }
   }
 
-    reset(){
+  reset() {
     this.patientForSearch = this.newPatient();
     this.freezingForSearch = this.newFreezing();
     this.eggs.set([]);

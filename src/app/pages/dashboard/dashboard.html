@@ -1,16 +1,13 @@
 <div class="dashboard-page p-4">
-
   <div class="dashboard-header mb-4">
     <p class="text-muted mb-0">
       Welcome back, {{ currentUser?.name }}. Here is today’s IVF lab summary.
     </p>
   </div>
-
   <div class="row g-4 mb-4">
-
     <div class="col-xl-4 col-md-6">
-      <div class="stat-card">
-        <div class="stat-icon ">
+      <div class="stat-card d-flex">
+        <div class="stat-icon">
           <i class="fa-solid fa-hospital-user"></i>
         </div>
         <div>
@@ -19,9 +16,8 @@
         </div>
       </div>
     </div>
-
     <div class="col-xl-4 col-md-6">
-      <div class="stat-card">
+      <div class="stat-card d-flex">
         <div class="stat-icon ">
           <i class="fa-solid fa-vials"></i>
         </div>
@@ -31,10 +27,9 @@
         </div>
       </div>
     </div>
-
     <div class="col-xl-4 col-md-6">
-      <div class="stat-card">
-        <div class="stat-icon ">
+      <div class="stat-card d-flex">
+        <div class="stat-icon">
           <i class="fa-solid fa-snowflake"></i>
         </div>
         <div>
@@ -43,76 +38,55 @@
         </div>
       </div>
     </div>
-
   </div>
-
   <div class="row g-4">
-
     <div class="col-lg-8">
-      <div class="dashboard-card">
+      <div class="stat-card ">
         <div class="card-title-row">
           <h5>Procedure Overview</h5>
           <span>This month</span>
         </div>
-
         <div class="procedure-bars">
-          <div
-            class="procedure-bar-item"
-            *ngFor="let item of proceduresCount()"
-          >
+          <div class="procedure-bar-item" *ngFor="let item of proceduresCount()">
             <div class="d-flex justify-content-between mb-2">
               <span class="procedure-name">
                 {{ item.procedureTypeName }}
               </span>
-
               <span class="procedure-value">
                 {{ item.count }}
               </span>
             </div>
-
             <div class="progress custom-progress">
-              <div
-                class="progress-bar"
-                role="progressbar"
-                [style.width.%]="item.count * 10"
-              ></div>
+              <div class="progress-bar" role="progressbar" [style.width.%]="item.count * 10"></div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
     <div class="col-lg-4">
-      <div class="dashboard-card h-100">
+      <div class="stat-card h-100">
         <div class="card-title-row">
           <h5>Freezing Summary</h5>
         </div>
-
         <div class="freezing-box">
           <div>
             <span>Embryos</span>
             <strong>{{ frozenEmbryos()}}</strong>
           </div>
-
           <div>
             <span>Eggs</span>
             <strong>{{ frozenEggs()}}</strong>
           </div>
-
           <div>
             <span>Sperm Ampoules</span>
             <strong>{{ frozenSpermAmpoules()}}</strong>
           </div>
         </div>
-
         <div class="summary-circle mt-4">
           <h2>{{ totalFreezingItems() }}</h2>
           <p>Total Frozen Items</p>
         </div>
       </div>
     </div>
-
   </div>
-
 </div>
